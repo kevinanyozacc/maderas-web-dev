@@ -1,0 +1,14 @@
+query getTierraCultivoById( $tierraCultivoId: Int! ){
+  getTierraCultivoById(tierraCultivoId: $tierraCultivoId) {
+    TIERRA_CULTIVO_ID
+    EXPEDIENTE_ID
+    NOMBRE_PREDIO
+    AREA
+    TIPO_TENENCIA
+    DISTRITO
+    DEPARTAMENTO
+    PROVINCIA
+    NUME_REGI_ARC
+    FECHA_REGISTRO
+  }
+}

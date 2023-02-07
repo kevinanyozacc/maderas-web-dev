@@ -1,0 +1,20 @@
+mutation createArchivoFisico($input: CreateArchivoFisicoInput!){
+  createArchivoFisico(input: $input) {
+    data {
+      NUME_REGI_ARC
+      SECU_REGI_ARC
+      FECH_CARG_ARC
+      FLAG_IMAGEN
+      FILENAME
+      FILEEXTENSION
+      NOMBRE_OBJETO
+      DESCRIPCION
+      FUENTE
+      FLAG_RESTRINGIDO
+    }
+    errors {
+      field
+      message
+    }
+  }
+}

@@ -1,0 +1,9 @@
+mutation createExpediente($input: ExpedienteCreateInput!){
+  createExpediente(input: $input) {
+    expedienteId
+    errors {
+      field
+      message
+    }
+  }
+}

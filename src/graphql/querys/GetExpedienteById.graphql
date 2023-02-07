@@ -1,0 +1,19 @@
+query getExpedienteById(
+  $tipoDocumento: String!
+  $nroDocumento: String!
+  $expedienteId: String!
+) {
+  getExpedienteById(
+    tipoDocumento: $tipoDocumento
+    nroDocumento: $nroDocumento
+    expedienteId: $expedienteId
+  ) {
+    EXPEDIENTE_ID
+    NUMERO_EXPEDIENTE
+    ESTADO
+    TIPO_SOLICITUD
+    SEDE {
+      NOMBRE_SEDE
+    }
+  }
+}

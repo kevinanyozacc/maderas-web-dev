@@ -1,0 +1,15 @@
+mutation createInfoCultivo($input: [InformacionCultivoInput!]!) {
+  createInfoCultivo(input: $input) {
+    data {
+			INFORMACION_CULTIVO_ID
+      ESPECIE_ID
+      CULTIVO_ID
+      CULTIVO_REGLAMENTARIO
+      EXPEDIENTE_ID
+    }
+    errors {
+      field
+      message
+    }
+  }
+}

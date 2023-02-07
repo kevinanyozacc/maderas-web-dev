@@ -1,0 +1,25 @@
+mutation updateInfoEnsayo($input: InformacionEnsayoUpdateInput!) {
+  updateInfoEnsayo(input: $input) {
+    data {
+      INFORMACION_ENSAYO_ID
+      AMBITO_GEOGRAFICO
+      RANGO_ADAPTACION
+      FINALIDAD_USO
+      INSTALACION
+      CAMPANAS_ENSAYOS
+      CARACTERES_PRUEBA
+      PLANTAS_TIPO
+      PRIMERA_CAMPANA
+      SEGUNDA_CAMPANA
+      COMPORTAMIENTO_BIOTICO
+      COMPORTAMIENTO_ABIOTICO
+      NUME_REGI_ARC
+      EXPEDIENTE_ID
+      FECHA_REGISTRO
+    }
+    errors {
+      field
+      message
+    }
+  }
+}

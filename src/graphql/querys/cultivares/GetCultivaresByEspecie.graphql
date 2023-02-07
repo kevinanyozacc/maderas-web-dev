@@ -1,0 +1,7 @@
+query GetCultivarByEspecie($estado: Estados, $codEspecie: Int!) {
+  getCultivarByEspecie(estado: $estado, especieId: $codEspecie) {
+    CULTIVO_ID
+    NOMBRE_CULTIVAR
+    ESPECIE_ID
+  }
+}

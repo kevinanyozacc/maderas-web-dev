@@ -1,0 +1,18 @@
+mutation createSucursal($input: [SucursalCreateInput!]!) {
+  createSucursal(input: $input) {
+    data {
+      SUCURSAL_ID
+      EXPEDIENTE_ID
+      NOMBRE_SUCURSAL
+      DIRECCION_SUCURSAL
+      DEPARTAMENTO_ID
+      PROVINCIA_ID
+      DISTRITO_ID
+      FECHA_REGISTRO
+    }
+    errors {
+      field
+      message
+    }
+  }
+}

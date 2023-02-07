@@ -1,0 +1,23 @@
+mutation CreateInformacionResponsable($input: InformacionResponsableInput!) {
+  createInformacionResponsable(input: $input) {
+
+    informacion {
+      ID
+      DNI
+      APELLIDOS
+      NOMBRES
+      APENOMB
+      DOMICILIO
+      DEPARTAMENTO
+      PROVINCIA
+      DISTRITO
+      TITULOPROFESIONAL
+      COLEGIATURA
+      CURRICULUM
+      CORREO
+      TELEFONO
+      FECHA_REGISTRO
+    }
+    
+  }
+}

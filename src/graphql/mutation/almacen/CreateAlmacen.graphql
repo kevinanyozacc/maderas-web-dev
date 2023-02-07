@@ -1,0 +1,18 @@
+mutation createAlmacen($input: [AlmacenCreateInput!]!) {
+  createAlmacen(input: $input) {
+    data {
+      ALMACEN_ID
+      DIRECCION
+      DEPARTAMENTO_ID
+      PROVINCIA_ID
+      DISTRITO_ID
+      NUME_REGI_ARC
+      EXPEDIENTE_ID
+      FECHA_REGISTRO
+    }
+    errors {
+      field
+      message
+    }
+  }
+}

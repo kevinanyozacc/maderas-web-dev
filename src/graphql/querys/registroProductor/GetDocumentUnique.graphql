@@ -1,0 +1,11 @@
+query isDocumentoUnique(
+  $tipoDocumento: String!
+  $nroDocumento: String!
+  $tipoSolicitud: TipoSolicitudExpedientes!
+) {
+  isDocumentoUnique(
+    tipoDocumento: $tipoDocumento
+    nroDocumento: $nroDocumento
+    tipoSolicitud: $tipoSolicitud
+  )
+}

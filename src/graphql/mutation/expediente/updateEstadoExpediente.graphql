@@ -1,0 +1,6 @@
+mutation UpdateEstadoExpediente(
+  $expedienteId: Int!
+  $estado: EstadosExpedientes!
+) {
+  updateEstadoExpediente(estado: $estado, expedienteId: $expedienteId)
+}

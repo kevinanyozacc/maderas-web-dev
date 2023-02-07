@@ -1,0 +1,28 @@
+@import '../../public/fonts/dm-sans.css';
+@import './toast.css';
+
+@tailwind base;
+@tailwind utilities;
+@tailwind components;
+
+@layer components {
+  .container {
+    @apply w-full max-w-6xl px-8 mx-auto;
+  }
+}
+
+.scroll::-webkit-scrollbar {
+  @apply w-[5px] h-[5px];
+}
+
+.scroll::-webkit-scrollbar-thumb {
+  @apply bg-gray-200 dark:bg-gray-700 border-r-[5px];
+}
+
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+  -webkit-appearance: none; 
+  margin: 0; 
+}
+
+input[type=number] { -moz-appearance:textfield; }

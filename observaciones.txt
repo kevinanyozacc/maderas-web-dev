@@ -1,0 +1,15 @@
+[X] Esconder representate legal cuando no es ruc
+[X] Si inicia con 10 no aparece pero con 20 si aparece
+[X] Ruc siempre son 11 digitos
+[X] DNI son 8 digitos
+[X] CE son 9 digitos
+[X] Modal para subir archivos
+[X] Cambiar icono para subir archivo de (VISTA -> registro productor -> solicitar tramite -> Acondicionamiento)
+[X] Agregar tooltip en el boton de sbur archivos (VISTA -> registro productor -> solicitar tramite -> Acondicionamiento)
+[] Tabla no tiene modo nocturno -> CRISTIAN
+[] Intregar API de google maps -> CRISTIAN
+[] Acondicionamiento archivos tendran el nombre del campo -> CRISTIAN
+
+==== ESTADO DE TRAMITE
+[X] Agregar modal con campos tipo de documento, n° documento, n° expediente y un icono buscar para buscar o actualizar
+[] Llevara a una tabla con el estado del expediente -> LUEGO

@@ -1,0 +1,20 @@
+mutation updateTierraCultivo( $input: TierraCultivoInput! ) {
+  updateTierraCultivo(input: $input){
+    tierras {
+      TIERRA_CULTIVO_ID
+      EXPEDIENTE_ID
+      NOMBRE_PREDIO
+      AREA
+      TIPO_TENENCIA
+      DISTRITO
+      DEPARTAMENTO
+      PROVINCIA
+      NUME_REGI_ARC
+      FECHA_REGISTRO
+    }
+    errors{
+      field
+      message
+    }
+  }
+}

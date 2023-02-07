@@ -1,0 +1,15 @@
+query GetAllCultivares($pageSize: Int!, $page: Int!) {
+  getAllCultivares(
+    pageSize: $pageSize
+    page: $page
+  ) {
+    page
+    pageSize
+    totalItems
+    data {
+      CULTIVO_ID
+      ESPECIE_ID
+      NOMBRE_CULTIVAR
+    }
+  }
+}

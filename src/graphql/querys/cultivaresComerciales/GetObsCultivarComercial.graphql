@@ -1,0 +1,14 @@
+query getObsCultivarComercialExpediente($expedienteId: Int!) {
+  getObservacionesByExpediente(expedienteId: $expedienteId) {
+    OBSERVACION_ID
+    ESTADO_DATOS_GENERALES
+    ESTADO_CULT_COMERCIAL
+    ESTADO_INFO_ENSAYO
+    ESTADO_MANT_SEMILLA
+    OBS_DATOS_GENERALES
+    OBS_CULT_COMERCIAL
+    OBS_INFO_ENSAYO
+    OBS_MANT_SEMILLA
+    EXPEDIENTE_ID
+  }
+}

@@ -1,0 +1,27 @@
+mutation createCultivarComercial($input: CultivarComercialCreateInput!) {
+  createCultivarComercial(input: $input) {
+    data {
+      CULTIVAR_COMERCIAL_ID
+      NOMBRE_CULTIVAR
+      PAIS
+      FECHA_INTERNAMIENTO
+      TIPO_CULTIVAR
+      GENEOLOGIA
+      NOMBRE_OBTENTOR
+      EXPEDIENTE_ID
+      FECHA_REGISTRO
+      # CULTIVO_ID
+      TIPO_NATIVO
+      NOMBRE_CO_OBTENTOR
+      FINALIDAD_USO
+      RANGO_ADAPTACION
+      NUME_REGI_ARC_DVC
+      NUME_REGI_ARC_RIV
+      NUME_REGI_ARC_DRCO
+    }
+    errors {
+      field
+      message
+    }
+  }
+}

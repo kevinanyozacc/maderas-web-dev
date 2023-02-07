@@ -1,0 +1,3 @@
+mutation deleteAlmacen($almacenId: Int!) {
+  deleteAlmacen(almacenId: $almacenId)
+}

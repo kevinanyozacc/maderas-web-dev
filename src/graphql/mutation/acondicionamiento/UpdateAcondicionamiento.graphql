@@ -1,0 +1,27 @@
+mutation updateAcondicionamiento($input: AcondicionamientoInput!){
+  updateAcondicionamiento(input: $input){
+    data {
+      ACONDICIONAMIENTO_ID
+      RECEPCION
+      OPERACIONES_ESPECIALES
+      LIMPIEZA
+      CLASIFICACION
+      TRATAMIENTO
+      ENVASADO
+      ALMACENAMIENTO
+      EXPEDIENTE_ID
+      RECEPCION_ARC
+      OPERACIONES_ESPECIALES_ARC
+      LIMPIEZA_ARC
+      CLASIFICACION_ARC
+      TRATAMIENTO_ARC
+      ENVASADO_ARC
+      ALMACENAMIENTO_ARC
+      FECHA_REGISTRO
+    }
+    errors {
+      field
+      message
+    }
+  }
+}

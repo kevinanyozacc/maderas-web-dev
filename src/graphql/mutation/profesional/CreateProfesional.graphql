@@ -1,0 +1,25 @@
+mutation createProfesional($input: ProfesionalInput!) {
+  createProfesional(input: $input) {
+    profesional {
+      PROFESIONAL_RESPONSABLE_ID
+      NOMBRES
+      APELLIDOS
+      TIPO_DOCUMENTO
+      NUMERO_DOCUMENTO
+      DOMICILIO_LEGAL
+      TIPO_PROFESIONAL
+      ESPECIFICAR_PROFESION
+      NUMERO_CIP
+      DISTRITO
+      DEPARTAMENTO
+      PROVINCIA
+      TELEFONO
+      EMAIL
+      EXPEDIENTE_ID
+    }
+    errors {
+      field
+      message
+    }
+  }
+}

@@ -1,0 +1,20 @@
+mutation updateLocalidadEnsayo($input: LocalidadEnsayoUpdateInput!) {
+  updateLocalidadEnsayo(input: $input) {
+    data {
+      LOCALIDAD_ENSAYO_ID
+      DEPARTAMENTO_ID
+      PROVINCIA_ID
+      DISTRITO_ID
+      SECTOR
+      ALTITUD
+      FECHA_INICIO
+      FECHA_FIN
+      EXPEDIENTE_ID
+      FECHA_REGISTRO
+    }
+    errors {
+      field
+      message
+    }
+  }
+}

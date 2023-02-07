@@ -1,0 +1,19 @@
+query getEspeciesByName(
+  $estado: Estados
+  $query: String!
+  $denominacion: Estados
+) {
+  getEspeciesByName(
+    estado: $estado
+    query: $query
+    denominacion: $denominacion
+  ) {
+    ESPECIE_ID
+    ESTADO
+    NOMBRE_CIENTIFICO
+    NOMBRE_ESPECIE_COMUN
+    REGLAMENTARIO
+    FECHA_REGISTRO
+    DENOMINACION
+  }
+}

@@ -1,0 +1,11 @@
+mutation SendResumenToEmail(
+  $tipoTramite: TipoSolicitudExpedientes!
+  $email: String!
+  $expedienteId: Int!
+) {
+  sendResumenToEmail(
+    tipoTramite: $tipoTramite
+    email: $email
+    expedienteId: $expedienteId
+  )
+}

@@ -1,0 +1,9 @@
+query getInfoCulivoById($infoCultivoId: Int!){
+  getInfoCulivoById(infoCultivoId: $infoCultivoId) {
+    INFORMACION_CULTIVO_ID
+    ESPECIE_ID
+    CULTIVO_ID
+    CULTIVO_REGLAMENTARIO
+    EXPEDIENTE_ID
+  }
+}

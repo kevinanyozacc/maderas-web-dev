@@ -1,0 +1,13 @@
+query getEspecializacionById($especializacionId: Float!){
+  getEspecializacionById(especializacionId: $especializacionId) {
+    ESPECIALIZACION_RELACIONADA_ID
+    NOMBRE
+    TIPO_ESPECIALIDAD
+    FECHA_INICIO
+    FECHA_TERMINO
+    HORAS
+    LUGAR
+    NUME_REGI_ARC
+    PROFESIONAL_RESPONSABLE_ID
+  }
+}

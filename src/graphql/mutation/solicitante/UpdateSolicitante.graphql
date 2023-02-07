@@ -1,0 +1,28 @@
+mutation updateSolicitante($input: SolicitanteInput!) {
+  updateSolicitante(input: $input) {
+    informacion {
+      SOLICITANTE_ID
+      RAZON_SOCIAL
+      PARTIDA_REGISTRAL
+      NOMBRES_SOLICITANTE
+      APELLIDOS_SOLICITANTE
+      TELEFONO_SOLICITANTE
+      TIPO_DOCUMENTO
+      NUMERO_DOCUMENTO
+      DOMICILIO_LEGAL
+      DISTRITO
+      DEPARTAMENTO
+      PROVINCIA
+      EMAIL_SOLICITANTE
+      NOMBRE_REPRESENTANTE
+      APELLIDO_REPRESENTANTE
+      EMAIL_REPRESENTANTE
+      DNI_REPRESENTANTE
+      EXPEDIENTE_ID
+    }
+    errors {
+      field
+      message
+    }
+  }
+}

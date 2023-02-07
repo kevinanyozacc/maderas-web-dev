@@ -1,0 +1,16 @@
+mutation createAnalisisCalidad($input: AnalisisCalidadCreateinput!) {
+  createAnalisisCalidad(input: $input){
+    data {
+      ANALISIS_ID
+      SEMILLA_SEXUAL
+      SEMILLA_ASEXUAL
+      LABORATORIO_ID
+      EXPEDIENTE_ID
+      FECHA_REGISTRO
+    }
+    errors {
+      field
+      message
+    }
+  }
+}

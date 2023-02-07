@@ -1,0 +1,14 @@
+query getExperienciasById($experienciaId: Float!){
+  getExperienciasById(experienciaId: $experienciaId) {
+    EXPERIENCIA_RELACIONADA_ID
+    RAZON_SOCIAL
+    ACTIVIDAD_DESARROLLADA
+    FECHA_INICIO
+    FECHA_TERMINO
+    DISTRITO
+    DEPARTAMENTO
+    PROVINCIA
+    NUME_REGI_ARC
+    PROFESIONAL_RESPONSABLE_ID
+  }
+}

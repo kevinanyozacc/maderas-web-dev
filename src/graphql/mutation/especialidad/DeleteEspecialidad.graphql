@@ -1,0 +1,3 @@
+mutation DeleteEspecializacion($especializacionId: Float!){
+  deleteEspecializacion(especializacionId: $especializacionId)
+}

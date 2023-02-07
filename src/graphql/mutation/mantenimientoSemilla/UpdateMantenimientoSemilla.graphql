@@ -1,0 +1,15 @@
+mutation updateMantenimientoSemilla($input: MantSemillaUpdateInput!) {
+  updateMantenimientoSemilla(input: $input) {
+    data {
+      MANTENIMIENTO_SEMILLA_ID
+      EXPEDIENTE_ID
+      RAZON_SOCIAL
+      AREA_RESPONSABLE
+      FECHA_REGISTRO
+    }
+    errors {
+      field
+      message
+    }
+  }
+}

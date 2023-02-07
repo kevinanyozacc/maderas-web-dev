@@ -1,0 +1,18 @@
+mutation CreateEspecializaciones($input: [EspecializacionInput!]!) {
+  createEspecializaciones(input: $input) {
+    especializacion {
+      NOMBRE
+      HORAS
+      LUGAR
+      FECHA_INICIO
+      FECHA_TERMINO
+      NUME_REGI_ARC
+      TIPO_ESPECIALIDAD
+      PROFESIONAL_RESPONSABLE_ID
+    }
+    errors {
+      field
+      message
+    }
+  }
+}

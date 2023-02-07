@@ -1,0 +1,7 @@
+query GetProvincias($codDepa: String!) {
+  getProvincias(codDepa: $codDepa) {
+    CODI_PROV_TPR
+    CODI_DEPA_DPT
+    NOMB_PROV_TPR
+  }
+}

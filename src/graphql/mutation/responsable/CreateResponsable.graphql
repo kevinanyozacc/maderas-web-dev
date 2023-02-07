@@ -1,0 +1,17 @@
+mutation CreateResponsable($input: ResponsableInput!) {
+  createResponsable(input: $input ) {
+    informacion {
+      ID
+      RUC
+      DNI
+      REPRESENTANTE_LEGAL
+      RAZON_SOCIAL           
+      DOMICILIO
+      DISTRITO
+      DEPARTAMENTO
+      PROVINCIA
+      CORREO
+      TELEFONO
+    }
+  }
+}

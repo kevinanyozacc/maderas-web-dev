@@ -1,0 +1,28 @@
+mutation createArchivo($input: CreateArchivoInput!){
+  createArchivo(input: $input) {
+    data {
+      NUME_REGI_ARC
+      APLICACION
+      MODULO
+      REGISTRO
+      DESCRIPCION_REGISTRO
+      FECH_REGI_ARC
+      ArchivosFisicos {
+        NUME_REGI_ARC
+        SECU_REGI_ARC
+        FECH_CARG_ARC
+        FLAG_IMAGEN
+        FILENAME
+        FILEEXTENSION
+        NOMBRE_OBJETO
+        DESCRIPCION
+        FUENTE
+        FLAG_RESTRINGIDO
+      }
+    }
+    errors {
+      field
+      message
+    }
+  }
+}

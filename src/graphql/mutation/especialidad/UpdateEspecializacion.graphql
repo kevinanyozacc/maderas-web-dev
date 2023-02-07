@@ -1,0 +1,19 @@
+mutation updateEspecializacion($input: EspecializacionInput!) {
+  updateEspecializacion(input: $input) {
+    especializacion {
+      ESPECIALIZACION_RELACIONADA_ID
+      NOMBRE
+      TIPO_ESPECIALIDAD
+      FECHA_INICIO
+      FECHA_TERMINO
+      HORAS
+      LUGAR
+      NUME_REGI_ARC
+      PROFESIONAL_RESPONSABLE_ID
+    }
+    errors {
+      field
+      message
+    }
+  }
+}

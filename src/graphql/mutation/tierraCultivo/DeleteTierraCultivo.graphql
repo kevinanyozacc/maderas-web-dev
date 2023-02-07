@@ -1,0 +1,3 @@
+mutation deleteTierraCultivo($tierraCultivoId: Int!){
+  deleteTierraCultivo(tierraCultivoId: $tierraCultivoId)
+}

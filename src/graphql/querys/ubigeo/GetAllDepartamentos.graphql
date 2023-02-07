@@ -1,0 +1,6 @@
+query GetAllDepartamentos {
+  getAllDepartamentos {
+    CODI_DEPA_DPT
+    NOMB_DPTO_DPT
+  }
+}

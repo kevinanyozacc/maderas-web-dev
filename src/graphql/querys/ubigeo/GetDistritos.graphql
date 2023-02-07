@@ -1,0 +1,8 @@
+query GetDistritos($codProv: String!, $codDepa: String!) {
+  getDistritos(codProv: $codProv, codDepa: $codDepa) {
+    CODI_DIST_TDI
+    CODI_DEPA_DPT
+    CODI_PROV_TPR
+    NOMB_DIST_TDI
+  }
+}

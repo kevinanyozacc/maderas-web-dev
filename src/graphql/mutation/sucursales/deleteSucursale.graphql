@@ -1,0 +1,3 @@
+mutation deleteSucursal($sucursalId: Int!) {
+  deleteSucursal(sucursalId: $sucursalId)
+}

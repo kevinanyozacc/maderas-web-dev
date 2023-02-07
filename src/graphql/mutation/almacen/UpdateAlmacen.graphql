@@ -1,0 +1,19 @@
+mutation updateAlmacen($input: AlmacenUpdateInput!) {
+  updateAlmacen(input: $input) {
+    data {
+      ALMACEN_ID
+      DIRECCION
+      DEPARTAMENTO_ID
+      PROVINCIA_ID
+      DISTRITO_ID
+      NUME_REGI_ARC
+      EXPEDIENTE_ID
+      EXPEDIENTE_ID
+      FECHA_REGISTRO
+    }
+    errors {
+      field
+      message
+    }
+  }
+}

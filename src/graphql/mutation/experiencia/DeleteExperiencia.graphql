@@ -1,0 +1,3 @@
+mutation DeleteExperiencia($experienciaId: Float!){
+  deleteExperiencia(experienciaId: $experienciaId)
+}

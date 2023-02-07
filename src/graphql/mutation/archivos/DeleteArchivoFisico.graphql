@@ -1,0 +1,6 @@
+mutation deleteArchivoFisico(
+  $secuRegiArc: Float!,
+  $numeRegiArc: String!
+) {
+  deleteArchivoFisico(secuRegiArc: $secuRegiArc, numeRegiArc: $numeRegiArc)
+}
