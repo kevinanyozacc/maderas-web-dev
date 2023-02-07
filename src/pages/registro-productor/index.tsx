@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { useRouter } from 'next/router'
+// import { useRouter } from 'next/router'
 import { withUrqlClient } from 'next-urql'
 import client from '@graphql/client'
 
@@ -25,8 +25,6 @@ import {
 } from '@modules/registro-productor/solicitar-tramite/components'
 
 import useToast from '@hooks/useToast'
-import useRegistroProductorMutation from '@hooks/useRegistroResponsableMutation'
-
 import useRegistroResponsableMutation from '@hooks/useRegistroResponsableMutation'
 
 // import { useRegistroProductor as store } from '@modules/registro-productor/solicitar-tramite/store/useRegistroProductor'
@@ -43,7 +41,7 @@ export interface SideMultistepComponentProps {
 
 const Index = () => {
   const toast = useToast()
-  const router = useRouter()
+  // const router = useRouter()
   const [stepper, setStepper] = useState(0)
 
   const { isLoading } = useRegistroResponsableMutation()
@@ -113,8 +111,7 @@ const Index = () => {
       icon: IconProfesional,
       label: 'Profesional Responsable',
       component: <ProfesionalResponsableForm {...props} />
-    }
-    ,
+    },
     {
       icon: IconTierras,
       label: 'Tierras de Cultivo',
@@ -151,7 +148,6 @@ const Index = () => {
           steps={steps}
           stepper={stepper}
           title="Generar solicitud"
-          //desc='hola chavo'
         />
       </section>
     </>

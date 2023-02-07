@@ -7,7 +7,7 @@ import { withUrqlClient } from 'next-urql'
 import client from '@graphql/client'
 
 import TabRegistroProductor from '@modules/registro-productor/TabRegistroProductor'
-import TabDeclaracionSemillas from '@modules/declaracion-semilla/TabDeclaracionSemillas'
+// import TabDeclaracionSemillas from '@modules/declaracion-semilla/TabDeclaracionSemillas'
 import TabCultivaresComerciales from '@modules/cultivares-comerciales/TabCultivaresComerciales'
 import TabRegistroResponsable from '@modules/Registro-responsable/TabRegistroResponsable'
 
