@@ -1,0 +1,11 @@
+mutation CreateInformacionSolicitud($input: InformacionSolicitudInput!) {
+  createInformacionSolicitud(input: $input) {
+    informacion {
+      ID
+      SOLICITUD_ID
+      APENOMB
+      DNI
+      
+    }
+  }
+}

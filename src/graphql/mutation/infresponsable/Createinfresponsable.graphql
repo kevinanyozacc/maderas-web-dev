@@ -1,6 +1,5 @@
 mutation CreateInformacionResponsable($input: InformacionResponsableInput!) {
   createInformacionResponsable(input: $input) {
-
     informacion {
       ID
       DNI
@@ -17,7 +16,7 @@ mutation CreateInformacionResponsable($input: InformacionResponsableInput!) {
       CORREO
       TELEFONO
       FECHA_REGISTRO
+      RESPONSABLE_ID
     }
-    
   }
 }

@@ -1,6 +1,8 @@
 import { useState } from 'react'
 import {
-  useCreateResponsableMutation,
+  useCreateConocimientoMutation,
+  useCreateInformacionResponsableMutation,
+  useCreateResponsableMutation
   // useCreateExpedienteMutation,
   // useCreateInfoCultivoMutation,
   // useCreateTierraCultivosMutation,
@@ -14,15 +16,14 @@ import {
 
 import { RegistroResponsableState } from '@modules/Registro-responsable/solicitar-tramite/interfaces'
 
-import useToast from './useToast'
-
 const useRegistroResponsableMutation = () => {
   const [isLoading, setIsLoading] = useState(false)
-  const toast = useToast()
+  // const toast = useToast()
 
   // const [, createExpediente] = useCreateExpedienteMutation()
-    const [] = useCreateResponsableMutation()
-  // const [, createInfoCultivo] = useCreateInfoCultivoMutation()
+  const [, createResponsable] = useCreateResponsableMutation()
+  const [, createInfResponsable] = useCreateInformacionResponsableMutation()
+  const [, createConocimiento] = useCreateConocimientoMutation()
   // const [, createProfesional] = useCreateProfesionalMutation()
   // const [, createExperiencias] = useCreateExperienciasMutation()
   // const [, createEspecializaciones] = useCreateEspecializacionesMutation()
@@ -47,7 +48,7 @@ const useRegistroResponsableMutation = () => {
     //   return
     // }
 
-     const expedienteId = ''
+    const expedienteId = ''
 
     // REGISTRO PROFESIONAL
 
@@ -62,69 +63,34 @@ const useRegistroResponsableMutation = () => {
     //   toast({ title: 'Error al crear el profesional responsable', type: 'error' })
     //   return
     // }
+    const { data: dataPro } = await createResponsable({
+      input: { ...values.datosGenerales }
+    })
+
+    const responsableid =
+      dataPro?.createResponsable.informacion?.ID!
+
+    const expediente =
+      dataPro?.createResponsable.informacion?.EXPEDIENTE!
 
     // REGISTROS VARIOS
-    // await Promise.all([
-    //   createSolicitante({
-    //     input: {
-    //       ...values.datosGenerales,
-    //       EXPEDIENTE_ID: expedienteId
-    //     }
-    //   }),
-    //   createInfoCultivo({
-    //     input: values.informacionCultivos.map(({
-    //       id,
-    //       NOMBRE_CULTIVO,
-    //       REGLAMENTARIO,
-    //       NOMBRE_ESPECIE,
-    //       INFORMACION_CULTIVO_ID,
-    //       ...data
-    //     }) => ({
-    //       ESPECIE_ID: data.ESPECIE_ID,
-    //       CULTIVO_ID: data.CULTIVO_ID,
-    //       CULTIVO_REGLAMENTARIO: data.CULTIVO_REGLAMENTARIO,
-    //       INFORMACION_CULTIVO_ID: 0,
-    //       EXPEDIENTE_ID: expedienteId
-    //     }))
-    //   }),
-    //   createTierras({
-    //     input: values.tierrasCultivo.map(({ id, ...data }) => ({
-    //       ...data,
-    //       EXPEDIENTE_ID: expedienteId
-    //     }))
-    //   }),
-    //   createAcondicionamiento({
-    //     input: {
-    //       ...values.acondicionamiento,
-    //       EXPEDIENTE_ID: expedienteId
-    //     }
-    //   }),
-    //   createExperiencias({
-    //     input: values.experiencia.map(({ id, ...data }) => ({
-    //       ...data,
-    //       PROFESIONAL_RESPONSABLE_ID: profesionalId
-    //     }))
-    //   }),
-    //   createEspecializaciones({
-    //     input: values.especializacion.map(({ id, ...data }) => ({
-    //       ...data,
-    //       PROFESIONAL_RESPONSABLE_ID: profesionalId
-    //     }))
-    //   }),
-    //   createAnalisisCalidad({
-    //     input: {
-    //       LABORATORIO_ID: values.analisisCalidad.LABORATORIO_ID
-    //         ? values.analisisCalidad.LABORATORIO_ID
-    //         : null,
-    //       SEMILLA_ASEXUAL: values.analisisCalidad.SEMILLA_ASEXUAL,
-    //       SEMILLA_SEXUAL: values.analisisCalidad.SEMILLA_SEXUAL,
-    //       EXPEDIENTE_ID: expedienteId
-    //     }
-    //   })
-    // ])
+    await Promise.all([
+      createInfResponsable({
+        input: {
+          ...values.informacionResponsable
+          // EXPEDIENTE_ID: expedienteId
+        }
+      }),
+      createConocimiento({
+        input: values.conocimiento.map(({ ind, ...data }) => ({
+          ...data,
+          RESPONSABLE_ID: responsableid
+        }))
+      })
+    ])
 
     setIsLoading(false)
-    return expedienteId
+    return expediente
   }
 
   return { isLoading, createRegistroResponsable }

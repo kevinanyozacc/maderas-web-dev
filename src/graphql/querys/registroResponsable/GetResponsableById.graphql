@@ -1,0 +1,18 @@
+query GetResponsableById($id: Int!) {
+  getResponsableById(ID: $id) {
+    ID
+    RUC
+    DNI
+    REPRESENTANTE_LEGAL
+    RAZON_SOCIAL
+    DOMICILIO
+    DISTRITO
+    DEPARTAMENTO
+    PROVINCIA
+    CORREO
+    TELEFONO
+    EXPEDIENTE
+    FECHA_REGISTRO
+    
+  }
+}

@@ -1,0 +1,11 @@
+mutation CreateSolicitudAutorizacion($input: SolicitudAutorizacionInput!) {
+  createSolicitudAutorizacion(input: $input) {
+    informacion {
+      RUC
+      RAZON_SOCIAL
+      DNI
+      REPRESENTANTE_LEGAL 
+      EXPEDIENTE
+    }
+  }
+}

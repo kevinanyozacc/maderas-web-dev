@@ -1,0 +1,14 @@
+mutation CreateConocimiento($input: [ConocimientoInput!]!) {
+  createConocimiento(input: $input) {
+    conocimiento {
+    ID
+    NOMBRE
+    FECHA_INICIO
+    FECHA_TERMINO
+    HORAS
+    LUGAR
+    NUME_REGI_ARC
+    RESPONSABLE_ID
+    }
+  }
+}

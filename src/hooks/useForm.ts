@@ -125,6 +125,7 @@ const useForm = <T extends object>({ validate, initialValues }: Props<T>) => {
 
           if (hasErrors(newErrors)) {
             setErrors(newErrors)
+            console.log(newErrors)
             return
           }
 

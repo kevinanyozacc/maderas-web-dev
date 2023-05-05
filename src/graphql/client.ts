@@ -45,7 +45,8 @@ const client = (ssrExchange: any) => ({
         TramiteTierraCultivo: () => null,
         TramiteProfesional: () => null,
         TramiteExperiencia: () => null,
-        Responsable: ()=> null
+        Responsable: () => null,
+        SolicitudAutorizacion: () => null
       }
     }),
     ssrExchange,

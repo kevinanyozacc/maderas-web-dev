@@ -12,23 +12,27 @@ export const registroResponsable: RegistroResponsableState = {
     DISTRITO: '',
     DOMICILIO: '',
     REPRESENTANTE_LEGAL: '',
-    CORREO:''
- 
-  },
-  informacionResponsable:{
+    CORREO: '',
+    OBSERVACION: '',
+    ESTADO: ''
 
-      DNI:'',
-      APELLIDOS:'',
-      NOMBRES:'',
-      APENOMB:'',
-      DOMICILIO:'',
-      DEPARTAMENTO:'',
-      PROVINCIA:'',
-      DISTRITO:'',
-      TITULOPROFESIONAL:'',
-      COLEGIATURA:'',
-      CURRICULUM:'',
-      CORREO:'',
-      TELEFONO:'',
-  }
+  },
+  informacionResponsable: {
+
+      DNI: '',
+      APELLIDOS: '',
+      NOMBRES: '',
+      APENOMB: '',
+      DOMICILIO: '',
+      DEPARTAMENTO: '',
+      PROVINCIA: '',
+      DISTRITO: '',
+      TITULOPROFESIONAL: '',
+      COLEGIATURA: '',
+      CURRICULUM: '',
+      CORREO: '',
+      TELEFONO: ''
+  },
+  conocimiento: []
+
 }

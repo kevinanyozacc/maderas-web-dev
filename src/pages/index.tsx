@@ -5,11 +5,9 @@ import TabButton from '@components/shared/Tabs/TabButton'
 import TabPanels from '@components/shared/Tabs/TabPanels'
 import { withUrqlClient } from 'next-urql'
 import client from '@graphql/client'
-
-import TabRegistroProductor from '@modules/registro-productor/TabRegistroProductor'
-// import TabDeclaracionSemillas from '@modules/declaracion-semilla/TabDeclaracionSemillas'
-import TabCultivaresComerciales from '@modules/cultivares-comerciales/TabCultivaresComerciales'
 import TabRegistroResponsable from '@modules/Registro-responsable/TabRegistroResponsable'
+import TabSolicitudAutorizacion from '@modules/solicitud-autorizacion/TabSolicitudAutorizacion'
+import TabSolicitudBaja from '@modules/solicitud-baja/TabSolicitudBaja'
 
 const Home = () => {
   return (
@@ -21,15 +19,17 @@ const Home = () => {
       <Tabs>
         <TabList>
           <TabButton>Responsable Técnico</TabButton>
-          <TabButton>Solcitud de Autorización</TabButton>
-          <TabButton>Formato de Baja RT</TabButton>
-          <TabButton>Formato de Tratamiento de embalajes</TabButton>
+          <TabButton>Solicitud de Autorización</TabButton>
+          <TabButton>Solicitud de Baja </TabButton>
+          {/* <TabButton>Formato de Baja RT</TabButton>
+          <TabButton>Formato de Tratamiento de embalajes</TabButton> */}
         </TabList>
         <TabPanels>
           <TabRegistroResponsable />
-          <TabCultivaresComerciales />
-          <TabRegistroProductor />
-          <TabRegistroProductor />
+          <TabSolicitudAutorizacion />
+          <TabSolicitudBaja />
+          {/* <TabRegistroProductor />
+          <TabRegistroProductor /> */}
         </TabPanels>
       </Tabs>
     </div>

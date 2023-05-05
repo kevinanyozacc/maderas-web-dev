@@ -1,9 +1,8 @@
 import {
-    Estados,
     ResponsableInput,
-    InformacionResponsableInput
+    InformacionResponsableInput,
+    ConocimientoInput
   } from '@generated/graphql'
-  
 
   export type DatosGenerales = Omit<
   ResponsableInput, 'ID'
@@ -13,13 +12,20 @@ import {
   InformacionResponsableInput, 'ID'
   >
 
+  export interface Conocimiento
+  extends Omit<
+    ConocimientoInput, 'ID'
+  > {
+  ind: string
+}
 
 export interface RegistroResponsableState {
   datosGenerales: DatosGenerales
   informacionResponsable: InformacionResponsable
+  conocimiento: Conocimiento[]
   // informacionCultivos: InformacionCultivoItem[]
   // profesional: Profesional
-  // especializacion: Especialidad[]
+
   // experiencia: Experiencia[]
   // tierrasCultivo: TierraCultivo[]
   // acondicionamiento: Acondicionamiento

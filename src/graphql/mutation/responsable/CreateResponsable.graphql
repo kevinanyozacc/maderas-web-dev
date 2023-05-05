@@ -12,6 +12,12 @@ mutation CreateResponsable($input: ResponsableInput!) {
       PROVINCIA
       CORREO
       TELEFONO
+      FECHA_REGISTRO
+      FECHA_REVISION
+      OBSERVACION
+      EXPEDIENTE
+      ESTADO
+      
     }
   }
 }
