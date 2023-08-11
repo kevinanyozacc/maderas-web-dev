@@ -1,11 +1,23 @@
 mutation CreateSolicitudAutorizacion($input: SolicitudAutorizacionInput!) {
   createSolicitudAutorizacion(input: $input) {
     informacion {
+      ID
       RUC
-      RAZON_SOCIAL
       DNI
-      REPRESENTANTE_LEGAL 
+      REPRESENTANTE_LEGAL
+      RAZON_SOCIAL
+      DOMICILIO
+      DISTRITO
+      DEPARTAMENTO
+      PROVINCIA
+      CORREO
+      TELEFONO
+      ESTADO
       EXPEDIENTE
+      OBSERVACION
+      FECHA_REVISION
+      FECHA_REGISTRO
+      ROLASIGNADO
     }
   }
 }

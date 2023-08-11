@@ -48,6 +48,11 @@ const datosGeneralesValid = (
     errors.DNI = ErrorMessages.badDNI
   }
 
+  if (values.TELEFONO.length !== 11) {
+    errors.TELEFONO = ErrorMessages.badPhone
+  }
+
+
   // if (!validRuc(values.NUMERO_DOCUMENTO)) {
   //   errors.NUMERO_DOCUMENTO = 'Tiene que ser un RUC valido'
   // }

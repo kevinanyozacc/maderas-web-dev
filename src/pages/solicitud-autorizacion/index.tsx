@@ -3,12 +3,8 @@ import SideMultistep, { Step } from '@components/shared/SideMultistep'
 import React, { useState } from 'react'
 import { useRouter } from 'next/router'
 import {
-    // IconTierras,
     IconCultivo,
-    // IconProfesional,
     IconDatosGenerales
-    // IconAnalisisCalidad
-    // IconAcondicionamiento
   } from '@icons'
 
 import useToast from '@hooks/useToast'
@@ -16,10 +12,11 @@ import useRegistroResponsableMutation from '@hooks/useRegistroResponsableMutatio
 
 import { withUrqlClient } from 'next-urql'
 import client from '@graphql/client'
-import { useRegistroResponsable as store } from '@modules/Registro-responsable/solicitar-tramite/store/useRegistroResponsable'
+import { useRegistroSolicitud as store } from '@modules/solicitud-autorizacion/solicitar-tramite/store/useRegistroAutorizacion'
 import { ErrorMessages } from '@validation/messages'
 import DatosGeneralesForm from '@modules/solicitud-autorizacion/solicitar-tramite/components/DatosGenerales/DatosGeneralesForm'
 import InformacionPlantaForm from '@modules/solicitud-autorizacion/solicitar-tramite/components/InformacionPlanta/InformacionPlantaForm'
+import useRegistroSolicitudMutation from '@hooks/useRegistroSolicitudAutorizacion'
 
   export interface SideMultistepComponentProps {
     stepper: number
@@ -28,7 +25,6 @@ import InformacionPlantaForm from '@modules/solicitud-autorizacion/solicitar-tra
     next: () => void
     back: () => void
     submit: () => void
-    submitprueba: () => void
     isOpen?: boolean
     onClose?: () => void
     idToUpdate?: string
@@ -38,7 +34,7 @@ const RegistroResponsablepage = () => {
   const toast = useToast()
   const router = useRouter()
   const [stepper, setStepper] = useState(0)
-  const { isLoading, createRegistroResponsable } = useRegistroResponsableMutation()
+  const { isLoading, createRegistroSolicitudAutorizacion } = useRegistroSolicitudMutation()
   const maxStep = 2
   const props: SideMultistepComponentProps = {
     stepper,
@@ -67,15 +63,15 @@ const RegistroResponsablepage = () => {
     submit: async () => {
         const values = store.getState().state
        try {
-        const res = await createRegistroResponsable(values)
+        const res = await createRegistroSolicitudAutorizacion(values)
         toast({
           type: 'success',
           title: 'Exitoso !!',
-          desc: 'Hemos creado su solicitud de registro de productor con éxito.'
+          desc: 'Hemos creado su solicitud de Autorizacion con exito.'
         })
         store.getState().clearStore()
         router.push({
-          pathname: '/registro-responsable/resumen-tramite',
+          pathname: '/solicitud-autorizacion/resumen-tramite',
           query: { registroId: res }
         })
       } catch (error) {
@@ -86,28 +82,6 @@ const RegistroResponsablepage = () => {
         })
       }
     },
-    submitprueba: async () => {
-      const values = store.getState().state
-     try {
-      const res = await createRegistroResponsable(values)
-      toast({
-        type: 'success',
-        title: 'Exitoso !!',
-        desc: 'Hemos creado su solicitud de registro de productor con éxito.'
-      })
-      store.getState().clearStore()
-      router.push({
-        pathname: '/registro-responsable/resumen-tramite2',
-        query: { registroId: res }
-      })
-    } catch (error) {
-      toast({
-        type: 'error',
-        title: ErrorMessages.unknown,
-        desc: ErrorMessages.unknownDesc
-      })
-    }
-  }
   }
     const steps: Step[] = [
         {
@@ -131,7 +105,7 @@ const RegistroResponsablepage = () => {
                 { id: 'inicio', label: 'Inicio', href: '/' },
                 {
                   id: 'registro',
-                  label: 'Solcitud Autorización',
+                  label: 'Solicitud Autorización',
                   href: '/'
                 },
                 { id: 'generar-solicitud', label: 'Registro solicitud' }

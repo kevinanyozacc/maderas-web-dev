@@ -22,8 +22,8 @@ export const useRegistroSolicitud = create<State>((set, get) => ({
   loadDatosGenerales: (datosGenerales) => {
     set(({ state }) => ({ state: { ...state, datosGenerales } }))
   },
-  loadInformacionSolicitud: (informacionSolcitud) => {
-    set(({ state }) => ({ state: { ...state, informacionSolcitud } }))
+  loadInformacionSolicitud: (informacionSolicitud) => {
+    set(({ state }) => ({ state: { ...state, informacionSolicitud } }))
   },
 
   clearStore: () => set({ state: registroSolicitud })

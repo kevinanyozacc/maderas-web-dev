@@ -3244,11 +3244,23 @@ export const CreateSolicitudAutorizacionDocument = gql`
     mutation CreateSolicitudAutorizacion($input: SolicitudAutorizacionInput!) {
   createSolicitudAutorizacion(input: $input) {
     informacion {
+      ID
       RUC
-      RAZON_SOCIAL
       DNI
       REPRESENTANTE_LEGAL
+      RAZON_SOCIAL
+      DOMICILIO
+      DISTRITO
+      DEPARTAMENTO
+      PROVINCIA
+      CORREO
+      TELEFONO
+      ESTADO
       EXPEDIENTE
+      OBSERVACION
+      FECHA_REVISION
+      FECHA_REGISTRO
+      ROLASIGNADO
     }
   }
 }
@@ -4328,7 +4340,7 @@ export type CreateSolicitudAutorizacionMutationVariables = Exact<{
 }>;
 
 
-export type CreateSolicitudAutorizacionMutation = { __typename?: 'Mutation', createSolicitudAutorizacion: { __typename?: 'SolicitudAutorizacionResponse', informacion?: { __typename?: 'SolicitudAutorizacion', RUC: string, RAZON_SOCIAL: string, DNI: string, REPRESENTANTE_LEGAL: string, EXPEDIENTE: string } | null } };
+export type CreateSolicitudAutorizacionMutation = { __typename?: 'Mutation', createSolicitudAutorizacion: { __typename?: 'SolicitudAutorizacionResponse', informacion?: { __typename?: 'SolicitudAutorizacion', ID: number, RUC: string, DNI: string, REPRESENTANTE_LEGAL: string, RAZON_SOCIAL: string, DOMICILIO: string, DISTRITO: string, DEPARTAMENTO: string, PROVINCIA: string, CORREO: string, TELEFONO: string, ESTADO?: string | null, EXPEDIENTE: string, OBSERVACION?: string | null, FECHA_REVISION?: any | null, FECHA_REGISTRO?: any | null, ROLASIGNADO?: string | null } | null } };
 
 export type UpdateSucursalMutationVariables = Exact<{
   input: SucursalUpdateInput;

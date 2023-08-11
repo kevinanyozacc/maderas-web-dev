@@ -110,7 +110,7 @@ const InformacionResponsableForm = ({ back, submit, isLoading, isUpdate }: props
 
         <button className="self-end btn btn-solid-primary"
           onClick={handleDNI}>
-          Search
+          Buscar
         </button>
 
       </div>

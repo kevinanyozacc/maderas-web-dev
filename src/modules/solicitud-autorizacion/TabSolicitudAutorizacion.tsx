@@ -1,11 +1,12 @@
+import React from 'react'
 import Link from 'next/link'
 import useToggle from '@hooks/useToggle'
 
 import { IconChevronRight } from '@icons'
+import EstadoTramiteModal from '@components/shared/EstadoTramiteSolAutorizacion/EstadoTramiteModal'
 // import { TipoSolicitudExpedientes } from '@generated/graphql'
 // import ActualizarTramiteModal from '@components/shared/ActualizarTramite'
 
-import React from 'react'
 // import EstadoTramiteModal from '@components/shared/EstadoTramitePlanta/EstadoTramiteModal'
 
 const TabSolicitudAutorizacion = () => {
@@ -47,12 +48,12 @@ const TabSolicitudAutorizacion = () => {
             <IconChevronRight />
           </button>
 
-          {/* {estadoTramiteModal.isOpen && (
-        // <EstadoTramiteModal
-        //   tipoTramite={TipoSolicitudExpedientes.RegistroCultivarComercial}
-        //   {...estadoTramiteModal}
-        // />
-      )} */}
+          {estadoTramiteModal.isOpen && (
+        <EstadoTramiteModal
+          //tipoTramite={TipoSolicitudExpedientes.RegistroCultivarComercial}
+          {...estadoTramiteModal}
+        />
+      )}
       </div>
     </div>
 

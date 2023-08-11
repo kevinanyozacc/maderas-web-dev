@@ -10,9 +10,9 @@ import { textResponsable } from '@modules/registro-productor/utils/textContent'
 import datosGeneralesValid from '@modules/Registro-responsable/validation/datosGeneralesValid'
 import { SideMultistepComponentProps as props } from '@pages/solicitud-autorizacion'
 import React, { useState } from 'react'
-import { useRegistroSolicitud } from '../../store/useRegistroResponsable'
+import { useRegistroSolicitud } from '../../store/useRegistroAutorizacion'
 
-const DatosGeneralesForm = ({ next, submitprueba }: props) => {
+const DatosGeneralesForm = ({ next }: props) => {
   const [currentRadioValue] = useState<string>('')
 
   const toast = useToast()
@@ -48,6 +48,7 @@ const DatosGeneralesForm = ({ next, submitprueba }: props) => {
   const handleSubmit = () => {
     // const response = datos.data?.isDocumentoUnique
     // if (response) {
+     values.ESTADO = '1'
      store.loadDatosGenerales(values)
      console.log(values)
 
