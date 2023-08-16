@@ -8,8 +8,6 @@ import {
   } from '@icons'
 
 import useToast from '@hooks/useToast'
-import useRegistroResponsableMutation from '@hooks/useRegistroResponsableMutation'
-
 import { withUrqlClient } from 'next-urql'
 import client from '@graphql/client'
 import { useRegistroSolicitud as store } from '@modules/solicitud-autorizacion/solicitar-tramite/store/useRegistroAutorizacion'
@@ -81,7 +79,7 @@ const RegistroResponsablepage = () => {
           desc: ErrorMessages.unknownDesc
         })
       }
-    },
+    }
   }
     const steps: Step[] = [
         {

@@ -15,7 +15,7 @@ import React, { useState } from 'react'
 
 
 
-const DatosGeneralesForm = ({next,submitprueba}:props ) => {
+const DatosGeneralesForm = ({next}:props ) => {
 
   const [currentRadioValue, setCurrentRadioValue] = useState<string>('')
 
@@ -26,13 +26,6 @@ const DatosGeneralesForm = ({next,submitprueba}:props ) => {
         initialValues: store.state.datosGenerales
       })
 
-
-    // const { datos } = useDocumentUnique({
-    //     nroDocumento: values.NUMERO_DOCUMENTO,
-    //     tipoDocumento: values.TIPO_DOCUMENTO,
-    //     tipoSolicitud: TipoSolicitudExpedientes.RegistroProductor
-    //   })
-    
        const ubigeo = useGetUbigeo({
          codDepa: 'values.DEPARTAMENTO',
          codProv: 'values.PROVINCIA'
