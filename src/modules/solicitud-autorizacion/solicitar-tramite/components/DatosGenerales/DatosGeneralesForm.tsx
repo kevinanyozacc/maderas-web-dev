@@ -37,7 +37,8 @@ const DatosGeneralesForm = ({ next }: props) => {
     const res = await useGetDatosRuc(values.RUC)
     if (res) {
       form.setFields({
-        RAZON_SOCIAL: res?.nombreRazonSocial
+        RAZON_SOCIAL: res?.nombreRazonSocial,
+        ROLPREASIGNADO: '0'
       })
       toast({ title: 'Se encontro RUC ingresado', type: 'success' })
     } else {
