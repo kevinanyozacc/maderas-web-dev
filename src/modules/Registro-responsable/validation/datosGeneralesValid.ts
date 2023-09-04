@@ -48,6 +48,14 @@ const datosGeneralesValid = (
     errors.DNI = ErrorMessages.badDNI
   }
 
+  if (isEmpty(values.DOMICILIO)) {
+    errors.DOMICILIO = ErrorMessages.empty
+  }
+
+  if (isEmpty(values.CORREO)) {
+    errors.CORREO = ErrorMessages.empty
+  }
+
   if (values.TELEFONO.length !== 11) {
     errors.TELEFONO = ErrorMessages.badPhone
   }

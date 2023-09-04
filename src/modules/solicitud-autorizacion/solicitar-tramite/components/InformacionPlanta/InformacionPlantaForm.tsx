@@ -15,6 +15,8 @@ import { classNames } from '@utils/classNames'
 import InformacionSolicitudValid from '@modules/solicitud-autorizacion/validation/InformacionResponsableValid'
 import { textInformacionPlanta, textSolAutoriza } from '@modules/solicitud-autorizacion/utils/textContent'
 import { useRegistroSolicitud } from '../../store/useRegistroAutorizacion'
+import { isEmpty } from '@utils/isEmpty'
+import useToast from '@hooks/useToast'
 
 const InformacionPlantaForm = ({ back, submit, isLoading, isUpdate }: props) => {
   const [isSubmited, setIsSubmited] = useState(false)
@@ -32,6 +34,8 @@ const InformacionPlantaForm = ({ back, submit, isLoading, isUpdate }: props) => 
   //const toggleCreate = useToggle()
   //const [setIsLoadingFiles] = useState(false)
 
+  const toast = useToast()
+
   const store = useRegistroSolicitud()
   const { values, isChanged, setIsChanged, ...form } = useForm({
     validate: (values) => InformacionSolicitudValid(values),
@@ -44,12 +48,34 @@ const InformacionPlantaForm = ({ back, submit, isLoading, isUpdate }: props) => 
   })
 
   const handleSubmit2 = () => {
+    if (isEmpty(values.NUME_REGI_FUNCIONAMIENTO)) {
+      return toast({ title: 'Subir Licencia Municipal', type: 'warning' })
+    }
+    if (isEmpty(values.NUME_REGI_MEMORIA)) {
+      return toast({ title: 'Subir Memoria Discriptiva', type: 'warning' })
+    }
+    if (isEmpty(values.NUME_REGI_SENSOR)) {
+      return toast({ title: 'Subir Caracteristicas de los Sensores', type: 'warning' })
+    }
+    if (isEmpty(values.NUME_REGI_TRAMITE)) {
+      return toast({ title: 'Subir Comprobante de Pago por derecho de tramite', type: 'warning' })
+    }
+    if (isEmpty(values.NUME_REGI_PLANO)) {
+      return toast({ title: 'Subir Plano de distribucion', type: 'warning' })
+    }
+    if (values.TIPOAUTORIZACION == 'PF') {
+      if (isEmpty(values.NUME_REGI_TERMICO)) {
+        return toast({ title: 'Subir Plano de distribucion', type: 'warning' })
+      }
+    }
+
+
     store.loadInformacionSolicitud(values)
     // store.addConocimiento
     console.log(store);
 
-    setIsSubmited(true)
-    submit()
+    //setIsSubmited(true)
+    ///submit()
   }
 
   const { createArchivo } = useArchivosMutation()
@@ -115,7 +141,7 @@ const InformacionPlantaForm = ({ back, submit, isLoading, isUpdate }: props) => 
 
       </div>
       <p className="font-medium text-slate-400">
-        02. Domicilio Legal de la Planta
+        02. Dirección de la Planta de Embalaje de madera
       </p>
       <div className="grid grid-cols-1 gap-6 sm:grid-cols-1">
         <Input
@@ -299,7 +325,7 @@ const InformacionPlantaForm = ({ back, submit, isLoading, isUpdate }: props) => 
       </p>
       <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
         <Input
-          label="Numero de sensores de cámara"
+          label="Numero de sensores por cámara"
 
           {...form.inputProps('SENSORES')}
           error={form.errors.SENSORES}

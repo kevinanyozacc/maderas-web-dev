@@ -39,9 +39,15 @@ const InformacionResponsableForm = ({ back, submit, isLoading, isUpdate }: props
 
   const handleSubmit2 = () => {
     store.loadInformacionResponsable(values)
-    // store.addConocimiento
-    console.log('informacion del responsable')
-    console.log(values)
+    console.log(store.state.conocimiento);
+
+    if (store.state.conocimiento.length == 0) {
+      toast({ title: 'Ingresar conocimiento de plagas', type: 'warning' })
+      return
+    }
+    //return
+    //console.log('informacion del responsable')
+    //console.log(values)
     setIsSubmited(true)
     submit()
   }

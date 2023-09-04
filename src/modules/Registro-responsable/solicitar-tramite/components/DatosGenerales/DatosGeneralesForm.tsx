@@ -12,6 +12,7 @@ import datosGeneralesValid from '@modules/Registro-responsable/validation/datosG
 import { SideMultistepComponentProps as props } from '@pages/registro-responsable'
 import React, { useState } from 'react'
 import { useRegistroResponsable } from '../../store/useRegistroResponsable'
+import { useGetDatosReniec } from '@graphql/api/GetDatosReniec'
 
 const DatosGeneralesForm = ({ next, submitprueba }: props) => {
   const [currentRadioValue] = useState<string>('')
@@ -27,6 +28,18 @@ const DatosGeneralesForm = ({ next, submitprueba }: props) => {
     codDepa: values.DEPARTAMENTO,
     codProv: values.PROVINCIA
   })
+
+  const handleDNI = async () => {
+    const res = await useGetDatosReniec(values.DNI)
+    if (res) {
+      form.setFields({
+        REPRESENTANTE_LEGAL: res?.nombreRazonSocial
+      })
+      toast({ title: 'Se encontro DNI ingresado', type: 'success' })
+    } else {
+      toast({ title: 'No se encontro DNI ingresado', type: 'warning' })
+    }
+  }
 
   const handleSubmit = () => {
     values.ESTADO = '1'
@@ -91,7 +104,7 @@ const DatosGeneralesForm = ({ next, submitprueba }: props) => {
 
       <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
         <Input
-          label="DNI o CARNET"
+          label="DNI"
           // value={values.DNI!}
           {...form.inputProps('DNI')}
           // pattern={patterns.onlyLetters}
@@ -101,6 +114,16 @@ const DatosGeneralesForm = ({ next, submitprueba }: props) => {
           // }
           error={form.errors.DNI}
         />
+
+        <button className="self-end btn btn-solid-primary"
+          onClick={handleDNI}>
+          Buscar
+        </button>
+
+      </div>
+
+      <div className="grid grid-cols-1 gap-6 sm:grid-cols-1">
+       
         <Input
           label="Representante Legal"
           // value={values.REPRESENTANTE_LEGAL!}

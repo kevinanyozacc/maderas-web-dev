@@ -13,12 +13,13 @@ import {
   // TipoSolicitudExpedientes,
   // useCreateAnalisisCalidadMutation
 } from '@generated/graphql'
+import useToast from '@hooks/useToast'
 
 import { RegistroResponsableState } from '@modules/Registro-responsable/solicitar-tramite/interfaces'
 
 const useRegistroResponsableMutation = () => {
   const [isLoading, setIsLoading] = useState(false)
-  // const toast = useToast()
+   const toast = useToast()
 
   // const [, createExpediente] = useCreateExpedienteMutation()
   const [, createResponsable] = useCreateResponsableMutation()
@@ -43,10 +44,12 @@ const useRegistroResponsableMutation = () => {
     //   }
     // })
 
-    // if (!data?.createExpediente?.expedienteId) {
-    //   toast({ title: 'Error al crear el Registro Productor', type: 'error' })
-    //   return
-    // }
+    const  conocimineto  = { ...values.conocimiento }
+
+    if (conocimineto.length < 1) {
+      toast({ title: 'Ingresar conocimiento de plagas', type: 'warning' })
+      return
+    }
 
     const expedienteId = ''
 
