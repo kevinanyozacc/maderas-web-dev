@@ -69,13 +69,10 @@ const InformacionPlantaForm = ({ back, submit, isLoading, isUpdate }: props) => 
       }
     }
 
-
     store.loadInformacionSolicitud(values)
-    // store.addConocimiento
     console.log(store);
-
-    //setIsSubmited(true)
-    ///submit()
+    setIsSubmited(true)
+    submit()
   }
 
   const { createArchivo } = useArchivosMutation()
@@ -320,6 +317,17 @@ const InformacionPlantaForm = ({ back, submit, isLoading, isUpdate }: props) => 
             />
           ))}
       </div>
+      <p className="font-medium text-slate-400">
+        05. {'Número de cámaras de tratamiento'}
+      </p>
+      <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
+        <Input
+          label="Ingresar el numero de camaras"
+          {...form.inputProps('SENSORES')}
+          error={form.errors.SENSORES}
+        />
+      </div>
+
       <p className="font-medium text-slate-400">
         05. {'Caracteristicas de los Sensores'}
       </p>

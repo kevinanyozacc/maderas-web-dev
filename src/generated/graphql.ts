@@ -171,7 +171,7 @@ export type Conocimiento = {
   __typename?: 'Conocimiento';
   FECHA_INICIO: Scalars['Date'];
   FECHA_TERMINO: Scalars['Date'];
-  HORAS?: Maybe<Scalars['String']>;
+  HORAS: Scalars['String'];
   ID: Scalars['Int'];
   LUGAR: Scalars['String'];
   NOMBRE: Scalars['String'];
@@ -182,7 +182,7 @@ export type Conocimiento = {
 export type ConocimientoInput = {
   FECHA_INICIO: Scalars['DateTime'];
   FECHA_TERMINO: Scalars['DateTime'];
-  HORAS?: InputMaybe<Scalars['String']>;
+  HORAS: Scalars['String'];
   ID?: InputMaybe<Scalars['Int']>;
   LUGAR: Scalars['String'];
   NOMBRE: Scalars['String'];
@@ -1514,6 +1514,7 @@ export type Query = {
   getResponsableByExp?: Maybe<Responsable>;
   getResponsableById?: Maybe<Responsable>;
   getResponsableByRole: Array<Responsable>;
+  getSedes: Array<Sede>;
   getSolicitanteById?: Maybe<Solicitante>;
   getSolicitudByExp?: Maybe<SolicitudAutorizacion>;
   getSolicitudByRole: Array<SolicitudAutorizacion>;
@@ -1771,6 +1772,7 @@ export type Responsable = {
   REPRESENTANTE_LEGAL: Scalars['String'];
   ROLASIGNADO?: Maybe<Scalars['String']>;
   RUC: Scalars['String'];
+  SEDE_OPERADOR: Scalars['String'];
   TELEFONO: Scalars['String'];
 };
 
@@ -1789,6 +1791,7 @@ export type ResponsableInput = {
   REPRESENTANTE_LEGAL: Scalars['String'];
   ROLASIGNADO?: InputMaybe<Scalars['String']>;
   RUC: Scalars['String'];
+  SEDE_OPERADOR: Scalars['String'];
   TELEFONO: Scalars['String'];
 };
 
@@ -2081,7 +2084,7 @@ export type TramiteConocimiento = {
   __typename?: 'TramiteConocimiento';
   FECHA_INICIO: Scalars['Date'];
   FECHA_TERMINO: Scalars['Date'];
-  HORAS?: Maybe<Scalars['String']>;
+  HORAS: Scalars['String'];
   ID: Scalars['Int'];
   LUGAR: Scalars['String'];
   NOMBRE: Scalars['String'];
@@ -2163,6 +2166,7 @@ export type TramiteResonsable = {
   REPRESENTANTE_LEGAL: Scalars['String'];
   ROLASIGNADO?: Maybe<Scalars['String']>;
   RUC: Scalars['String'];
+  SEDE_OPERADOR: Scalars['String'];
   TELEFONO: Scalars['String'];
 };
 
@@ -4199,7 +4203,7 @@ export type CreateConocimientoMutationVariables = Exact<{
 }>;
 
 
-export type CreateConocimientoMutation = { __typename?: 'Mutation', createConocimiento?: { __typename?: 'ConocimientoResponseCreate', conocimiento?: Array<{ __typename?: 'Conocimiento', ID: number, NOMBRE: string, FECHA_INICIO: any, FECHA_TERMINO: any, HORAS?: string | null, LUGAR: string, NUME_REGI_ARC?: string | null, RESPONSABLE_ID: number }> | null } | null };
+export type CreateConocimientoMutation = { __typename?: 'Mutation', createConocimiento?: { __typename?: 'ConocimientoResponseCreate', conocimiento?: Array<{ __typename?: 'Conocimiento', ID: number, NOMBRE: string, FECHA_INICIO: any, FECHA_TERMINO: any, HORAS: string, LUGAR: string, NUME_REGI_ARC?: string | null, RESPONSABLE_ID: number }> | null } | null };
 
 export type DeleteConocimientoMutationVariables = Exact<{
   deleteConocimientoId: Scalars['Float'];
@@ -4213,7 +4217,7 @@ export type UpdateConocimientoMutationVariables = Exact<{
 }>;
 
 
-export type UpdateConocimientoMutation = { __typename?: 'Mutation', updateConocimiento: { __typename?: 'ConocimientoResponseUpdate', conocimiento?: { __typename?: 'Conocimiento', ID: number, NOMBRE: string, FECHA_INICIO: any, FECHA_TERMINO: any, HORAS?: string | null, LUGAR: string, NUME_REGI_ARC?: string | null, RESPONSABLE_ID: number } | null } };
+export type UpdateConocimientoMutation = { __typename?: 'Mutation', updateConocimiento: { __typename?: 'ConocimientoResponseUpdate', conocimiento?: { __typename?: 'Conocimiento', ID: number, NOMBRE: string, FECHA_INICIO: any, FECHA_TERMINO: any, HORAS: string, LUGAR: string, NUME_REGI_ARC?: string | null, RESPONSABLE_ID: number } | null } };
 
 export type CreateCultivarComercialMutationVariables = Exact<{
   input: CultivarComercialCreateInput;

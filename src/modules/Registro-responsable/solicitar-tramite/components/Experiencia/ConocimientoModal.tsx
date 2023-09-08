@@ -33,6 +33,7 @@ interface Props {
 const initialState: Conocimiento = {
   ind: '',
   NOMBRE: '',
+  HORAS: '',
   FECHA_INICIO: '',
   FECHA_TERMINO: '',
   LUGAR: '',
@@ -56,6 +57,9 @@ const ConocimientoModal = ({ isOpen, onClose, onSubmit, isUpdate, idToUpdate }: 
 
       if (isEmpty(values.NOMBRE)) {
         errors.NOMBRE = ErrorMessages.empty
+      }
+      if (isEmpty(values.HORAS)) {
+        errors.HORAS = ErrorMessages.empty
       }
       if (isEmpty(values.LUGAR)) {
         errors.LUGAR = ErrorMessages.empty

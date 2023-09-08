@@ -28,7 +28,7 @@ export const registroSolicitud: SolicitudAutorizacionState = {
       TIPOAUTORIZACION: '',
       NUME_REGI_FUNCIONAMIENTO: '',
       NUME_REGI_MEMORIA: '',
-      SENSORES: 0,
+      SENSORES: '',
       NUME_REGI_SENSOR: '',
       NUME_REGI_TRAMITE: '',
       NUME_REGI_PLANO: '',

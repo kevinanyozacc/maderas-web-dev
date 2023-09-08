@@ -7,7 +7,7 @@ import useForm from '@hooks/useForm'
 import useGetUbigeo from '@hooks/useGetUbigeo'
 import useToast from '@hooks/useToast'
 import { textResponsable } from '@modules/registro-productor/utils/textContent'
-import datosGeneralesValid from '@modules/Registro-responsable/validation/datosGeneralesValid'
+import datosGeneralesValid from '@modules/solicitud-autorizacion/validation/datosGeneralesValid'
 import { SideMultistepComponentProps as props } from '@pages/solicitud-autorizacion'
 import React, { useState } from 'react'
 import { useRegistroSolicitud } from '../../store/useRegistroAutorizacion'
@@ -22,12 +22,6 @@ const DatosGeneralesForm = ({ next }: props) => {
     validate: (values) => datosGeneralesValid(values, currentRadioValue),
     initialValues: store.state.datosGenerales
   })
-
-  // const { datos } = useDocumentUnique({
-  //     nroDocumento: values.NUMERO_DOCUMENTO,
-  //     tipoDocumento: values.TIPO_DOCUMENTO,
-  //     tipoSolicitud: TipoSolicitudExpedientes.RegistroProductor
-  //   })
 
   const ubigeo = useGetUbigeo({
     codDepa: values.DEPARTAMENTO,

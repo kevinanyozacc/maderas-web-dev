@@ -19,6 +19,7 @@ import useArchivosMutation from '@hooks/useArchivosMutation'
 import ConocimientoForm from '../Experiencia/ConocimientoForm'
 import { useGetDatosReniec } from '@graphql/api/GetDatosReniec'
 import useToast from '@hooks/useToast'
+import { isEmpty } from '@utils/isEmpty'
 
 const InformacionResponsableForm = ({ back, submit, isLoading, isUpdate }: props) => {
   const [isSubmited, setIsSubmited] = useState(false)
@@ -38,6 +39,9 @@ const InformacionResponsableForm = ({ back, submit, isLoading, isUpdate }: props
   })
 
   const handleSubmit2 = () => {
+    if (isEmpty(values.CURRICULUM)) {
+      return toast({ title: 'Subir curriculum vitae', type: 'warning' })
+    }
     store.loadInformacionResponsable(values)
     console.log(store.state.conocimiento);
 
@@ -288,6 +292,7 @@ const InformacionResponsableForm = ({ back, submit, isLoading, isUpdate }: props
       </div>
 
       <ConocimientoForm />
+      <div className="flex items-center justify-between mt-auto">
       <button
         type="button"
         onClick={() => {
@@ -306,7 +311,7 @@ const InformacionResponsableForm = ({ back, submit, isLoading, isUpdate }: props
         Guardar
         {isLoading && <Spinner />}
       </button>
-
+      </div>
     </form>
   )
 }

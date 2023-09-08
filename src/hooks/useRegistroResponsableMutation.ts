@@ -53,19 +53,6 @@ const useRegistroResponsableMutation = () => {
 
     const expedienteId = ''
 
-    // REGISTRO PROFESIONAL
-
-    // const { data: dataPro } = await createProfesional({
-    //   input: { ...values.profesional, EXPEDIENTE_ID: expedienteId }
-    // })
-
-    // const profesionalId =
-    //   dataPro?.createProfesional.profesional?.PROFESIONAL_RESPONSABLE_ID!
-
-    // if (!profesionalId) {
-    //   toast({ title: 'Error al crear el profesional responsable', type: 'error' })
-    //   return
-    // }
     const { data: dataPro } = await createResponsable({
       input: { ...values.datosGenerales }
     })

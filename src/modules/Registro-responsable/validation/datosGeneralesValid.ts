@@ -60,17 +60,9 @@ const datosGeneralesValid = (
     errors.TELEFONO = ErrorMessages.badPhone
   }
 
-
-  // if (!validRuc(values.NUMERO_DOCUMENTO)) {
-  //   errors.NUMERO_DOCUMENTO = 'Tiene que ser un RUC valido'
-  // }
-
-  // if (isRUC20 && currentRadioValue === 'persona-natural') {
-  //   errors.NUMERO_DOCUMENTO = 'El numero de ruc debe iniciar con 10'
-  // }
-  // if (!isRUC20 && currentRadioValue === 'persona-juridica') {
-  //   errors.NUMERO_DOCUMENTO = 'El numero de ruc debe iniciar con 20'
-  // }
+  if (values.SEDE_OPERADOR === undefined) {
+    errors.SEDE_OPERADOR = ErrorMessages.empty
+  }
 
     return errors
 }

@@ -16,11 +16,9 @@ const datosGeneralesValid = (
   if (isEmpty(values.RUC)) {
     errors.RUC = ErrorMessages.empty
   }
-
   if (values.RUC.length !== 11) {
     errors.RUC = ErrorMessages.badRUC
   }
-
   if (isEmpty(values.RAZON_SOCIAL)) {
     errors.RAZON_SOCIAL = ErrorMessages.empty
   }
@@ -36,14 +34,18 @@ const datosGeneralesValid = (
   if (isEmpty(values.PROVINCIA)) {
     errors.PROVINCIA = ErrorMessages.empty
   }
-
   if (isEmpty(values.TELEFONO)) {
     errors.TELEFONO = ErrorMessages.empty
   }
   if (isEmpty(values.DNI)) {
     errors.DNI = ErrorMessages.empty
   }
-
+  if (isEmpty(values.DOMICILIO)) {
+    errors.DOMICILIO = ErrorMessages.empty
+  }
+  if (isEmpty(values.CORREO)) {
+    errors.CORREO = ErrorMessages.empty
+  }
   if (values.DNI.length !== 8) {
     errors.DNI = ErrorMessages.badDNI
   }
@@ -51,7 +53,6 @@ const datosGeneralesValid = (
   // if (!validRuc(values.NUMERO_DOCUMENTO)) {
   //   errors.NUMERO_DOCUMENTO = 'Tiene que ser un RUC valido'
   // }
-
   // if (isRUC20 && currentRadioValue === 'persona-natural') {
   //   errors.NUMERO_DOCUMENTO = 'El numero de ruc debe iniciar con 10'
   // }

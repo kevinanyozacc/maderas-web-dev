@@ -13,21 +13,26 @@ import { SideMultistepComponentProps as props } from '@pages/registro-responsabl
 import React, { useState } from 'react'
 import { useRegistroResponsable } from '../../store/useRegistroResponsable'
 import { useGetDatosReniec } from '@graphql/api/GetDatosReniec'
+import { sedesOptions } from '@utils/textSedes'
+import Select from '@components/shared/Select'
 
 const DatosGeneralesForm = ({ next, submitprueba }: props) => {
   const [currentRadioValue] = useState<string>('')
 
-   const toast = useToast()
+  const toast = useToast()
   const store = useRegistroResponsable()
   const { values, ...form } = useForm({
     validate: (values) => datosGeneralesValid(values, currentRadioValue),
     initialValues: store.state.datosGenerales
+    
   })
 
   const ubigeo = useGetUbigeo({
     codDepa: values.DEPARTAMENTO,
     codProv: values.PROVINCIA
   })
+
+  const sedes = sedesOptions
 
   const handleDNI = async () => {
     const res = await useGetDatosReniec(values.DNI)
@@ -83,7 +88,7 @@ const DatosGeneralesForm = ({ next, submitprueba }: props) => {
           error={form.errors.RUC}
         />
         <button className="self-end btn btn-solid-primary"
-        onClick={handleruc}>
+          onClick={handleruc}>
           Consultar Sunat
         </button>
       </div>
@@ -123,7 +128,7 @@ const DatosGeneralesForm = ({ next, submitprueba }: props) => {
       </div>
 
       <div className="grid grid-cols-1 gap-6 sm:grid-cols-1">
-       
+
         <Input
           label="Representante Legal"
           // value={values.REPRESENTANTE_LEGAL!}
@@ -203,9 +208,23 @@ const DatosGeneralesForm = ({ next, submitprueba }: props) => {
       </div>
       <div className="hidden" >
         <Input type="estado"
-        {...form.inputProps('ESTADO')}
+          {...form.inputProps('ESTADO')}
         />
       </div>
+      <div className="border-b dark:border-b-slate-700">
+        <p className="font-medium text-slate-400">
+          {'Sede donde operará la camara de tratamiento y/o Planta fabricación de embalajes de madera'}
+        </p>
+      </div>
+     
+      <Select
+              label="Seleccionar Sede"
+              value={values.SEDE_OPERADOR}
+              error={form.errors.SEDE_OPERADOR}
+              onChange={({ value }) => form.setField('SEDE_OPERADOR', value)}
+              options={sedes}
+            />
+
 
       <button type="submit" className="self-end btn btn-solid-primary"
       >

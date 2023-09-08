@@ -31,18 +31,6 @@ const InformacionSolicitudValid = (values: InformacionSolicitud) => {
         errors.DISTRITO = ErrorMessages.empty
       }
 
-      if (isEmpty(values.NUME_REGI_FUNCIONAMIENTO)) {
-        //return toast({ title: 'Subir Licencia Municipal', type: 'warning' })
-      }
-
-
-      // if (nameInput == 1) form.setField('NUME_REGI_FUNCIONAMIENTO', res.data.data.NUME_REGI_ARC)
-      // if (nameInput == 2) form.setField('NUME_REGI_MEMORIA', res.data.data.NUME_REGI_ARC)
-      // if (nameInput == 3) form.setField('NUME_REGI_SENSOR', res.data.data.NUME_REGI_ARC)
-      // if (nameInput == 4) form.setField('NUME_REGI_TRAMITE', res.data.data.NUME_REGI_ARC)
-      // if (nameInput == 5) form.setField('NUME_REGI_PLANO', res.data.data.NUME_REGI_ARC)
-      // if (nameInput == 6) form.setField('NUME_REGI_TERMICO', res.data.data.NUME_REGI_ARC)
-
   return errors
 }
 

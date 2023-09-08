@@ -1,6 +1,7 @@
 import Modal from '@components/shared/Modal'
 import ModalHeader from '@components/shared/ModalHeader'
 import Table from '@components/shared/Table'
+import moment from 'moment'
 
 // import { TipoSolicitudExpedientes } from '@generated/graphql'
 import { classNames } from '@utils/classNames'
@@ -63,8 +64,10 @@ const EstadoResponsableInfoModal = ({ data, isOpen, onClose }: Props) => {
                       {estadoDoc(data.ESTADO)}
                     </div>
                   </td>
-                  <td className={classNames(['text-center min-w-[130px]'])} >{data.FECHA_REGISTRO}</td>
-                  <td className="text-center min-w-[130px]" >{data.FECHA_REVISION}</td>
+                  <td className={classNames(['text-center min-w-[130px]'])} >{ moment(data.FECHA_REGISTRO).format('DD-MM-YYYY')}</td>
+                  <td className="text-center min-w-[130px]" >{ moment(data.FECHA_REVISION).format('DD-MM-YYYY')}
+                 
+                  </td>
                 </tr>
               </tbody>
             </Table>
