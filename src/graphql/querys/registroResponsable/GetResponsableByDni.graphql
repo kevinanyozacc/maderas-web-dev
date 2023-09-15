@@ -1,0 +1,6 @@
+query GetResponsableSolicitud($dni: String!) {
+  getResponsableSolicitud(dni: $dni) {
+    DNI
+    ESTADO
+  }
+}

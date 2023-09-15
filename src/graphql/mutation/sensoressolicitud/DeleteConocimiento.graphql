@@ -1,0 +1,3 @@
+mutation DeleteSensores($deleteSensoresId: Float!) {
+  deleteSensores(id: $deleteSensoresId)
+}

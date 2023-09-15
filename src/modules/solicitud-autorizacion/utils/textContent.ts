@@ -45,3 +45,13 @@ export const textSolAutoriza = {
   addedFiles: 'Los archivos se agregaron correctamente'
 }
 
+export const textSensores = {
+  titleForm: 'Registrar sensores por camaras ingresadas',
+  add: 'Agregar Sensor',
+  update: 'Actualizar Sensor',
+  delete: 'Eliminar Sensor',
+  messageAdd: 'Agregar documento que acredite Sensor',
+  filesEmpty: 'Debe agregar documento que acredite Sensor',
+  addedFiles: 'Certificado de calibración o comprobante de compra de nuevos sensores'
+}
+

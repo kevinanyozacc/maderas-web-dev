@@ -1,0 +1,11 @@
+mutation UpdateSensores($input: SolicitudSensorInput!) {
+  updateSensores(input: $input) {
+    sensores {
+      ID
+      NUMERO
+      DESCRIPCION
+      SOLICITUD_ID
+      NUME_REGI_SENSOR
+    }
+  }
+}

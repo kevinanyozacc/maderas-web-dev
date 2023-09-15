@@ -75,6 +75,7 @@ const useRegistroResponsableMutation = () => {
         input: values.conocimiento.map(({ ind, ...data }) => ({
           ...data,
           RESPONSABLE_ID: responsableid
+          
         }))
       })
     ])

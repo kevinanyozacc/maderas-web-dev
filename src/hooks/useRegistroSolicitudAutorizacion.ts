@@ -1,10 +1,7 @@
 import { useState } from 'react'
 import {
-  useCreateConocimientoMutation,
-  useCreateInformacionResponsableMutation,
   useCreateInformacionSolicitudMutation,
-  useCreateResponsableMutation,
-  useCreateSolicitanteMutation,
+  useCreateSensoresMutation,
   useCreateSolicitudAutorizacionMutation
 } from '@generated/graphql'
 import { SolicitudAutorizacionState } from '@modules/solicitud-autorizacion/solicitar-tramite/interfaces'
@@ -16,6 +13,7 @@ const useRegistroSolicitudMutation = () => {
   //const [, createResponsable] = useCreateResponsableMutation()
   const [, createSolicitud] = useCreateSolicitudAutorizacionMutation()
   const [, createinformacionSolicitud] = useCreateInformacionSolicitudMutation()
+  const [, createSensores] = useCreateSensoresMutation()
 
   const createRegistroSolicitudAutorizacion = async (values: SolicitudAutorizacionState) => {
     setIsLoading(true)
@@ -28,7 +26,7 @@ const useRegistroSolicitudMutation = () => {
       input: { ...values.datosGenerales }
     })
 
-    const responsableid =
+    const solicitudid =
       dataPro?.createSolicitudAutorizacion.informacion?.ID!
 
     const expediente =
@@ -43,6 +41,14 @@ const useRegistroSolicitudMutation = () => {
           // EXPEDIENTE_ID: expedienteId
         }
       }),
+      createSensores({
+        input: values.sensores.map(({ ind, ...data },index) => ({
+          ...data,
+          SOLICITUD_ID: solicitudid,
+          //NUMERO: 
+          //
+        }))
+      })
     ])
 
     setIsLoading(false)

@@ -43,6 +43,8 @@ const DatosGeneralesForm = ({ next }: props) => {
 
   const handleDNI = async () => {
     const res = await useGetDatosReniec(values.DNI)
+    console.log(res);
+    
     if (res) {
       form.setFields({
         REPRESENTANTE_LEGAL: res?.nombreRazonSocial

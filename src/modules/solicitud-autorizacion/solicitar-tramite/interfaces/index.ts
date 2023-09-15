@@ -1,6 +1,7 @@
 import {
     SolicitudAutorizacionInput,
-    InformacionSolicitudInput
+    InformacionSolicitudInput,
+    SolicitudSensorInput
   } from '@generated/graphql'
 
   export type DatosGenerales = Omit<
@@ -11,17 +12,17 @@ import {
   InformacionSolicitudInput, 'ID'
   >
 
-//   export interface Conocimiento
-//   extends Omit<
-//     ConocimientoInput, 'ID'
-//   > {
-//   ind: string
-// }
+  export interface Sensores
+  extends Omit<
+  SolicitudSensorInput, 'ID'
+  > {
+  ind: string
+}
 
 export interface SolicitudAutorizacionState {
   datosGenerales: DatosGenerales
   informacionSolicitud: InformacionSolicitud
-  // conocimiento: Conocimiento[]
+   sensores: Sensores[]
   // informacionCultivos: InformacionCultivoItem[]
   // profesional: Profesional
 

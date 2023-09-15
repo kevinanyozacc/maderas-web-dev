@@ -219,7 +219,7 @@ const DatosGeneralesForm = ({ next, submitprueba }: props) => {
      
       <Select
               label="Seleccionar Sede"
-              value={values.SEDE_OPERADOR}
+              value={values.SEDE_OPERADOR!}
               error={form.errors.SEDE_OPERADOR}
               onChange={({ value }) => form.setField('SEDE_OPERADOR', value)}
               options={sedes}

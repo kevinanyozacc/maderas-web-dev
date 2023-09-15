@@ -17,9 +17,13 @@ import { textInformacionPlanta, textSolAutoriza } from '@modules/solicitud-autor
 import { useRegistroSolicitud } from '../../store/useRegistroAutorizacion'
 import { isEmpty } from '@utils/isEmpty'
 import useToast from '@hooks/useToast'
+import SensoresForm from '../Sensores/SensoresForm'
+import { useGetResponsableByDni } from '@graphql/api/GetResponsableByDni'
 
 const InformacionPlantaForm = ({ back, submit, isLoading, isUpdate }: props) => {
   const [isSubmited, setIsSubmited] = useState(false)
+
+
   // const toast = useToast()
   const [isLoadingFiles, setIsLoadingFiles] = useState(false)
   const toggleCreateFile = useToggle()
@@ -47,26 +51,72 @@ const InformacionPlantaForm = ({ back, submit, isLoading, isUpdate }: props) => 
     codProv: values.PROVINCIA
   })
 
+  const [first, setfirst] = useState('')
+  const [colorstyle, setColorstyle] = useState('')
+
+  function colorDoc(est: string): string {
+    if (est === '1') return 'text-blue-600 bg-blue-200'
+    if (est === '2') return 'text-green-600 bg-green-200'
+    if (est === '3') return 'text-orange-500 bg-orange-200'
+    if (est === '4') return 'text-red-600 bg-red-200'
+
+    return est
+  }
+
+
+  function estadoDoc(est: string): string {
+    if (est === '1') return 'EN TRAMITE'
+    if (est === '2') return 'AUTORIZADO'
+    if (est === '3') return 'DENEGADO'
+    if (est === '4') return 'OBSERVADO'
+    return est
+  }
+
+  const handleResponsableByDni = async () => {
+
+    const { data } = await useGetResponsableByDni(values.DNI)
+    console.log("data", data);
+
+    //const { db: solicitudes } = useGetSolicitudByRole(user.roles![1])
+    if (data.getResponsableSolicitud) {
+      form.setFields({
+        APENOMB: data?.getResponsableSolicitud.APENOMB
+      })
+      setfirst(estadoDoc(data?.getResponsableSolicitud.ESTADO));
+      setColorstyle(colorDoc(data?.getResponsableSolicitud.ESTADO));
+      toast({ title: 'Se encontro DNI ingresado', type: 'success' })
+      // } else {
+      //   toast({ title: 'No se encontro DNI ingresado', type: 'warning' })
+    } else {
+      form.setFields({
+        APENOMB: ''
+      })
+      setfirst('')
+      setColorstyle('')
+      toast({ title: 'El DNI ingresado no se encuentra en los datos de Responsables Técnicos', type: 'warning' })
+    }
+  }
+
   const handleSubmit2 = () => {
     if (isEmpty(values.NUME_REGI_FUNCIONAMIENTO)) {
-      return toast({ title: 'Subir Licencia Municipal', type: 'warning' })
+      return toast({ title: '03. Subir Licencia Municipal', type: 'warning' })
     }
     if (isEmpty(values.NUME_REGI_MEMORIA)) {
-      return toast({ title: 'Subir Memoria Discriptiva', type: 'warning' })
-    }
-    if (isEmpty(values.NUME_REGI_SENSOR)) {
-      return toast({ title: 'Subir Caracteristicas de los Sensores', type: 'warning' })
+      return toast({ title: '04. Subir Memoria Discriptiva', type: 'warning' })
     }
     if (isEmpty(values.NUME_REGI_TRAMITE)) {
-      return toast({ title: 'Subir Comprobante de Pago por derecho de tramite', type: 'warning' })
+      return toast({ title: '07. Subir Comprobante de Pago por derecho de tramite', type: 'warning' })
     }
     if (isEmpty(values.NUME_REGI_PLANO)) {
-      return toast({ title: 'Subir Plano de distribucion', type: 'warning' })
+      return toast({ title: '08. Subir Plano de distribucion', type: 'warning' })
     }
     if (values.TIPOAUTORIZACION == 'PF') {
       if (isEmpty(values.NUME_REGI_TERMICO)) {
-        return toast({ title: 'Subir Plano de distribucion', type: 'warning' })
+        return toast({ title: '09. Adjuntar documento que acredite la importación ', type: 'warning' })
       }
+    }
+    if (first !== 'AUTORIZADO') {
+      return toast({ title: 'Estimado usuario, el responsable técnico no se encuentra autorizado para realizar el registro de la solicitud', type: 'warning' })
     }
 
     store.loadInformacionSolicitud(values)
@@ -317,24 +367,33 @@ const InformacionPlantaForm = ({ back, submit, isLoading, isUpdate }: props) => 
             />
           ))}
       </div>
-      <p className="font-medium text-slate-400">
-        05. {'Número de cámaras de tratamiento'}
-      </p>
-      <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
-        <Input
-          label="Ingresar el numero de camaras"
-          {...form.inputProps('SENSORES')}
-          error={form.errors.SENSORES}
-        />
-      </div>
+      {values.TIPOAUTORIZACION === 'CT' ? (
+        <div className="">
+          <p className="font-medium text-slate-400">
+            05. {'Número de cámaras de tratamiento'}
+          </p>
+          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
+            <Input
+              label="Ingresar el numero de camaras"
+              {...form.inputProps('SENSORES')}
+              error={form.errors.SENSORES}
+            />
+          </div>
+          <br />
+          <p className="font-medium text-slate-400">
+            06. {'Caracteristicas de los Sensores'}
+          </p>
 
-      <p className="font-medium text-slate-400">
-        05. {'Caracteristicas de los Sensores'}
-      </p>
-      <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
+          <SensoresForm />
+        </div>
+      ) : (
+        <div className="text-center">
+
+        </div>
+      )}
+      {/* <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
         <Input
           label="Numero de sensores por cámara"
-
           {...form.inputProps('SENSORES')}
           error={form.errors.SENSORES}
         />
@@ -382,10 +441,10 @@ const InformacionPlantaForm = ({ back, submit, isLoading, isUpdate }: props) => 
               NUME_REGI_ARC={values.NUME_REGI_SENSOR}
             />
           ))}
-      </div>
+      </div> */}
 
       <p className="font-medium text-slate-400">
-        06. {'Comprobante de Pago por derecho de tramite'}
+        07. {'Comprobante de Pago por derecho de tramite'}
       </p>
       <div className="">
         <Tooltip label={textSolAutoriza.addPago}>
@@ -434,7 +493,7 @@ const InformacionPlantaForm = ({ back, submit, isLoading, isUpdate }: props) => 
       </div>
 
       <p className="font-medium text-slate-400">
-        07. {'Plano de distribucion'}
+        08. {'Plano de distribucion'}
       </p>
       <div className="">
         <Tooltip label={textSolAutoriza.addPlano}>
@@ -489,7 +548,7 @@ const InformacionPlantaForm = ({ back, submit, isLoading, isUpdate }: props) => 
         <div className="">
 
           <p className="font-medium text-slate-400">
-            08.  {'Si la autorizacion es para planta de fabricación de embalajes de madera con tratamiento térmico, adjuntar la autorización de importación'}
+            09.  {'Adjuntar documento que acredite la importación'}
           </p>
           <div className="mt-3">
             <Tooltip label={textSolAutoriza.addSolicitudImport}>
@@ -546,7 +605,7 @@ const InformacionPlantaForm = ({ back, submit, isLoading, isUpdate }: props) => 
 
 
       <p className="font-medium text-slate-400">
-        09. {'Responsable Técnico'}
+        10. {'Responsable Técnico'}
       </p>
 
       <div className="grid grid-cols-1 gap-6 sm:grid-cols-3">
@@ -562,36 +621,33 @@ const InformacionPlantaForm = ({ back, submit, isLoading, isUpdate }: props) => 
           // }
           error={form.errors.DNI}
         />
-        <a
-          className="self-end btn btn-outline-primary"
-        >
-          BUSCAR
-        </a>
+        <button className="self-end btn btn-solid-primary"
+          onClick={handleResponsableByDni}>
+          Buscar
+        </button>
+
 
       </div>
 
       <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
 
         <Input
-          label="APELLIDOS Y NOMBRES"
+          label="NOMBRES"
           type="text"
+          readOnly
           {...form.inputProps('APENOMB')}
-          // value={values.RAZON_SOCIAL!}
-          // pattern={patterns.onlyLetters}
-          // onChange={(e) =>
-          //   e.target.validity.valid &&
-          //   form.setField('NOMBRES_SOLICITANTE', e.target.value)
-          // }
           error={form.errors.APENOMB}
         />
-        <a
-          className="self-end btn btn-outline-primary"
+        <div
+          className={classNames([
+            colorstyle,
+            ' text-center font-semibold py-1 px-4 rounded-full whitespace-nowrap'
+          ])}
         >
-          Estado
-        </a>
+          <div className='mt-3'>{first}</div>
+        </div>
       </div>
 
-      {/* <ConocimientoForm /> */}
       <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
         <button
           type="button"
