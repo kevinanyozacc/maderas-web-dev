@@ -12,6 +12,8 @@ import { SideMultistepComponentProps as props } from '@pages/solicitud-autorizac
 import React, { useState } from 'react'
 import { useRegistroSolicitud } from '../../store/useRegistroAutorizacion'
 import { useGetDatosReniec } from '@graphql/api/GetDatosReniec'
+import Select from '@components/shared/Select'
+import { sedesOptions } from '@utils/textSedes'
 
 const DatosGeneralesForm = ({ next }: props) => {
   const [currentRadioValue] = useState<string>('')
@@ -27,6 +29,8 @@ const DatosGeneralesForm = ({ next }: props) => {
     codDepa: values.DEPARTAMENTO,
     codProv: values.PROVINCIA
   })
+
+  const sedes = sedesOptions
 
   const handleruc = async () => {
     const res = await useGetDatosRuc(values.RUC)
@@ -216,6 +220,19 @@ const DatosGeneralesForm = ({ next }: props) => {
           {...form.inputProps('TELEFONO')}
         />
       </div>
+      <div className="border-b dark:border-b-slate-700">
+        <p className="font-medium text-slate-400">
+          {'Sede donde operará la camara de tratamiento y/o Planta fabricación de embalajes de madera'}
+        </p>
+      </div>
+     
+      <Select
+              label="Seleccionar Sede"
+              value={values.SEDE_OPERADOR!}
+              error={form.errors.SEDE_OPERADOR}
+              onChange={({ value }) => form.setField('SEDE_OPERADOR', value)}
+              options={sedes}
+            />
 
       <button type="submit" className="self-end btn btn-solid-primary">
         Guardar y Siguiente

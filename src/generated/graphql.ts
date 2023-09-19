@@ -1541,6 +1541,7 @@ export type Query = {
   getSolicitanteById?: Maybe<Solicitante>;
   getSolicitudByExp?: Maybe<SolicitudAutorizacion>;
   getSolicitudByRole: Array<SolicitudAutorizacion>;
+  getSolicitudByRoleSede: Array<SolicitudAutorizacion>;
   getTierraCultivoById?: Maybe<TierraCultivo>;
   getTramiteByRegistroId?: Maybe<Tramite>;
   getTramiteResponsableByRegistroId?: Maybe<TramiteResp>;
@@ -1757,6 +1758,12 @@ export type QueryGetSolicitudByRoleArgs = {
 };
 
 
+export type QueryGetSolicitudByRoleSedeArgs = {
+  ROLASIGNADO: Scalars['String'];
+  SEDE_OPERADOR: Scalars['String'];
+};
+
+
 export type QueryGetTierraCultivoByIdArgs = {
   tierraCultivoId: Scalars['Int'];
 };
@@ -1842,6 +1849,7 @@ export type ResponsableResponse = {
 
 export type ResponsableSol = {
   __typename?: 'ResponsableSol';
+  APENOMB: Scalars['String'];
   DNI: Scalars['String'];
   ESTADO: Scalars['String'];
 };
@@ -1965,6 +1973,7 @@ export type SolicitudAutorizacion = {
   ROLASIGNADO?: Maybe<Scalars['String']>;
   ROLPREASIGNADO?: Maybe<Scalars['String']>;
   RUC: Scalars['String'];
+  SEDE_OPERADOR?: Maybe<Scalars['String']>;
   TELEFONO: Scalars['String'];
 };
 
@@ -1984,6 +1993,7 @@ export type SolicitudAutorizacionInput = {
   ROLASIGNADO?: InputMaybe<Scalars['String']>;
   ROLPREASIGNADO?: InputMaybe<Scalars['String']>;
   RUC: Scalars['String'];
+  SEDE_OPERADOR?: InputMaybe<Scalars['String']>;
   TELEFONO: Scalars['String'];
 };
 
@@ -2300,6 +2310,7 @@ export type TramiteSolicitud = {
   ROLASIGNADO?: Maybe<Scalars['String']>;
   ROLPREASIGNADO?: Maybe<Scalars['String']>;
   RUC: Scalars['String'];
+  SEDE_OPERADOR?: Maybe<Scalars['String']>;
   TELEFONO: Scalars['String'];
 };
 
