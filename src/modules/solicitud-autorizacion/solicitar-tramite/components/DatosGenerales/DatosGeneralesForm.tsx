@@ -47,8 +47,8 @@ const DatosGeneralesForm = ({ next }: props) => {
 
   const handleDNI = async () => {
     const res = await useGetDatosReniec(values.DNI)
-    console.log(res);
-    
+    console.log(res)
+
     if (res) {
       form.setFields({
         REPRESENTANTE_LEGAL: res?.nombreRazonSocial
@@ -225,7 +225,7 @@ const DatosGeneralesForm = ({ next }: props) => {
           {'Sede donde operará la camara de tratamiento y/o Planta fabricación de embalajes de madera'}
         </p>
       </div>
-     
+
       <Select
               label="Seleccionar Sede"
               value={values.SEDE_OPERADOR!}

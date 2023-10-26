@@ -1,7 +1,6 @@
 import Table from '@components/shared/Table'
 
 import { IconEdit, IconTrash } from '@icons'
-import moment from 'moment'
 import { Sensores } from '../../interfaces/index'
 
 interface Props {
@@ -12,9 +11,7 @@ interface Props {
 }
 
 const SensoresTable = ({ data, onAdd, onDelete, onUpdate }: Props) => {
-
-  console.log(data);
-  
+  console.log(data)
 
   return (
     <div className="min-h-50">
@@ -23,7 +20,7 @@ const SensoresTable = ({ data, onAdd, onDelete, onUpdate }: Props) => {
           <thead>
             <tr className="dark:border-b-slate-700">
               <th>Número de Camara de Tratamiento</th>
-              
+
               <th className="text-center">Acciones</th>
             </tr>
           </thead>
@@ -31,7 +28,6 @@ const SensoresTable = ({ data, onAdd, onDelete, onUpdate }: Props) => {
             {data?.map((item) => (
               <tr key={item.ind} className="dark:bg-transparent dark:text-slate-50 dark:hover:bg-slate-900 dark:border-b-slate-700">
                 <td>{item.NUMERO}</td>
-               
                 <td>
                   <div className="flex justify-center gap-x-3">
                     <button

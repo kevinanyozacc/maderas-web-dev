@@ -5,6 +5,7 @@ import Table from '@components/shared/Table'
 // import { TipoSolicitudExpedientes } from '@generated/graphql'
 import { classNames } from '@utils/classNames'
 import Input from '@components/shared/Input'
+import moment from 'moment'
 
 interface Props {
   data: any
@@ -63,8 +64,8 @@ const EstadoSolicitudInfoModal = ({ data, isOpen, onClose }: Props) => {
                       {estadoDoc(data.ESTADO)}
                     </div>
                   </td>
-                  <td className={classNames(['text-center min-w-[130px]'])} >{data.FECHA_REGISTRO}</td>
-                  <td className="text-center min-w-[130px]" >{data.FECHA_REVISION}</td>
+                  <td className={classNames(['text-center min-w-[130px]'])} >{ moment(data.FECHA_REGISTRO).format('DD-MM-YYYY')}</td>
+                  <td className="text-center min-w-[130px]" >{ moment(data.FECHA_REVISION).format('DD-MM-YYYY')}</td>
                 </tr>
               </tbody>
             </Table>

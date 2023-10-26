@@ -23,7 +23,6 @@ import { useGetResponsableByDni } from '@graphql/api/GetResponsableByDni'
 const InformacionPlantaForm = ({ back, submit, isLoading, isUpdate }: props) => {
   const [isSubmited, setIsSubmited] = useState(false)
 
-
   // const toast = useToast()
   const [isLoadingFiles, setIsLoadingFiles] = useState(false)
   const toggleCreateFile = useToggle()
@@ -35,8 +34,8 @@ const InformacionPlantaForm = ({ back, submit, isLoading, isUpdate }: props) => 
 
   const [nameInput, setNameInput] = useState(0)
 
-  //const toggleCreate = useToggle()
-  //const [setIsLoadingFiles] = useState(false)
+  // const toggleCreate = useToggle()
+  // const [setIsLoadingFiles] = useState(false)
 
   const toast = useToast()
 
@@ -54,7 +53,7 @@ const InformacionPlantaForm = ({ back, submit, isLoading, isUpdate }: props) => 
   const [first, setfirst] = useState('')
   const [colorstyle, setColorstyle] = useState('')
 
-  function colorDoc(est: string): string {
+  function colorDoc (est: string): string {
     if (est === '1') return 'text-blue-600 bg-blue-200'
     if (est === '2') return 'text-green-600 bg-green-200'
     if (est === '3') return 'text-orange-500 bg-orange-200'
@@ -63,8 +62,7 @@ const InformacionPlantaForm = ({ back, submit, isLoading, isUpdate }: props) => 
     return est
   }
 
-
-  function estadoDoc(est: string): string {
+  function estadoDoc (est: string): string {
     if (est === '1') return 'EN TRAMITE'
     if (est === '2') return 'AUTORIZADO'
     if (est === '3') return 'DENEGADO'
@@ -73,17 +71,15 @@ const InformacionPlantaForm = ({ back, submit, isLoading, isUpdate }: props) => 
   }
 
   const handleResponsableByDni = async () => {
-
     const { data } = await useGetResponsableByDni(values.DNI)
-    console.log("data", data);
 
-    //const { db: solicitudes } = useGetSolicitudByRole(user.roles![1])
+    // const { db: solicitudes } = useGetSolicitudByRole(user.roles![1])
     if (data.getResponsableSolicitud) {
       form.setFields({
         APENOMB: data?.getResponsableSolicitud.APENOMB
       })
-      setfirst(estadoDoc(data?.getResponsableSolicitud.ESTADO));
-      setColorstyle(colorDoc(data?.getResponsableSolicitud.ESTADO));
+      setfirst(estadoDoc(data?.getResponsableSolicitud.ESTADO))
+      setColorstyle(colorDoc(data?.getResponsableSolicitud.ESTADO))
       toast({ title: 'Se encontro DNI ingresado', type: 'success' })
       // } else {
       //   toast({ title: 'No se encontro DNI ingresado', type: 'warning' })
@@ -110,7 +106,7 @@ const InformacionPlantaForm = ({ back, submit, isLoading, isUpdate }: props) => 
     if (isEmpty(values.NUME_REGI_PLANO)) {
       return toast({ title: '08. Subir Plano de distribucion', type: 'warning' })
     }
-    if (values.TIPOAUTORIZACION == 'PF') {
+    if (values.TIPOAUTORIZACION === 'PF') {
       if (isEmpty(values.NUME_REGI_TERMICO)) {
         return toast({ title: '09. Adjuntar documento que acredite la importación ', type: 'warning' })
       }
@@ -120,7 +116,7 @@ const InformacionPlantaForm = ({ back, submit, isLoading, isUpdate }: props) => 
     }
 
     store.loadInformacionSolicitud(values)
-    console.log(store);
+    console.log(store)
     setIsSubmited(true)
     submit()
   }
@@ -137,6 +133,7 @@ const InformacionPlantaForm = ({ back, submit, isLoading, isUpdate }: props) => 
         DESCRIPCION: 'File'
       })
     }
+    console.log(fileList)
 
     const res = await createArchivo({
       REGISTRO: 'Especializacion',
@@ -145,12 +142,12 @@ const InformacionPlantaForm = ({ back, submit, isLoading, isUpdate }: props) => 
     })
 
     if (res.data?.data?.NUME_REGI_ARC) {
-      if (nameInput == 1) form.setField('NUME_REGI_FUNCIONAMIENTO', res.data.data.NUME_REGI_ARC)
-      if (nameInput == 2) form.setField('NUME_REGI_MEMORIA', res.data.data.NUME_REGI_ARC)
-      if (nameInput == 3) form.setField('NUME_REGI_SENSOR', res.data.data.NUME_REGI_ARC)
-      if (nameInput == 4) form.setField('NUME_REGI_TRAMITE', res.data.data.NUME_REGI_ARC)
-      if (nameInput == 5) form.setField('NUME_REGI_PLANO', res.data.data.NUME_REGI_ARC)
-      if (nameInput == 6) form.setField('NUME_REGI_TERMICO', res.data.data.NUME_REGI_ARC)
+      if (nameInput === 1) form.setField('NUME_REGI_FUNCIONAMIENTO', res.data.data.NUME_REGI_ARC)
+      if (nameInput === 2) form.setField('NUME_REGI_MEMORIA', res.data.data.NUME_REGI_ARC)
+      if (nameInput === 3) form.setField('NUME_REGI_SENSOR', res.data.data.NUME_REGI_ARC)
+      if (nameInput === 4) form.setField('NUME_REGI_TRAMITE', res.data.data.NUME_REGI_ARC)
+      if (nameInput === 5) form.setField('NUME_REGI_PLANO', res.data.data.NUME_REGI_ARC)
+      if (nameInput === 6) form.setField('NUME_REGI_TERMICO', res.data.data.NUME_REGI_ARC)
     }
 
     setIsLoadingFiles(false)
@@ -251,7 +248,7 @@ const InformacionPlantaForm = ({ back, submit, isLoading, isUpdate }: props) => 
             type="button"
             className="btn btn-outline-primary transition ease-out duration-300"
             onClick={() => {
-              toggleCreateFile.onOpen();
+              toggleCreateFile.onOpen()
               setNameInput(1)
             }}
 
@@ -271,11 +268,6 @@ const InformacionPlantaForm = ({ back, submit, isLoading, isUpdate }: props) => 
             </span>
           </button>
         </Tooltip>
-        <a
-          className="self-end btn btn-outline-primary"
-        >
-          Ver modelo
-        </a>
         {values.NUME_REGI_FUNCIONAMIENTO ? (
           <div className="text-center">
             {textSolAutoriza.addedFiles}
@@ -311,13 +303,13 @@ const InformacionPlantaForm = ({ back, submit, isLoading, isUpdate }: props) => 
       <p className="font-medium text-slate-400">
         04. {'Memoria Discriptiva'}
       </p>
-      <div className="">
+      <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
         <Tooltip label={textSolAutoriza.addMemoria} position='left'>
           <button
             type="button"
             className="btn btn-outline-primary transition ease-out duration-300"
             onClick={() => {
-              toggleCreateFile2.onOpen();
+              toggleCreateFile2.onOpen()
               setNameInput(2)
             }}
           >
@@ -336,7 +328,11 @@ const InformacionPlantaForm = ({ back, submit, isLoading, isUpdate }: props) => 
             </span>
           </button>
         </Tooltip>
-
+        <a
+          className="self-end btn btn-outline-primary"
+        >
+          Ver modelo
+        </a>
         {values.NUME_REGI_MEMORIA ? (
           <div className="text-center">
             {textSolAutoriza.addedFiles}
@@ -452,7 +448,7 @@ const InformacionPlantaForm = ({ back, submit, isLoading, isUpdate }: props) => 
             type="button"
             className="btn btn-outline-primary transition ease-out duration-300"
             onClick={() => {
-              toggleCreateFile4.onOpen();
+              toggleCreateFile4.onOpen()
               setNameInput(4)
             }}
           >
@@ -501,7 +497,7 @@ const InformacionPlantaForm = ({ back, submit, isLoading, isUpdate }: props) => 
             type="button"
             className="btn btn-outline-primary transition ease-out duration-300"
             onClick={() => {
-              toggleCreateFile5.onOpen();
+              toggleCreateFile5.onOpen()
               setNameInput(5)
             }}
           >
@@ -542,8 +538,6 @@ const InformacionPlantaForm = ({ back, submit, isLoading, isUpdate }: props) => 
           ))}
       </div>
 
-
-
       {values.TIPOAUTORIZACION === 'PF' ? (
         <div className="">
 
@@ -556,7 +550,7 @@ const InformacionPlantaForm = ({ back, submit, isLoading, isUpdate }: props) => 
                 type="button"
                 className="btn btn-outline-primary transition ease-out duration-300"
                 onClick={() => {
-                  toggleCreateFile6.onOpen();
+                  toggleCreateFile6.onOpen()
                   setNameInput(6)
                 }}
               >
@@ -602,8 +596,6 @@ const InformacionPlantaForm = ({ back, submit, isLoading, isUpdate }: props) => 
         </div>
       )}
 
-
-
       <p className="font-medium text-slate-400">
         10. {'Responsable Técnico'}
       </p>
@@ -625,7 +617,6 @@ const InformacionPlantaForm = ({ back, submit, isLoading, isUpdate }: props) => 
           onClick={handleResponsableByDni}>
           Buscar
         </button>
-
 
       </div>
 

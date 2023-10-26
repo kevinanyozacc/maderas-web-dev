@@ -24,7 +24,7 @@ const DatosGeneralesForm = ({ next, submitprueba }: props) => {
   const { values, ...form } = useForm({
     validate: (values) => datosGeneralesValid(values, currentRadioValue),
     initialValues: store.state.datosGenerales
-    
+
   })
 
   const ubigeo = useGetUbigeo({
@@ -216,7 +216,7 @@ const DatosGeneralesForm = ({ next, submitprueba }: props) => {
           {'Sede donde operará la camara de tratamiento y/o Planta fabricación de embalajes de madera'}
         </p>
       </div>
-     
+
       <Select
               label="Seleccionar Sede"
               value={values.SEDE_OPERADOR!}
@@ -224,7 +224,6 @@ const DatosGeneralesForm = ({ next, submitprueba }: props) => {
               onChange={({ value }) => form.setField('SEDE_OPERADOR', value)}
               options={sedes}
             />
-
 
       <button type="submit" className="self-end btn btn-solid-primary"
       >
