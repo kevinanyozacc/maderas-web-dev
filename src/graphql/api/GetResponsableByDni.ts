@@ -15,6 +15,7 @@ async function useGetResponsableByDni (dni: string) {
               DNI
               ESTADO
               APENOMB
+              ID
             }
           }`,
         variables: {

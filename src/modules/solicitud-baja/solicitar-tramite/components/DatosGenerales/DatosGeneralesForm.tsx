@@ -1,234 +1,264 @@
-
-
+import React, { useState } from 'react'
 import Input from '@components/shared/Input'
 import InputCleave from '@components/shared/InputCleave'
-import SelectWithFilter from '@components/shared/Select/SelectWithFilter'
+import RadioButton from '@components/shared/RadioButon'
 import useForm from '@hooks/useForm'
-import useGetUbigeo from '@hooks/useGetUbigeo'
-import useDocumentUnique from '@hooks/useIsDocumentUnique'
 import useToast from '@hooks/useToast'
 import { textResponsable } from '@modules/registro-productor/utils/textContent'
-import { useRegistroResponsable } from '@modules/Registro-responsable/solicitar-tramite/store/useRegistroResponsable'
-import datosGeneralesValid from '@modules/Registro-responsable/validation/datosGeneralesValid'
-import { SideMultistepComponentProps as props} from '@pages/solicitud-autorizacion'
-import React, { useState } from 'react'
+import { SideMultistepComponentProps as props } from '@pages/solicitud-baja'
+import { useBajaSolicitud } from '../../store/useBajaSolicitud'
+import datosGeneralesValid from '@modules/solicitud-baja/validation/datosGeneralesValid'
+import { useGetSolicitudByNimf } from '@graphql/api/GetDatosByNimf'
+import { SolicitudAutorizacionInput } from '@generated/graphql'
+import { useGetResponsableByDni } from '@graphql/api/GetResponsableByDni'
+import { classNames } from '@utils/classNames'
 
+interface IResponsable {
+  DNI: string,
+  APENOMB: string,
+  ESTADO: string,
+  ID: number,
 
+}
 
-const DatosGeneralesForm = ({next}:props ) => {
+const DatosGeneralesForm = ({ next, submit }: props) => {
 
-  const [currentRadioValue, setCurrentRadioValue] = useState<string>('')
+  const [sdata, setsSdata] = useState<SolicitudAutorizacionInput>()
+  const [sdataresponsable, setsSdataresponsable] = useState<IResponsable>()
+  const [first, setfirst] = useState('')
+  const [colorstyle, setColorstyle] = useState('')
+  const toast = useToast()
+  const store = useBajaSolicitud()
+  const { values, isChanged, setIsChanged, ...form } = useForm({
+    validate: (values) => datosGeneralesValid(values),
+    initialValues: store.state.datosGenerales
+  })
 
-     const toast = useToast()
-     const store = useRegistroResponsable()
-      const { values, ...form } = useForm({
-         validate: (values) => datosGeneralesValid(values, currentRadioValue),
-        initialValues: store.state.datosGenerales
-      })
+  function colorDoc(est: string): string {
+    if (est === '1') return 'text-blue-600 bg-blue-200'
+    if (est === '2') return 'text-green-600 bg-green-200'
+    if (est === '3') return 'text-orange-500 bg-orange-200'
+    if (est === '4') return 'text-red-600 bg-red-200'
 
-       const ubigeo = useGetUbigeo({
-         codDepa: 'values.DEPARTAMENTO',
-         codProv: 'values.PROVINCIA'
-       })
+    return est
+  }
 
-      const handleSubmit = () => {
-        // const response = datos.data?.isDocumentoUnique
-        // if (response) {
-          // store.loadDatosGenerales(values)
-          // console.log(values);
-          
-          //submitprueba()
-          next()
-        // } else {
-        //   toast({
-        //     title: 'Ya existe un Resonsable con este numero de documento',
-        //     type: 'error'
-        //   })
-        // }
-      } 
+  function estadoDoc(est: string): string {
+    if (est === '1') return 'EN TRAMITE'
+    if (est === '2') return 'AUTORIZADO'
+    if (est === '3') return 'DENEGADO'
+    if (est === '4') return 'OBSERVADO'
+    return est
+  }
+
+  const handleGetDatosNimf = async () => {
+
+    const data = await useGetSolicitudByNimf(values.CODIGO_NIMF)
+    console.log('a', data.data.getSolicitudByNimf)
+    if (!data.data.getSolicitudByNimf!) {
+      toast({ type: 'warning', title: 'No se encontró el Empresa, revisar Codigo Nimf: ' })
+    } else {
+      toast({ type: 'success', title: 'Se encontró informacion de la Empresa: ' })
+      // setEstadoDatos(data?.data?.getBajaSolicitudByExp)
+      setsSdata(data.data.getSolicitudByNimf)
+      form.setFields({ CODIGO_SA: data.data.getSolicitudByNimf.ID || '' })
+      //toggle.onOpen()
+      console.log('data', sdata)
+
+    }
+  }
+
+  const handleResponsableByDni = async () => {
+    const { data } = await useGetResponsableByDni(values.DNI_RESPONSABLE)
+    console.log(data);
+    
+    if (data?.getResponsableSolicitud!) {
+      setsSdataresponsable(data.getResponsableSolicitud)
+       setfirst(estadoDoc(data?.getResponsableSolicitud.ESTADO))
+       setColorstyle(colorDoc(data?.getResponsableSolicitud.ESTADO))
+       form.setFields({ ID_RESPONSABLE:  data.getResponsableSolicitud.ID})
+      toast({ title: 'Se encontro DNI ingresado', type: 'success' })
+    } else {
+
+      // setfirst('')
+      // setColorstyle('')
+      toast({ title: 'El DNI ingresado no se encuentra en los datos de Responsables Técnicos', type: 'warning' })
+    }
+  }
+
+  const handleSubmit = () => {
+    // const response = datos.data?.isDocumentoUnique
+    if (values.FECHA_BAJA) {
+      const fechaTermino = new Date(`${values.FECHA_BAJA.slice(3, 5)} ${values.FECHA_BAJA.slice(0, 2)}, ${values.FECHA_BAJA.slice(-4)}`)
+      values.FECHA_BAJA = fechaTermino.toISOString().slice(0, 10);
+    }else{
+      values.FECHA_BAJA = null
+    }
+    console.log(first);
+    if (!values.DNI_RESPONSABLE) {
+      values.ID_RESPONSABLE = null
+    }
+    
+    if (first !== 'AUTORIZADO' && values.TIPO_SOLICITUD === 'SRT') {
+      toast({ title: 'El Responsable Tecnico no se encuentra autorizado para la solicitud.', type: 'warning' })
+    
+    }else{
+
+      // values.DNI_RESPONSABLE = ''
+      // values.ID_RESPONSABLE = null
+      store.loadDatosGenerales(values)
+      console.log(values);
+      submit()
+
+    }
+  }
 
   return (
     <form className="flex flex-col gap-6"
-    onSubmit={form.onSubmit(handleSubmit)}
+      onSubmit={form.onSubmit(handleSubmit)}
     >
-    <div className="border-b dark:border-b-slate-700">
-      
+      <div className="border-b dark:border-b-slate-700">
+
+        <p className="font-medium text-slate-400">
+          {textResponsable.titleForm}
+        </p>
+      </div>
+
+      <div className="grid grid-cols-1 gap-6 sm:grid-cols-3">
+        <Input
+          label="Código NIMF-15"
+          {...form.inputProps('CODIGO_NIMF')}
+          error={form.errors.CODIGO_NIMF}
+        />
+        <button className="self-end btn btn-solid-primary"
+          onClick={handleGetDatosNimf}
+          type='button'
+        >
+          Consultar
+        </button>
+
+      </div>
+      <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
+        <Input
+          label="Razon social"
+          type="razon"
+          value={sdata?.RAZON_SOCIAL}
+          readOnly
+        />
+        <Input
+          label="Dirección"
+          value={sdata?.DOMICILIO}
+          readOnly
+        />
+      </div>
+
+      <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
+        <RadioButton
+          value={values.TIPO_SOLICITUD}
+          className="flex flex-col gap-3"
+          onChange={(value) => {
+            form.setField('TIPO_SOLICITUD', value)
+            !isChanged && setIsChanged(true)
+          }}
+          options={[
+            { label: 'Solicitud de Baja de autorización', value: 'SBA' },
+            { label: 'Solicitud de Baja de Responsable Técnico', value: 'SBR' },
+            { label: 'Solicitud de nuevo Responsable Técnico', value: 'SRT' }
+          ]}
+        />
+      </div>
+
+      {values.TIPO_SOLICITUD === 'SBA' ? (
+        <>
+          <div className="border-b dark:border-b-slate-700">
             <p className="font-medium text-slate-400">
-              {textResponsable.titleForm}
+              {'Solicitud de Baja de autorización'}
             </p>
-          </div>
-       
-        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
-            <Input
-              label="Código NIMF-15"
-              // value={values.DOMICILIO!}
-              {...form.inputProps('DOMICILIO')}
-              // pattern={patterns.onlyLetters}
-              // onChange={(e) =>
-              //   e.target.validity.valid &&
-              //   form.setField('NOMBRES_SOLICITANTE', e.target.value)
-              // }
-              error={form.errors.DOMICILIO}
-            />
-         
           </div>
           <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
-         <Input
-              label="Razon social"
-              type="razon"
-              // {...form.inputProps('RAZON_SOCIAL')}
-              // value={values.RAZON_SOCIAL!}
-              // pattern={patterns.onlyLetters}
-              // onChange={(e) =>
-              //   e.target.validity.valid &&
-              //   form.setField('NOMBRES_SOLICITANTE', e.target.value)
-              // }
-              // error={"Igrese Razon Social"}
-            />
-            <Input
-              label="Dirección"
-              // value={values.DOMICILIO!}
-              {...form.inputProps('DOMICILIO')}
-              // pattern={patterns.onlyLetters}
-              // onChange={(e) =>
-              //   e.target.validity.valid &&
-              //   form.setField('NOMBRES_SOLICITANTE', e.target.value)
-              // }
-              error={form.errors.DOMICILIO}
-            />
-        </div>
-      
-          <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
-        <SelectWithFilter
-          withFilter
-          label="Departamento"
-          // value={values.DEPARTAMENTO}
-          // error={form.errors.DEPARTAMENTO}
-          onChange={({ value }) => {
-            form.setFields({
-              DEPARTAMENTO: value,
-              PROVINCIA: '',
-              DISTRITO: ''
-            })
-          }}
-          options={ubigeo.departamentos}
-          dataExtractor={{ label: 'NOMB_DPTO_DPT', value: 'CODI_DEPA_DPT' }}
-        />
-        <SelectWithFilter
-          withFilter
-          label="Provincia"
-          // value={values.PROVINCIA}
-          // error={form.errors.PROVINCIA}
-          onChange={({ value }) => {
-            form.setFields({ PROVINCIA: value, DISTRITO: '' })
-          }}
-          options={ubigeo.provincias}
-          dataExtractor={{ label: 'NOMB_PROV_TPR', value: 'CODI_PROV_TPR' }}
-        />
-        <SelectWithFilter
-          withFilter
-          label="Distrito"
-          // value={values.DISTRITO}
-          options={ubigeo.distritos}
-          // error={form.errors.DISTRITO}
-          // onChange={({ value }) => form.setField('DISTRITO', value)}
-          dataExtractor={{ label: 'NOMB_DIST_TDI', value: 'CODI_DIST_TDI' }}
-        />
-      </div>
-      <p className="font-medium text-slate-400">
-              {'Solcitud de Baja de autorización'}
-            </p>
-
-      <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
-        <Input
-          type="email"
-          label="Solicitud"
-          // {...form.inputProps('CORREO')}
-        />
-           <InputCleave
+            <InputCleave
               label="Fecha fin operación (DD-MM-AAAA)"
-              // {...form.inputProps('FECHA_INICIO')}
+              {...form.inputProps('FECHA_BAJA')}
             />
-      </div>
-      <p className="font-medium text-slate-400">
-              {'Solcitud de Baja de Responsable Técnico'}
+          </div>
+        </>
+      ) : (
+        <div></div>
+      )}
+
+      {values.TIPO_SOLICITUD === 'SBR' ? (
+        <>
+          <div className="border-b dark:border-b-slate-700">
+            <p className="font-medium text-slate-400">
+              {'Solicitud de Baja de Responsable Técnico'}
             </p>
-      <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
-        <Input
-          type="email"
-          label="Solicitud"
-          // {...form.inputProps('CORREO')}
-        />
-           <InputCleave
+          </div>
+          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
+            <InputCleave
               label="Fecha fin operación RT(DD-MM-AAAA)"
-              // {...form.inputProps('FECHA_INICIO')}
-            />
-      </div>
-
-
-      <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
-            <Input
-              label="DNI"
-              // value={values.DNI!}
-              // {...form.inputProps('DNI')}
-              // pattern={patterns.onlyLetters}
-              // onChange={(e) =>
-              //   e.target.validity.valid &&
-              //   form.setField('NOMBRES_SOLICITANTE', e.target.value)
-              // }
-              // error={"Igrese DNI"}
-            />
-            <Input
-              label="Nombre y Apellido"
-              // value={values.REPRESENTANTE_LEGAL!}
-              // {...form.inputProps('REPRESENTANTE_LEGAL')}
-              // pattern={patterns.onlyLetters}
-              // onChange={(e) =>
-              //   e.target.validity.valid &&
-              //   form.setField('APELLIDOS_SOLICITANTE', e.target.value)
-              // }
-              // error={"Igrese Representante"}
+              {...form.inputProps('FECHA_BAJA')}
             />
           </div>
-          <p className="font-medium text-slate-400">
-              {'Solcitud de nuevo Responsable Técnico'}
+        </>
+      ) : (
+        <div></div>
+      )}
+
+      {values.TIPO_SOLICITUD === 'SRT' ? (
+        <>
+          <div className="border-b dark:border-b-slate-700">
+            <p className="font-medium text-slate-400">
+              {'Solicitud de nuevo Responsable Técnico'}
             </p>
+          </div>
 
-            <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
+          <div className="grid grid-cols-1 gap-6 sm:grid-cols-3">
             <Input
               label="DNI"
               // value={values.DNI!}
-              // {...form.inputProps('DNI')}
-              // pattern={patterns.onlyLetters}
-              // onChange={(e) =>
-              //   e.target.validity.valid &&
-              //   form.setField('NOMBRES_SOLICITANTE', e.target.value)
-              // }
-              // error={"Igrese DNI"}
+              {...form.inputProps('DNI_RESPONSABLE')}
+            // pattern={patterns.onlyLetters}
+            // onChange={(e) =>
+            //   e.target.validity.valid &&
+            //   form.setField('NOMBRES_SOLICITANTE', e.target.value)
+            // }
+            // error={"Igrese DNI"}
             />
-            <Input
-              label="Nombre y Apellido"
-              // value={values.REPRESENTANTE_LEGAL!}
-              // {...form.inputProps('REPRESENTANTE_LEGAL')}
-              // pattern={patterns.onlyLetters}
-              // onChange={(e) =>
-              //   e.target.validity.valid &&
-              //   form.setField('APELLIDOS_SOLICITANTE', e.target.value)
-              // }
-              // error={"Igrese Representante"}
-            />
-            <a
-             className="self-end btn btn-outline-primary"
+            <button className="self-end btn btn-solid-primary"
+              onClick={handleResponsableByDni}
+              type='button'
             >
-              Estado
-            </a>
+              Consultar
+            </button>
+
+           
 
           </div>
+          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
+          <Input
+              label="Nombre y Apellido"
+              value={sdataresponsable?.APENOMB}
+              readOnly
+            />
+            
+            <div
+          className={classNames([
+            colorstyle,
+            ' text-center font-semibold py-1 px-4 rounded-full whitespace-nowrap'
+          ])}
+        >
+          <div className='mt-3'>{first}</div>
+        </div>
+          </div>
+        </>
+      ) : (
+        <div></div>
+      )}
 
       <button type="submit" className="self-end btn btn-solid-primary">
-        Guardar 
+        Guardar
       </button>
-      
+
     </form>
   )
 }

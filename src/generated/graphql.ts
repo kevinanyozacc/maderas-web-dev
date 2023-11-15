@@ -161,6 +161,41 @@ export type ArchivoResponse = {
   REGISTRO?: Maybe<Scalars['String']>;
 };
 
+export type BajaSolicitud = {
+  __typename?: 'BajaSolicitud';
+  CODIGO_NIMF: Scalars['String'];
+  CODIGO_SA?: Maybe<Scalars['Float']>;
+  DNI_RESPONSABLE?: Maybe<Scalars['String']>;
+  ESTADO_BAJA?: Maybe<Scalars['String']>;
+  EXPEDIENTE: Scalars['String'];
+  FECHA_BAJA?: Maybe<Scalars['Date']>;
+  FECHA_REGISTRO?: Maybe<Scalars['Date']>;
+  ID: Scalars['Int'];
+  ID_RESPONSABLE?: Maybe<Scalars['Float']>;
+  OBSERVACION?: Maybe<Scalars['String']>;
+  TIPO_SOLICITUD: Scalars['String'];
+};
+
+export type BajaSolicitudInput = {
+  CODIGO_NIMF: Scalars['String'];
+  CODIGO_SA?: InputMaybe<Scalars['Float']>;
+  DNI_RESPONSABLE: Scalars['String'];
+  ESTADO_BAJA?: InputMaybe<Scalars['String']>;
+  EXPEDIENTE: Scalars['String'];
+  FECHA_BAJA?: InputMaybe<Scalars['Date']>;
+  FECHA_REGISTRO?: InputMaybe<Scalars['Date']>;
+  ID?: InputMaybe<Scalars['Int']>;
+  ID_RESPONSABLE?: InputMaybe<Scalars['Float']>;
+  OBSERVACION?: InputMaybe<Scalars['String']>;
+  TIPO_SOLICITUD: Scalars['String'];
+};
+
+export type BajaSolicitudResponse = {
+  __typename?: 'BajaSolicitudResponse';
+  errors?: Maybe<Array<FieldError>>;
+  informacion?: Maybe<BajaSolicitud>;
+};
+
 export type ChangePasswordResponse = {
   __typename?: 'ChangePasswordResponse';
   data?: Maybe<Scalars['Boolean']>;
@@ -726,6 +761,7 @@ export type InformacionSolicitud = {
   NUME_REGI_TERMICO?: Maybe<Scalars['String']>;
   NUME_REGI_TRAMITE?: Maybe<Scalars['String']>;
   PROVINCIA: Scalars['String'];
+  RESPONSABLE_ID?: Maybe<Scalars['Float']>;
   SENSORES?: Maybe<Scalars['String']>;
   SOLICITUD_ID?: Maybe<Scalars['Int']>;
   TIPOAUTORIZACION: Scalars['String'];
@@ -746,6 +782,7 @@ export type InformacionSolicitudInput = {
   NUME_REGI_TERMICO: Scalars['String'];
   NUME_REGI_TRAMITE: Scalars['String'];
   PROVINCIA: Scalars['String'];
+  RESPONSABLE_ID?: InputMaybe<Scalars['Float']>;
   SENSORES: Scalars['String'];
   SOLICITUD_ID?: InputMaybe<Scalars['Int']>;
   TIPOAUTORIZACION: Scalars['String'];
@@ -755,6 +792,76 @@ export type InformacionSolicitudResponse = {
   __typename?: 'InformacionSolicitudResponse';
   errors?: Maybe<Array<FieldError>>;
   informacion?: Maybe<InformacionSolicitud>;
+};
+
+export type InpeccionTratamientoCreate = {
+  __typename?: 'InpeccionTratamientoCreate';
+  errors?: Maybe<Array<FieldError>>;
+  tratamiento?: Maybe<Array<InspeccionTratamiento>>;
+};
+
+export type InpeccionTratamientoUpdate = {
+  __typename?: 'InpeccionTratamientoUpdate';
+  errors?: Maybe<Array<FieldError>>;
+  tratamiento?: Maybe<InspeccionTratamiento>;
+};
+
+export type InspeccionSolicitud = {
+  __typename?: 'InspeccionSolicitud';
+  CODIGO_NIMF?: Maybe<Scalars['String']>;
+  ESTADO_CERTIFICADO: Scalars['String'];
+  FECHA_REGISTRO?: Maybe<Scalars['Date']>;
+  ID: Scalars['Int'];
+  NUMERO_EMPRESA?: Maybe<Scalars['String']>;
+  NUMERO_TRATAMIENTO?: Maybe<Scalars['String']>;
+  NUME_REGI_ACTA: Scalars['String'];
+  NUME_REGI_TRATAMIENTO: Scalars['String'];
+  OBSERVACION?: Maybe<Scalars['String']>;
+  SOLICITUD_ID: Scalars['Int'];
+};
+
+export type InspeccionSolicitudInput = {
+  CODIGO_NIMF?: InputMaybe<Scalars['String']>;
+  ESTADO_CERTIFICADO: Scalars['String'];
+  FECHA_REGISTRO?: InputMaybe<Scalars['Date']>;
+  ID?: InputMaybe<Scalars['Int']>;
+  NUMERO_EMPRESA?: InputMaybe<Scalars['String']>;
+  NUMERO_TRATAMIENTO?: InputMaybe<Scalars['String']>;
+  NUME_REGI_ACTA: Scalars['String'];
+  NUME_REGI_TRATAMIENTO: Scalars['String'];
+  OBSERVACION?: InputMaybe<Scalars['String']>;
+  SOLICITUD_ID: Scalars['Int'];
+};
+
+export type InspeccionSolicitudResponse = {
+  __typename?: 'InspeccionSolicitudResponse';
+  errors?: Maybe<Array<FieldError>>;
+  informacion?: Maybe<InspeccionSolicitud>;
+};
+
+export type InspeccionTratamiento = {
+  __typename?: 'InspeccionTratamiento';
+  FT_HORA: Scalars['String'];
+  FT_TEMP: Scalars['String'];
+  IC_HORA: Scalars['String'];
+  IC_TEMP: Scalars['String'];
+  ID: Scalars['Int'];
+  INSPECCION_ID: Scalars['Int'];
+  IT_HORA: Scalars['String'];
+  IT_TEMP: Scalars['String'];
+  SECCION: Scalars['String'];
+};
+
+export type InspeccionTratamientoInput = {
+  FT_HORA: Scalars['String'];
+  FT_TEMP: Scalars['String'];
+  IC_HORA: Scalars['String'];
+  IC_TEMP: Scalars['String'];
+  ID?: InputMaybe<Scalars['Int']>;
+  INSPECCION_ID: Scalars['Int'];
+  IT_HORA: Scalars['String'];
+  IT_TEMP: Scalars['String'];
+  SECCION: Scalars['String'];
 };
 
 export type Laboratorio = {
@@ -876,6 +983,7 @@ export type Mutation = {
   createAnalisisCalidad: AnalisisCalidadResponse;
   createArchivo: CreateArchivoResponse;
   createArchivoFisico: CreateArchivoFisicoResponse;
+  createBajaSolicitud: BajaSolicitudResponse;
   createConocimiento?: Maybe<ConocimientoResponseCreate>;
   createCultivar: CultivarResponse;
   createCultivarComercial: CultivarComercialResponse;
@@ -887,24 +995,32 @@ export type Mutation = {
   createInfoEnsayo: InformacionEnsayoResponse;
   createInformacionResponsable: InformacionResponsableResponse;
   createInformacionSolicitud: InformacionSolicitudResponse;
+  createInspeccionTratamiento?: Maybe<InpeccionTratamientoCreate>;
   createLocalidadEnsayo: LocalidadEnsayoCreateResponse;
   createMantenimientoSemilla: MantResponse;
   createProfesional: ProfesionalResponse;
+  createRegistroFormato?: Maybe<RegistroFormatoCreate>;
+  createRegistroReporte: RegistroReporteResponse;
   createResponsable: ResponsableResponse;
   createSensores?: Maybe<SensoresResponseCreate>;
   createSolicitante: SolicitanteResponse;
   createSolicitudAutorizacion: SolicitudAutorizacionResponse;
+  createSolicitudInspeccion: InspeccionSolicitudResponse;
   createSucursal: SucursalCreateResponse;
   createTierraCultivos: TierraCultivoResponseCreate;
   createUsuario: UsuarioResponse;
   deleteAlmacen: Scalars['Boolean'];
   deleteArchivoFisico: Scalars['Boolean'];
+  deleteBaja: Scalars['Boolean'];
   deleteConocimiento: Scalars['Boolean'];
   deleteEspecializacion: Scalars['Boolean'];
   deleteExperiencia: Scalars['Boolean'];
   deleteInfoCultivo: Scalars['Boolean'];
   deleteInformacionResponsable: Scalars['Boolean'];
+  deleteInspeccion: Scalars['Boolean'];
+  deleteInspeccionTratamiento: Scalars['Boolean'];
   deleteProfesional: Scalars['Boolean'];
+  deleteRegistroFormato: Scalars['Boolean'];
   deleteResponsable: Scalars['Boolean'];
   deleteSensores: Scalars['Boolean'];
   deleteSolicitante: Scalars['Boolean'];
@@ -920,6 +1036,7 @@ export type Mutation = {
   updateAcondicionamiento: AcondicionamientoResponse;
   updateAlmacen: AlmacenUpdateResponse;
   updateAnalisisCalidad: AnalisisCalidadResponse;
+  updateBajaSolicitud: BajaSolicitudResponse;
   updateConocimiento: ConocimientoResponseUpdate;
   updateCultivar: CultivarResponse;
   updateCultivarComercial: CultivarComercialResponse;
@@ -937,16 +1054,20 @@ export type Mutation = {
   updateInfoEnsayo: InformacionEnsayoResponse;
   updateInformacionResponsable: InformacionResponsableResponse;
   updateInformacionSolicitud: InformacionSolicitudResponse;
+  updateInspeccionTratamiento: InpeccionTratamientoUpdate;
   updateLocalidadEnsayo: LocalidadEnsayoUpdateResponse;
   updateMantenimientoSemilla: MantResponse;
   updateObservacion: Scalars['Boolean'];
   updateProfesional: ProfesionalResponse;
+  updateRegistroFormato: RegistroFormatoUpdate;
+  updateRegistroReporte: RegistroReporteResponse;
   updateResponsable: ResponsableResponse;
   updateResponsableRol: Scalars['Boolean'];
   updateSensores: SensoresResponseUpdate;
   updateSolicitante: SolicitanteResponse;
   updateSolicitanteRol: Scalars['Boolean'];
   updateSolicitudAutorizacion: SolicitudAutorizacionResponse;
+  updateSolicitudInspeccion: InspeccionSolicitudResponse;
   updateSucursal: SucursalUpdateResponse;
   updateTierraCultivo: TierraCultivoResponseUpdate;
   updateUsuario: UsuarioResponse;
@@ -993,6 +1114,11 @@ export type MutationCreateArchivoArgs = {
 
 export type MutationCreateArchivoFisicoArgs = {
   input: CreateArchivoFisicoInput;
+};
+
+
+export type MutationCreateBajaSolicitudArgs = {
+  input: BajaSolicitudInput;
 };
 
 
@@ -1051,6 +1177,11 @@ export type MutationCreateInformacionSolicitudArgs = {
 };
 
 
+export type MutationCreateInspeccionTratamientoArgs = {
+  input: Array<InspeccionTratamientoInput>;
+};
+
+
 export type MutationCreateLocalidadEnsayoArgs = {
   input: Array<LocalidadEnsayoCreateInput>;
 };
@@ -1063,6 +1194,16 @@ export type MutationCreateMantenimientoSemillaArgs = {
 
 export type MutationCreateProfesionalArgs = {
   input: ProfesionalInput;
+};
+
+
+export type MutationCreateRegistroFormatoArgs = {
+  input: Array<RegistroFormatoInput>;
+};
+
+
+export type MutationCreateRegistroReporteArgs = {
+  input: RegistroReporteInput;
 };
 
 
@@ -1083,6 +1224,11 @@ export type MutationCreateSolicitanteArgs = {
 
 export type MutationCreateSolicitudAutorizacionArgs = {
   input: SolicitudAutorizacionInput;
+};
+
+
+export type MutationCreateSolicitudInspeccionArgs = {
+  input: InspeccionSolicitudInput;
 };
 
 
@@ -1112,6 +1258,11 @@ export type MutationDeleteArchivoFisicoArgs = {
 };
 
 
+export type MutationDeleteBajaArgs = {
+  Id: Scalars['Int'];
+};
+
+
 export type MutationDeleteConocimientoArgs = {
   id: Scalars['Float'];
 };
@@ -1137,8 +1288,23 @@ export type MutationDeleteInformacionResponsableArgs = {
 };
 
 
+export type MutationDeleteInspeccionArgs = {
+  Id: Scalars['Int'];
+};
+
+
+export type MutationDeleteInspeccionTratamientoArgs = {
+  id: Scalars['Float'];
+};
+
+
 export type MutationDeleteProfesionalArgs = {
   profesionalId: Scalars['Int'];
+};
+
+
+export type MutationDeleteRegistroFormatoArgs = {
+  id: Scalars['Float'];
 };
 
 
@@ -1211,6 +1377,11 @@ export type MutationUpdateAlmacenArgs = {
 
 export type MutationUpdateAnalisisCalidadArgs = {
   input: AnalisisCalidadUpdateinput;
+};
+
+
+export type MutationUpdateBajaSolicitudArgs = {
+  input: BajaSolicitudInput;
 };
 
 
@@ -1301,6 +1472,11 @@ export type MutationUpdateInformacionSolicitudArgs = {
 };
 
 
+export type MutationUpdateInspeccionTratamientoArgs = {
+  input: InspeccionTratamientoInput;
+};
+
+
 export type MutationUpdateLocalidadEnsayoArgs = {
   input: LocalidadEnsayoUpdateInput;
 };
@@ -1318,6 +1494,16 @@ export type MutationUpdateObservacionArgs = {
 
 export type MutationUpdateProfesionalArgs = {
   input: ProfesionalInput;
+};
+
+
+export type MutationUpdateRegistroFormatoArgs = {
+  input: RegistroFormatoInput;
+};
+
+
+export type MutationUpdateRegistroReporteArgs = {
+  input: RegistroReporteInput;
 };
 
 
@@ -1355,6 +1541,11 @@ export type MutationUpdateSolicitanteRolArgs = {
 
 export type MutationUpdateSolicitudAutorizacionArgs = {
   input: SolicitudAutorizacionInput;
+};
+
+
+export type MutationUpdateSolicitudInspeccionArgs = {
+  input: InspeccionSolicitudInput;
 };
 
 
@@ -1510,6 +1701,7 @@ export type Query = {
   getAllTierraCultivo: TierraCultivo;
   getAllUsuarios: UsuarioPaginatedResponse;
   getArchivosByNumeRegiArc?: Maybe<ArchivoResponse>;
+  getBajaSolicitudByExp?: Maybe<BajaSolicitud>;
   getConocimientoById?: Maybe<Conocimiento>;
   getConocimientoByResponsable: Array<Conocimiento>;
   getCultivarByEspecie?: Maybe<Array<Cultivares>>;
@@ -1531,6 +1723,7 @@ export type Query = {
   getPersonaNatural?: Maybe<DatosReniec>;
   getProfesionalById?: Maybe<Profesional>;
   getProvincias: Array<Provincia>;
+  getRegistroReporteByExp?: Maybe<RegistroReporte>;
   getResponsableByExp?: Maybe<Responsable>;
   getResponsableById?: Maybe<Responsable>;
   getResponsableByRole: Array<Responsable>;
@@ -1540,11 +1733,15 @@ export type Query = {
   getSensoresById?: Maybe<SolicitudSensor>;
   getSolicitanteById?: Maybe<Solicitante>;
   getSolicitudByExp?: Maybe<SolicitudAutorizacion>;
+  getSolicitudByNimf?: Maybe<SolicitudAutorizacion>;
+  getSolicitudByNimf2?: Maybe<TramiteSolicitudAutorizacion>;
   getSolicitudByRole: Array<SolicitudAutorizacion>;
   getSolicitudByRoleSede: Array<SolicitudAutorizacion>;
+  getSolicitudInspeccionById?: Maybe<InspeccionSolicitud>;
   getTierraCultivoById?: Maybe<TierraCultivo>;
   getTramiteByRegistroId?: Maybe<Tramite>;
   getTramiteResponsableByRegistroId?: Maybe<TramiteResp>;
+  getTramiteSolcitudByCodigoNimf?: Maybe<TramiteSolicitudObject>;
   getTramiteSolcitudByRegistroId?: Maybe<TramiteSolicitudObject>;
   getUsuarioById?: Maybe<Usuario>;
   isDocumentoUnique: Scalars['Boolean'];
@@ -1596,6 +1793,11 @@ export type QueryGetAllUsuariosArgs = {
 
 export type QueryGetArchivosByNumeRegiArcArgs = {
   numeRegiArc: Scalars['String'];
+};
+
+
+export type QueryGetBajaSolicitudByExpArgs = {
+  expediente: Scalars['String'];
 };
 
 
@@ -1712,6 +1914,11 @@ export type QueryGetProvinciasArgs = {
 };
 
 
+export type QueryGetRegistroReporteByExpArgs = {
+  expediente: Scalars['String'];
+};
+
+
 export type QueryGetResponsableByExpArgs = {
   expediente: Scalars['String'];
 };
@@ -1753,6 +1960,16 @@ export type QueryGetSolicitudByExpArgs = {
 };
 
 
+export type QueryGetSolicitudByNimfArgs = {
+  nroNimf: Scalars['String'];
+};
+
+
+export type QueryGetSolicitudByNimf2Args = {
+  nroNimf: Scalars['String'];
+};
+
+
 export type QueryGetSolicitudByRoleArgs = {
   ROLASIGNADO: Scalars['String'];
 };
@@ -1761,6 +1978,11 @@ export type QueryGetSolicitudByRoleArgs = {
 export type QueryGetSolicitudByRoleSedeArgs = {
   ROLASIGNADO: Scalars['String'];
   SEDE_OPERADOR: Scalars['String'];
+};
+
+
+export type QueryGetSolicitudInspeccionByIdArgs = {
+  expediente: Scalars['Float'];
 };
 
 
@@ -1776,6 +1998,11 @@ export type QueryGetTramiteByRegistroIdArgs = {
 
 export type QueryGetTramiteResponsableByRegistroIdArgs = {
   id: Scalars['Int'];
+};
+
+
+export type QueryGetTramiteSolcitudByCodigoNimfArgs = {
+  codigonimf: Scalars['String'];
 };
 
 
@@ -1798,6 +2025,80 @@ export type QueryIsDocumentoUniqueArgs = {
 
 export type QueryIsValidUserArgs = {
   username: Scalars['String'];
+};
+
+export type RegistroFormato = {
+  __typename?: 'RegistroFormato';
+  CANTIDAD_TRATADA?: Maybe<Scalars['String']>;
+  ESPECIE_MADERA_TRATADA?: Maybe<Scalars['String']>;
+  EXPORTADOR?: Maybe<Scalars['String']>;
+  FECHA_TRATAMIENTO?: Maybe<Scalars['Date']>;
+  ID: Scalars['Int'];
+  ID_REPORTE?: Maybe<Scalars['Float']>;
+  LOTE?: Maybe<Scalars['String']>;
+  NUMERO_GUIA?: Maybe<Scalars['String']>;
+  NUME_REGI_ARC?: Maybe<Scalars['String']>;
+  PROCEDENCIA?: Maybe<Scalars['String']>;
+  TIPO_EMBALAJE?: Maybe<Scalars['String']>;
+  TOTAL_UNID_FAB?: Maybe<Scalars['String']>;
+  USO?: Maybe<Scalars['String']>;
+};
+
+export type RegistroFormatoCreate = {
+  __typename?: 'RegistroFormatoCreate';
+  errors?: Maybe<Array<FieldError>>;
+  tratamiento?: Maybe<Array<RegistroFormato>>;
+};
+
+export type RegistroFormatoInput = {
+  CANTIDAD_TRATADA?: InputMaybe<Scalars['String']>;
+  ESPECIE_MADERA_TRATADA?: InputMaybe<Scalars['String']>;
+  EXPORTADOR?: InputMaybe<Scalars['String']>;
+  FECHA_TRATAMIENTO?: InputMaybe<Scalars['Date']>;
+  ID?: InputMaybe<Scalars['Int']>;
+  ID_REPORTE?: InputMaybe<Scalars['Float']>;
+  LOTE?: InputMaybe<Scalars['String']>;
+  NUMERO_GUIA?: InputMaybe<Scalars['String']>;
+  NUME_REGI_ARC?: InputMaybe<Scalars['String']>;
+  PROCEDENCIA?: InputMaybe<Scalars['String']>;
+  TIPO_EMBALAJE?: InputMaybe<Scalars['String']>;
+  TOTAL_UNID_FAB?: InputMaybe<Scalars['String']>;
+  USO?: InputMaybe<Scalars['String']>;
+};
+
+export type RegistroFormatoUpdate = {
+  __typename?: 'RegistroFormatoUpdate';
+  errors?: Maybe<Array<FieldError>>;
+  tratamiento?: Maybe<RegistroFormato>;
+};
+
+export type RegistroReporte = {
+  __typename?: 'RegistroReporte';
+  CODIGO_NIMF?: Maybe<Scalars['String']>;
+  ESTADO?: Maybe<Scalars['String']>;
+  EXPEDIENTE?: Maybe<Scalars['String']>;
+  FECHA_REGISTRO?: Maybe<Scalars['Date']>;
+  ID: Scalars['Int'];
+  ID_SOLICITUD?: Maybe<Scalars['Float']>;
+  OBSERVACION?: Maybe<Scalars['String']>;
+  TIPO_REPORTE?: Maybe<Scalars['String']>;
+};
+
+export type RegistroReporteInput = {
+  CODIGO_NIMF?: InputMaybe<Scalars['String']>;
+  ESTADO?: InputMaybe<Scalars['String']>;
+  EXPEDIENTE?: InputMaybe<Scalars['String']>;
+  FECHA_REGISTRO?: InputMaybe<Scalars['Date']>;
+  ID?: InputMaybe<Scalars['Int']>;
+  ID_SOLICITUD?: InputMaybe<Scalars['Float']>;
+  OBSERVACION?: InputMaybe<Scalars['String']>;
+  TIPO_REPORTE?: InputMaybe<Scalars['String']>;
+};
+
+export type RegistroReporteResponse = {
+  __typename?: 'RegistroReporteResponse';
+  errors?: Maybe<Array<FieldError>>;
+  informacion?: Maybe<RegistroReporte>;
 };
 
 export type Responsable = {
@@ -1852,6 +2153,7 @@ export type ResponsableSol = {
   APENOMB: Scalars['String'];
   DNI: Scalars['String'];
   ESTADO: Scalars['String'];
+  ID: Scalars['Float'];
 };
 
 /** Los roles disponibles. */
@@ -2196,6 +2498,49 @@ export type TramiteExperiencia = {
   RAZON_SOCIAL: Scalars['String'];
 };
 
+export type TramiteFormatoTratamiento = {
+  __typename?: 'TramiteFormatoTratamiento';
+  CANTIDAD_TRATADA?: Maybe<Scalars['String']>;
+  ESPECIE_MADERA_TRATADA?: Maybe<Scalars['String']>;
+  EXPORTADOR?: Maybe<Scalars['String']>;
+  FECHA_TRATAMIENTO?: Maybe<Scalars['Date']>;
+  ID: Scalars['Int'];
+  ID_REPORTE?: Maybe<Scalars['Float']>;
+  LOTE?: Maybe<Scalars['String']>;
+  NUMERO_GUIA?: Maybe<Scalars['String']>;
+  NUME_REGI_ARC?: Maybe<Scalars['String']>;
+  PROCEDENCIA?: Maybe<Scalars['String']>;
+  TIPO_EMBALAJE?: Maybe<Scalars['String']>;
+  TOTAL_UNID_FAB?: Maybe<Scalars['String']>;
+  USO?: Maybe<Scalars['String']>;
+};
+
+export type TramiteInfSolicitud = {
+  __typename?: 'TramiteInfSolicitud';
+  APENOMB: Scalars['String'];
+  CAMARAS?: Maybe<Scalars['String']>;
+  DEPARTAMENTO: Scalars['String'];
+  DISTRITO: Scalars['String'];
+  DNI: Scalars['String'];
+  DOMICILIO: Scalars['String'];
+  FECHA_REGISTRO?: Maybe<Scalars['Date']>;
+  ID: Scalars['Int'];
+  NOMBRE_DEPARTAMENTO?: Maybe<Scalars['String']>;
+  NOMBRE_DISTRITO?: Maybe<Scalars['String']>;
+  NOMBRE_PROVINCIA?: Maybe<Scalars['String']>;
+  NUME_REGI_FUNCIONAMIENTO?: Maybe<Scalars['String']>;
+  NUME_REGI_MEMORIA?: Maybe<Scalars['String']>;
+  NUME_REGI_PLANO?: Maybe<Scalars['String']>;
+  NUME_REGI_SENSOR?: Maybe<Scalars['String']>;
+  NUME_REGI_TERMICO?: Maybe<Scalars['String']>;
+  NUME_REGI_TRAMITE?: Maybe<Scalars['String']>;
+  PROVINCIA: Scalars['String'];
+  RESPONSABLE_ID?: Maybe<Scalars['Float']>;
+  SENSORES?: Maybe<Scalars['String']>;
+  SOLICITUD_ID?: Maybe<Scalars['Int']>;
+  TIPOAUTORIZACION: Scalars['String'];
+};
+
 export type TramiteInfoCultivo = {
   __typename?: 'TramiteInfoCultivo';
   CULTIVO_ID?: Maybe<Scalars['Int']>;
@@ -2205,6 +2550,23 @@ export type TramiteInfoCultivo = {
   INFORMACION_CULTIVO_ID: Scalars['Int'];
   NOMBRE_CULTIVO?: Maybe<Scalars['String']>;
   NOMBRE_ESPECIE?: Maybe<Scalars['String']>;
+};
+
+export type TramiteInspeccion = {
+  __typename?: 'TramiteInspeccion';
+  CODIGO_NIMF?: Maybe<Scalars['String']>;
+  ESTADO_CERTIFICADO: Scalars['String'];
+  FECHA_REGISTRO?: Maybe<Scalars['Date']>;
+  ID: Scalars['Int'];
+  NOMBRE_DEPARTAMENTO?: Maybe<Scalars['String']>;
+  NOMBRE_DISTRITO?: Maybe<Scalars['String']>;
+  NOMBRE_PROVINCIA?: Maybe<Scalars['String']>;
+  NUMERO_EMPRESA?: Maybe<Scalars['String']>;
+  NUMERO_TRATAMIENTO?: Maybe<Scalars['String']>;
+  NUME_REGI_ACTA: Scalars['String'];
+  NUME_REGI_TRATAMIENTO: Scalars['String'];
+  OBSERVACION?: Maybe<Scalars['String']>;
+  SOLICITUD_ID: Scalars['Int'];
 };
 
 export type TramiteProfesional = {
@@ -2227,6 +2589,18 @@ export type TramiteProfesional = {
   TELEFONO: Scalars['String'];
   TIPO_DOCUMENTO: Scalars['String'];
   TIPO_PROFESIONAL: Scalars['String'];
+};
+
+export type TramiteReporte = {
+  __typename?: 'TramiteReporte';
+  CODIGO_NIMF?: Maybe<Scalars['String']>;
+  ESTADO?: Maybe<Scalars['String']>;
+  EXPEDIENTE?: Maybe<Scalars['String']>;
+  FECHA_REGISTRO?: Maybe<Scalars['Date']>;
+  ID: Scalars['Int'];
+  ID_SOLICITUD?: Maybe<Scalars['Float']>;
+  OBSERVACION?: Maybe<Scalars['String']>;
+  TIPO_REPORTE?: Maybe<Scalars['String']>;
 };
 
 export type TramiteResonsable = {
@@ -2259,6 +2633,18 @@ export type TramiteResp = {
   CONOCIMIENTO?: Maybe<Array<TramiteConocimiento>>;
   INFRESPONSABLE?: Maybe<TramiteinfResponsable>;
   RESPONSABLE?: Maybe<TramiteResonsable>;
+};
+
+export type TramiteSensor = {
+  __typename?: 'TramiteSensor';
+  DESCRIPCION?: Maybe<Scalars['String']>;
+  ID: Scalars['Int'];
+  NOMBRE_DEPARTAMENTO?: Maybe<Scalars['String']>;
+  NOMBRE_DISTRITO?: Maybe<Scalars['String']>;
+  NOMBRE_PROVINCIA?: Maybe<Scalars['String']>;
+  NUMERO: Scalars['String'];
+  NUME_REGI_SENSOR: Scalars['String'];
+  SOLICITUD_ID: Scalars['Float'];
 };
 
 export type TramiteSolicitante = {
@@ -2314,10 +2700,50 @@ export type TramiteSolicitud = {
   TELEFONO: Scalars['String'];
 };
 
+export type TramiteSolicitudAut = {
+  __typename?: 'TramiteSolicitudAut';
+  CORREO: Scalars['String'];
+  DEPARTAMENTO: Scalars['String'];
+  DISTRITO: Scalars['String'];
+  DNI: Scalars['String'];
+  DOMICILIO: Scalars['String'];
+  ESTADO?: Maybe<Scalars['String']>;
+  EXPEDIENTE: Scalars['String'];
+  FECHA_REGISTRO?: Maybe<Scalars['Date']>;
+  FECHA_REVISION?: Maybe<Scalars['Date']>;
+  ID: Scalars['Int'];
+  NOMBRE_DEPARTAMENTO?: Maybe<Scalars['String']>;
+  NOMBRE_DISTRITO?: Maybe<Scalars['String']>;
+  NOMBRE_PROVINCIA?: Maybe<Scalars['String']>;
+  OBSERVACION?: Maybe<Scalars['String']>;
+  PROVINCIA: Scalars['String'];
+  RAZON_SOCIAL: Scalars['String'];
+  REPRESENTANTE_LEGAL: Scalars['String'];
+  ROLASIGNADO?: Maybe<Scalars['String']>;
+  ROLPREASIGNADO?: Maybe<Scalars['String']>;
+  RUC: Scalars['String'];
+  SEDE_OPERADOR?: Maybe<Scalars['String']>;
+  TELEFONO: Scalars['String'];
+};
+
+export type TramiteSolicitudAutorizacion = {
+  __typename?: 'TramiteSolicitudAutorizacion';
+  INFORMACIONSOLICITUD?: Maybe<TramiteInfSolicitud>;
+  INSPECCION?: Maybe<TramiteInspeccion>;
+  REPORTE?: Maybe<TramiteReporte>;
+  SOLICITUD?: Maybe<TramiteSolicitudAut>;
+  TRATAMIENTO?: Maybe<Array<TramiteFormatoTratamiento>>;
+};
+
 export type TramiteSolicitudObject = {
   __typename?: 'TramiteSolicitudObject';
+  FORMATO?: Maybe<Array<RegistroFormato>>;
   INFSOLICITUD?: Maybe<TramiteinfSolicitud>;
+  INSPECCION?: Maybe<InspeccionSolicitud>;
+  REPORTE?: Maybe<Array<RegistroReporte>>;
+  SENSORES?: Maybe<Array<TramiteSensor>>;
   SOLICITUD?: Maybe<TramiteSolicitud>;
+  TRATAMIENTO?: Maybe<Array<InspeccionTratamiento>>;
 };
 
 export type TramiteSucursal = {
@@ -2395,6 +2821,7 @@ export type TramiteinfSolicitud = {
   NUME_REGI_TERMICO?: Maybe<Scalars['String']>;
   NUME_REGI_TRAMITE?: Maybe<Scalars['String']>;
   PROVINCIA: Scalars['String'];
+  RESPONSABLE_ID?: Maybe<Scalars['Float']>;
   SENSORES?: Maybe<Scalars['String']>;
   SOLICITUD_ID?: Maybe<Scalars['Int']>;
   TIPOAUTORIZACION: Scalars['String'];
@@ -2687,6 +3114,33 @@ export const DeleteArchivoFisicoDocument = gql`
 
 export function useDeleteArchivoFisicoMutation() {
   return Urql.useMutation<DeleteArchivoFisicoMutation, DeleteArchivoFisicoMutationVariables>(DeleteArchivoFisicoDocument);
+};
+export const CreateBajaSolicitudDocument = gql`
+    mutation CreateBajaSolicitud($input: BajaSolicitudInput!) {
+  createBajaSolicitud(input: $input) {
+    informacion {
+      ID
+      CODIGO_NIMF
+      CODIGO_SA
+      TIPO_SOLICITUD
+      DNI_RESPONSABLE
+      ID_RESPONSABLE
+      ESTADO_BAJA
+      FECHA_REGISTRO
+      FECHA_BAJA
+      OBSERVACION
+      EXPEDIENTE
+    }
+    errors {
+      field
+      message
+    }
+  }
+}
+    `;
+
+export function useCreateBajaSolicitudMutation() {
+  return Urql.useMutation<CreateBajaSolicitudMutation, CreateBajaSolicitudMutationVariables>(CreateBajaSolicitudDocument);
 };
 export const CreateConocimientoDocument = gql`
     mutation CreateConocimiento($input: [ConocimientoInput!]!) {
@@ -3193,6 +3647,27 @@ export const UpdateLocalidadEnsayoDocument = gql`
 export function useUpdateLocalidadEnsayoMutation() {
   return Urql.useMutation<UpdateLocalidadEnsayoMutation, UpdateLocalidadEnsayoMutationVariables>(UpdateLocalidadEnsayoDocument);
 };
+export const LoginDocument = gql`
+    mutation Login($input: LoginInput!) {
+  login(input: $input) {
+    data {
+      SEDE_ID
+      ROLES
+      token
+      USERNAME
+      USER_ID
+    }
+    errors {
+      field
+      message
+    }
+  }
+}
+    `;
+
+export function useLoginMutation() {
+  return Urql.useMutation<LoginMutation, LoginMutationVariables>(LoginDocument);
+};
 export const CreateMantenimientoSemillaDocument = gql`
     mutation createMantenimientoSemilla($input: MantSemillaCreateInput!) {
   createMantenimientoSemilla(input: $input) {
@@ -3296,6 +3771,94 @@ export const UpdateProfesionalDocument = gql`
 
 export function useUpdateProfesionalMutation() {
   return Urql.useMutation<UpdateProfesionalMutation, UpdateProfesionalMutationVariables>(UpdateProfesionalDocument);
+};
+export const CreateRegistroFormatoDocument = gql`
+    mutation CreateRegistroFormato($input: [RegistroFormatoInput!]!) {
+  createRegistroFormato(input: $input) {
+    tratamiento {
+      ID
+      FECHA_TRATAMIENTO
+      ESPECIE_MADERA_TRATADA
+      PROCEDENCIA
+      CANTIDAD_TRATADA
+      NUME_REGI_ARC
+      TIPO_EMBALAJE
+      TOTAL_UNID_FAB
+      NUMERO_GUIA
+      EXPORTADOR
+      USO
+      ID_REPORTE
+      LOTE
+    }
+    errors {
+      field
+      message
+    }
+  }
+}
+    `;
+
+export function useCreateRegistroFormatoMutation() {
+  return Urql.useMutation<CreateRegistroFormatoMutation, CreateRegistroFormatoMutationVariables>(CreateRegistroFormatoDocument);
+};
+export const CreateRegistroReporteDocument = gql`
+    mutation CreateRegistroReporte($input: RegistroReporteInput!) {
+  createRegistroReporte(input: $input) {
+    informacion {
+      ID
+      FECHA_REGISTRO
+      EXPEDIENTE
+      ESTADO
+      OBSERVACION
+    }
+    errors {
+      field
+      message
+    }
+  }
+}
+    `;
+
+export function useCreateRegistroReporteMutation() {
+  return Urql.useMutation<CreateRegistroReporteMutation, CreateRegistroReporteMutationVariables>(CreateRegistroReporteDocument);
+};
+export const DeleteRegistroFormatoDocument = gql`
+    mutation DeleteRegistroFormato($deleteRegistroFormatoId: Float!) {
+  deleteRegistroFormato(id: $deleteRegistroFormatoId)
+}
+    `;
+
+export function useDeleteRegistroFormatoMutation() {
+  return Urql.useMutation<DeleteRegistroFormatoMutation, DeleteRegistroFormatoMutationVariables>(DeleteRegistroFormatoDocument);
+};
+export const UpdateRegistroFormatoDocument = gql`
+    mutation UpdateRegistroFormato($input: RegistroFormatoInput!) {
+  updateRegistroFormato(input: $input) {
+    tratamiento {
+      ID
+      FECHA_TRATAMIENTO
+      LOTE
+      ESPECIE_MADERA_TRATADA
+      PROCEDENCIA
+      CANTIDAD_TRATADA
+      NUME_REGI_ARC
+      TIPO_EMBALAJE
+      TOTAL_UNID_FAB
+      NUMERO_GUIA
+      EXPORTADOR
+      USO
+      ID_REPORTE
+    }
+    errors {
+      field
+      message
+    }
+  }
+}
+    `;
+
+export function useUpdateRegistroFormatoMutation() {
+  return Urql.useMutation<UpdateRegistroFormatoMutation, UpdateRegistroFormatoMutationVariables>(UpdateRegistroFormatoDocument);
 };
 export const CreateResponsableDocument = gql`
     mutation CreateResponsable($input: ResponsableInput!) {
@@ -3627,6 +4190,107 @@ export const GetExpedienteByIdDocument = gql`
 export function useGetExpedienteByIdQuery(options: Omit<Urql.UseQueryArgs<GetExpedienteByIdQueryVariables>, 'query'>) {
   return Urql.useQuery<GetExpedienteByIdQuery>({ query: GetExpedienteByIdDocument, ...options });
 };
+export const GetTramiteSolcitudByCodigoNimfDocument = gql`
+    query GetTramiteSolcitudByCodigoNimf($codigonimf: String!) {
+  getTramiteSolcitudByCodigoNimf(codigonimf: $codigonimf) {
+    INSPECCION {
+      ID
+      FECHA_REGISTRO
+      NUME_REGI_ACTA
+      NUME_REGI_TRATAMIENTO
+      ESTADO_CERTIFICADO
+      OBSERVACION
+      SOLICITUD_ID
+      NUMERO_EMPRESA
+      NUMERO_TRATAMIENTO
+      CODIGO_NIMF
+    }
+    SOLICITUD {
+      ID
+      RUC
+      DNI
+      REPRESENTANTE_LEGAL
+      RAZON_SOCIAL
+      DOMICILIO
+      DISTRITO
+      DEPARTAMENTO
+      PROVINCIA
+      CORREO
+      TELEFONO
+      ESTADO
+      EXPEDIENTE
+      OBSERVACION
+      FECHA_REVISION
+      FECHA_REGISTRO
+      ROLASIGNADO
+      ROLPREASIGNADO
+      SEDE_OPERADOR
+      NOMBRE_DEPARTAMENTO
+      NOMBRE_PROVINCIA
+      NOMBRE_DISTRITO
+    }
+    INFSOLICITUD {
+      ID
+      DNI
+      APENOMB
+      DOMICILIO
+      DISTRITO
+      DEPARTAMENTO
+      PROVINCIA
+      TIPOAUTORIZACION
+      NUME_REGI_FUNCIONAMIENTO
+      NUME_REGI_MEMORIA
+      SENSORES
+      NUME_REGI_SENSOR
+      NUME_REGI_TRAMITE
+      NUME_REGI_PLANO
+      NUME_REGI_TERMICO
+      FECHA_REGISTRO
+      SOLICITUD_ID
+      CAMARAS
+      RESPONSABLE_ID
+      NOMBRE_DEPARTAMENTO
+      NOMBRE_PROVINCIA
+      NOMBRE_DISTRITO
+    }
+    SENSORES {
+      ID
+      NUMERO
+      DESCRIPCION
+      SOLICITUD_ID
+      NUME_REGI_SENSOR
+      NOMBRE_DEPARTAMENTO
+      NOMBRE_PROVINCIA
+      NOMBRE_DISTRITO
+    }
+    TRATAMIENTO {
+      ID
+      SECCION
+      IC_HORA
+      IC_TEMP
+      IT_HORA
+      IT_TEMP
+      FT_HORA
+      FT_TEMP
+      INSPECCION_ID
+    }
+    REPORTE {
+      ID
+      FECHA_REGISTRO
+      CODIGO_NIMF
+      ID_SOLICITUD
+      EXPEDIENTE
+      ESTADO
+      OBSERVACION
+      TIPO_REPORTE
+    }
+  }
+}
+    `;
+
+export function useGetTramiteSolcitudByCodigoNimfQuery(options: Omit<Urql.UseQueryArgs<GetTramiteSolcitudByCodigoNimfQueryVariables>, 'query'>) {
+  return Urql.useQuery<GetTramiteSolcitudByCodigoNimfQuery>({ query: GetTramiteSolcitudByCodigoNimfDocument, ...options });
+};
 export const GetArchivosByNumeRegiArcDocument = gql`
     query getArchivosByNumeRegiArc($numeRegiArc: String!) {
   getArchivosByNumeRegiArc(numeRegiArc: $numeRegiArc) {
@@ -3654,6 +4318,27 @@ export const GetArchivosByNumeRegiArcDocument = gql`
 
 export function useGetArchivosByNumeRegiArcQuery(options: Omit<Urql.UseQueryArgs<GetArchivosByNumeRegiArcQueryVariables>, 'query'>) {
   return Urql.useQuery<GetArchivosByNumeRegiArcQuery>({ query: GetArchivosByNumeRegiArcDocument, ...options });
+};
+export const GetBajaSolicitudByExpDocument = gql`
+    query GetBajaSolicitudByExp($expediente: String!) {
+  getBajaSolicitudByExp(expediente: $expediente) {
+    ID
+    CODIGO_NIMF
+    CODIGO_SA
+    TIPO_SOLICITUD
+    DNI_RESPONSABLE
+    ID_RESPONSABLE
+    ESTADO_BAJA
+    FECHA_REGISTRO
+    FECHA_BAJA
+    OBSERVACION
+    EXPEDIENTE
+  }
+}
+    `;
+
+export function useGetBajaSolicitudByExpQuery(options: Omit<Urql.UseQueryArgs<GetBajaSolicitudByExpQueryVariables>, 'query'>) {
+  return Urql.useQuery<GetBajaSolicitudByExpQuery>({ query: GetBajaSolicitudByExpDocument, ...options });
 };
 export const GetAllCultivaresDocument = gql`
     query GetAllCultivares($pageSize: Int!, $page: Int!) {
@@ -4339,6 +5024,13 @@ export type DeleteArchivoFisicoMutationVariables = Exact<{
 
 export type DeleteArchivoFisicoMutation = { __typename?: 'Mutation', deleteArchivoFisico: boolean };
 
+export type CreateBajaSolicitudMutationVariables = Exact<{
+  input: BajaSolicitudInput;
+}>;
+
+
+export type CreateBajaSolicitudMutation = { __typename?: 'Mutation', createBajaSolicitud: { __typename?: 'BajaSolicitudResponse', informacion?: { __typename?: 'BajaSolicitud', ID: number, CODIGO_NIMF: string, CODIGO_SA?: number | null, TIPO_SOLICITUD: string, DNI_RESPONSABLE?: string | null, ID_RESPONSABLE?: number | null, ESTADO_BAJA?: string | null, FECHA_REGISTRO?: any | null, FECHA_BAJA?: any | null, OBSERVACION?: string | null, EXPEDIENTE: string } | null, errors?: Array<{ __typename?: 'FieldError', field: string, message: string }> | null } };
+
 export type CreateConocimientoMutationVariables = Exact<{
   input: Array<ConocimientoInput> | ConocimientoInput;
 }>;
@@ -4510,6 +5202,13 @@ export type UpdateLocalidadEnsayoMutationVariables = Exact<{
 
 export type UpdateLocalidadEnsayoMutation = { __typename?: 'Mutation', updateLocalidadEnsayo: { __typename?: 'LocalidadEnsayoUpdateResponse', data?: { __typename?: 'LocalidadEnsayo', LOCALIDAD_ENSAYO_ID: number, DEPARTAMENTO_ID: string, PROVINCIA_ID: string, DISTRITO_ID: string, SECTOR: string, ALTITUD: string, FECHA_INICIO: any, FECHA_FIN: any, EXPEDIENTE_ID: number, FECHA_REGISTRO: any } | null, errors?: Array<{ __typename?: 'FieldError', field: string, message: string }> | null } };
 
+export type LoginMutationVariables = Exact<{
+  input: LoginInput;
+}>;
+
+
+export type LoginMutation = { __typename?: 'Mutation', login: { __typename?: 'LoginResponse', data?: { __typename?: 'LoginData', SEDE_ID?: number | null, ROLES: Array<RolesUsuarios>, token: string, USERNAME: string, USER_ID?: number | null } | null, errors?: Array<{ __typename?: 'FieldError', field: string, message: string }> | null } };
+
 export type CreateMantenimientoSemillaMutationVariables = Exact<{
   input: MantSemillaCreateInput;
 }>;
@@ -4537,6 +5236,34 @@ export type UpdateProfesionalMutationVariables = Exact<{
 
 
 export type UpdateProfesionalMutation = { __typename?: 'Mutation', updateProfesional: { __typename?: 'ProfesionalResponse', profesional?: { __typename?: 'Profesional', PROFESIONAL_RESPONSABLE_ID: number, NOMBRES: string, APELLIDOS: string, TIPO_DOCUMENTO: string, NUMERO_DOCUMENTO: string, DOMICILIO_LEGAL: string, TIPO_PROFESIONAL: string, ESPECIFICAR_PROFESION: string, NUMERO_CIP?: string | null, DISTRITO: string, DEPARTAMENTO: string, PROVINCIA: string, TELEFONO: string, EMAIL: string, EXPEDIENTE_ID: number } | null, errors?: Array<{ __typename?: 'FieldError', field: string, message: string }> | null } };
+
+export type CreateRegistroFormatoMutationVariables = Exact<{
+  input: Array<RegistroFormatoInput> | RegistroFormatoInput;
+}>;
+
+
+export type CreateRegistroFormatoMutation = { __typename?: 'Mutation', createRegistroFormato?: { __typename?: 'RegistroFormatoCreate', tratamiento?: Array<{ __typename?: 'RegistroFormato', ID: number, FECHA_TRATAMIENTO?: any | null, ESPECIE_MADERA_TRATADA?: string | null, PROCEDENCIA?: string | null, CANTIDAD_TRATADA?: string | null, NUME_REGI_ARC?: string | null, TIPO_EMBALAJE?: string | null, TOTAL_UNID_FAB?: string | null, NUMERO_GUIA?: string | null, EXPORTADOR?: string | null, USO?: string | null, ID_REPORTE?: number | null, LOTE?: string | null }> | null, errors?: Array<{ __typename?: 'FieldError', field: string, message: string }> | null } | null };
+
+export type CreateRegistroReporteMutationVariables = Exact<{
+  input: RegistroReporteInput;
+}>;
+
+
+export type CreateRegistroReporteMutation = { __typename?: 'Mutation', createRegistroReporte: { __typename?: 'RegistroReporteResponse', informacion?: { __typename?: 'RegistroReporte', ID: number, FECHA_REGISTRO?: any | null, EXPEDIENTE?: string | null, ESTADO?: string | null, OBSERVACION?: string | null } | null, errors?: Array<{ __typename?: 'FieldError', field: string, message: string }> | null } };
+
+export type DeleteRegistroFormatoMutationVariables = Exact<{
+  deleteRegistroFormatoId: Scalars['Float'];
+}>;
+
+
+export type DeleteRegistroFormatoMutation = { __typename?: 'Mutation', deleteRegistroFormato: boolean };
+
+export type UpdateRegistroFormatoMutationVariables = Exact<{
+  input: RegistroFormatoInput;
+}>;
+
+
+export type UpdateRegistroFormatoMutation = { __typename?: 'Mutation', updateRegistroFormato: { __typename?: 'RegistroFormatoUpdate', tratamiento?: { __typename?: 'RegistroFormato', ID: number, FECHA_TRATAMIENTO?: any | null, LOTE?: string | null, ESPECIE_MADERA_TRATADA?: string | null, PROCEDENCIA?: string | null, CANTIDAD_TRATADA?: string | null, NUME_REGI_ARC?: string | null, TIPO_EMBALAJE?: string | null, TOTAL_UNID_FAB?: string | null, NUMERO_GUIA?: string | null, EXPORTADOR?: string | null, USO?: string | null, ID_REPORTE?: number | null } | null, errors?: Array<{ __typename?: 'FieldError', field: string, message: string }> | null } };
 
 export type CreateResponsableMutationVariables = Exact<{
   input: ResponsableInput;
@@ -4645,12 +5372,26 @@ export type GetExpedienteByIdQueryVariables = Exact<{
 
 export type GetExpedienteByIdQuery = { __typename?: 'Query', getExpedienteById?: { __typename?: 'ExpedienteResponse', EXPEDIENTE_ID: number, NUMERO_EXPEDIENTE?: string | null, ESTADO: string, TIPO_SOLICITUD: TipoSolicitudExpedientes, SEDE?: { __typename?: 'Sede', NOMBRE_SEDE: string } | null } | null };
 
+export type GetTramiteSolcitudByCodigoNimfQueryVariables = Exact<{
+  codigonimf: Scalars['String'];
+}>;
+
+
+export type GetTramiteSolcitudByCodigoNimfQuery = { __typename?: 'Query', getTramiteSolcitudByCodigoNimf?: { __typename?: 'TramiteSolicitudObject', INSPECCION?: { __typename?: 'InspeccionSolicitud', ID: number, FECHA_REGISTRO?: any | null, NUME_REGI_ACTA: string, NUME_REGI_TRATAMIENTO: string, ESTADO_CERTIFICADO: string, OBSERVACION?: string | null, SOLICITUD_ID: number, NUMERO_EMPRESA?: string | null, NUMERO_TRATAMIENTO?: string | null, CODIGO_NIMF?: string | null } | null, SOLICITUD?: { __typename?: 'TramiteSolicitud', ID: number, RUC: string, DNI: string, REPRESENTANTE_LEGAL: string, RAZON_SOCIAL: string, DOMICILIO: string, DISTRITO: string, DEPARTAMENTO: string, PROVINCIA: string, CORREO: string, TELEFONO: string, ESTADO?: string | null, EXPEDIENTE: string, OBSERVACION?: string | null, FECHA_REVISION?: any | null, FECHA_REGISTRO?: any | null, ROLASIGNADO?: string | null, ROLPREASIGNADO?: string | null, SEDE_OPERADOR?: string | null, NOMBRE_DEPARTAMENTO?: string | null, NOMBRE_PROVINCIA?: string | null, NOMBRE_DISTRITO?: string | null } | null, INFSOLICITUD?: { __typename?: 'TramiteinfSolicitud', ID: number, DNI: string, APENOMB: string, DOMICILIO: string, DISTRITO: string, DEPARTAMENTO: string, PROVINCIA: string, TIPOAUTORIZACION: string, NUME_REGI_FUNCIONAMIENTO?: string | null, NUME_REGI_MEMORIA?: string | null, SENSORES?: string | null, NUME_REGI_SENSOR?: string | null, NUME_REGI_TRAMITE?: string | null, NUME_REGI_PLANO?: string | null, NUME_REGI_TERMICO?: string | null, FECHA_REGISTRO?: any | null, SOLICITUD_ID?: number | null, CAMARAS?: string | null, RESPONSABLE_ID?: number | null, NOMBRE_DEPARTAMENTO?: string | null, NOMBRE_PROVINCIA?: string | null, NOMBRE_DISTRITO?: string | null } | null, SENSORES?: Array<{ __typename?: 'TramiteSensor', ID: number, NUMERO: string, DESCRIPCION?: string | null, SOLICITUD_ID: number, NUME_REGI_SENSOR: string, NOMBRE_DEPARTAMENTO?: string | null, NOMBRE_PROVINCIA?: string | null, NOMBRE_DISTRITO?: string | null }> | null, TRATAMIENTO?: Array<{ __typename?: 'InspeccionTratamiento', ID: number, SECCION: string, IC_HORA: string, IC_TEMP: string, IT_HORA: string, IT_TEMP: string, FT_HORA: string, FT_TEMP: string, INSPECCION_ID: number }> | null, REPORTE?: Array<{ __typename?: 'RegistroReporte', ID: number, FECHA_REGISTRO?: any | null, CODIGO_NIMF?: string | null, ID_SOLICITUD?: number | null, EXPEDIENTE?: string | null, ESTADO?: string | null, OBSERVACION?: string | null, TIPO_REPORTE?: string | null }> | null } | null };
+
 export type GetArchivosByNumeRegiArcQueryVariables = Exact<{
   numeRegiArc: Scalars['String'];
 }>;
 
 
 export type GetArchivosByNumeRegiArcQuery = { __typename?: 'Query', getArchivosByNumeRegiArc?: { __typename?: 'ArchivoResponse', NUME_REGI_ARC: string, APLICACION: string, MODULO?: string | null, REGISTRO?: string | null, DESCRIPCION_REGISTRO?: string | null, FECH_REGI_ARC: any, ArchivosFisicos: Array<{ __typename?: 'ArchivoFisico', NUME_REGI_ARC: string, SECU_REGI_ARC: number, FECH_CARG_ARC: any, FLAG_IMAGEN: string, FILENAME: string, FILEEXTENSION: string, NOMBRE_OBJETO: string, DESCRIPCION: string, FUENTE: string, FLAG_RESTRINGIDO: string }> } | null };
+
+export type GetBajaSolicitudByExpQueryVariables = Exact<{
+  expediente: Scalars['String'];
+}>;
+
+
+export type GetBajaSolicitudByExpQuery = { __typename?: 'Query', getBajaSolicitudByExp?: { __typename?: 'BajaSolicitud', ID: number, CODIGO_NIMF: string, CODIGO_SA?: number | null, TIPO_SOLICITUD: string, DNI_RESPONSABLE?: string | null, ID_RESPONSABLE?: number | null, ESTADO_BAJA?: string | null, FECHA_REGISTRO?: any | null, FECHA_BAJA?: any | null, OBSERVACION?: string | null, EXPEDIENTE: string } | null };
 
 export type GetAllCultivaresQueryVariables = Exact<{
   pageSize: Scalars['Int'];

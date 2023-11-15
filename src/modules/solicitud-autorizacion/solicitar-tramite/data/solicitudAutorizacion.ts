@@ -32,7 +32,8 @@ export const registroSolicitud: SolicitudAutorizacionState = {
       NUME_REGI_SENSOR: '',
       NUME_REGI_TRAMITE: '',
       NUME_REGI_PLANO: '',
-      NUME_REGI_TERMICO: ''
+      NUME_REGI_TERMICO: '',
+      RESPONSABLE_ID: 0
   },
   sensores: []
 

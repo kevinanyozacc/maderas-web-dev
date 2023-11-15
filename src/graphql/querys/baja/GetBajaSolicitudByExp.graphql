@@ -1,0 +1,15 @@
+query GetBajaSolicitudByExp($expediente: String!) {
+  getBajaSolicitudByExp(expediente: $expediente) {
+    ID
+    CODIGO_NIMF
+    CODIGO_SA
+    TIPO_SOLICITUD
+    DNI_RESPONSABLE
+    ID_RESPONSABLE
+    ESTADO_BAJA
+    FECHA_REGISTRO
+    FECHA_BAJA
+    OBSERVACION
+    EXPEDIENTE
+  }
+}

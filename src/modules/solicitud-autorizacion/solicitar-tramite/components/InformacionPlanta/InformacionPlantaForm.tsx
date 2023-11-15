@@ -53,7 +53,7 @@ const InformacionPlantaForm = ({ back, submit, isLoading, isUpdate }: props) => 
   const [first, setfirst] = useState('')
   const [colorstyle, setColorstyle] = useState('')
 
-  function colorDoc (est: string): string {
+  function colorDoc(est: string): string {
     if (est === '1') return 'text-blue-600 bg-blue-200'
     if (est === '2') return 'text-green-600 bg-green-200'
     if (est === '3') return 'text-orange-500 bg-orange-200'
@@ -62,7 +62,7 @@ const InformacionPlantaForm = ({ back, submit, isLoading, isUpdate }: props) => 
     return est
   }
 
-  function estadoDoc (est: string): string {
+  function estadoDoc(est: string): string {
     if (est === '1') return 'EN TRAMITE'
     if (est === '2') return 'AUTORIZADO'
     if (est === '3') return 'DENEGADO'
@@ -72,17 +72,15 @@ const InformacionPlantaForm = ({ back, submit, isLoading, isUpdate }: props) => 
 
   const handleResponsableByDni = async () => {
     const { data } = await useGetResponsableByDni(values.DNI)
-
-    // const { db: solicitudes } = useGetSolicitudByRole(user.roles![1])
     if (data.getResponsableSolicitud) {
       form.setFields({
-        APENOMB: data?.getResponsableSolicitud.APENOMB
+        APENOMB: data?.getResponsableSolicitud.APENOMB,
+        RESPONSABLE_ID:  data.getResponsableSolicitud.ID
       })
+      
       setfirst(estadoDoc(data?.getResponsableSolicitud.ESTADO))
       setColorstyle(colorDoc(data?.getResponsableSolicitud.ESTADO))
       toast({ title: 'Se encontro DNI ingresado', type: 'success' })
-      // } else {
-      //   toast({ title: 'No se encontro DNI ingresado', type: 'warning' })
     } else {
       form.setFields({
         APENOMB: ''
@@ -614,7 +612,8 @@ const InformacionPlantaForm = ({ back, submit, isLoading, isUpdate }: props) => 
           error={form.errors.DNI}
         />
         <button className="self-end btn btn-solid-primary"
-          onClick={handleResponsableByDni}>
+          onClick={handleResponsableByDni}
+          type='button'>
           Buscar
         </button>
 

@@ -8,6 +8,7 @@ import client from '@graphql/client'
 import TabRegistroResponsable from '@modules/Registro-responsable/TabRegistroResponsable'
 import TabSolicitudAutorizacion from '@modules/solicitud-autorizacion/TabSolicitudAutorizacion'
 import TabSolicitudBaja from '@modules/solicitud-baja/TabSolicitudBaja'
+import TabRegistroReporte from '@modules/registro-reporte/TabRegistroReporte'
 
 const Home = () => {
   return (
@@ -21,6 +22,10 @@ const Home = () => {
           <TabButton>Responsable Técnico</TabButton>
           <TabButton>Solicitud de Autorización</TabButton>
           <TabButton>Solicitud de Baja </TabButton>
+          {/* { user.username !== '' && ( */}
+          <TabButton>Registro de Reporte </TabButton>
+          {/* )
+          } */}
           {/* <TabButton>Formato de Baja RT</TabButton>
           <TabButton>Formato de Tratamiento de embalajes</TabButton> */}
         </TabList>
@@ -28,8 +33,7 @@ const Home = () => {
           <TabRegistroResponsable />
           <TabSolicitudAutorizacion />
           <TabSolicitudBaja />
-          {/* <TabRegistroProductor />
-          <TabRegistroProductor /> */}
+          <TabRegistroReporte />
         </TabPanels>
       </Tabs>
     </div>

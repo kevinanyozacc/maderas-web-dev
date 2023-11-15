@@ -1,25 +1,15 @@
-import Breadcrumb from '@components/shared/Breadcrumb'
-import SideMultistep, { Step } from '@components/shared/SideMultistep'
 import React, { useState } from 'react'
 import { useRouter } from 'next/router'
-import {
-    // IconTierras,
-    // IconCultivo,
-    // IconProfesional,
-    IconDatosGenerales
-    // IconAnalisisCalidad
-    // IconAcondicionamiento
-  } from '@icons'
-
-import useToast from '@hooks/useToast'
-
 import { withUrqlClient } from 'next-urql'
+import Breadcrumb from '@components/shared/Breadcrumb'
+import SideMultistep, { Step } from '@components/shared/SideMultistep'
 import client from '@graphql/client'
-import { useBajaSolicitud as store } from '@modules/solicitud-baja/solicitar-tramite/store/useBajaSolicitud'
+import { useRegistroReporte as store } from '@modules/registro-reporte/solicitar-tramite/store/useRegistroReporte'
+import DatosGeneralesForm from '@modules/registro-reporte/solicitar-tramite/components/DatosGenerales/DatosGeneralesForm'
+import useRegistroFormatoMutation from '@hooks/useRegistroFormato'
+import useToast from '@hooks/useToast'
 import { ErrorMessages } from '@validation/messages'
-import DatosGeneralesForm from '@modules/solicitud-baja/solicitar-tramite/components/DatosGenerales/DatosGeneralesForm'
-import useBajaSolicitudMutation from '@hooks/useBajaSolicitud'
-// import InformacionPlantaForm from '@modules/solicitud-autorizacion/solicitar-tramite/components/InformacionPlanta/InformacionPlantaForm'
+import { IconDatosGenerales } from '@icons'
 
   export interface SideMultistepComponentProps {
     stepper: number
@@ -28,17 +18,16 @@ import useBajaSolicitudMutation from '@hooks/useBajaSolicitud'
     next: () => void
     back: () => void
     submit: () => void
-    submitprueba: () => void
     isOpen?: boolean
     onClose?: () => void
     idToUpdate?: string
     isUpdate?: boolean
   }
-const RegistroResponsablepage = () => {
+const RegistroReportepage = () => {
   const toast = useToast()
   const router = useRouter()
   const [stepper, setStepper] = useState(0)
-  const { isLoading, createRegistroBajaSolicitud } = useBajaSolicitudMutation()
+  const { isLoading, createRegistroReporte } = useRegistroFormatoMutation()
   const maxStep = 1
   const props: SideMultistepComponentProps = {
     stepper,
@@ -67,11 +56,11 @@ const RegistroResponsablepage = () => {
     submit: async () => {
         const values = store.getState().state
        try {
-        const res = await createRegistroBajaSolicitud(values)
+        const res = await createRegistroReporte(values)
         toast({
           type: 'success',
           title: 'Exitoso !!',
-          desc: 'Hemos creado su solicitud de registro de productor con éxito.'
+          desc: 'Hemos creado su solicitud de registro de reporte de tratamiento con éxito.'
         })
         store.getState().clearStore()
         router.push({
@@ -85,29 +74,7 @@ const RegistroResponsablepage = () => {
           desc: ErrorMessages.unknownDesc
         })
       }
-    },
-    submitprueba: async () => {
-      const values = store.getState().state
-     try {
-      const res = await createRegistroBajaSolicitud(values)
-      toast({
-        type: 'success',
-        title: 'Exitoso !!',
-        desc: 'Hemos creado su solicitud de registro de productor con éxito.'
-      })
-      store.getState().clearStore()
-      router.push({
-        pathname: '/registro-responsable/resumen-tramite2',
-        query: { registroId: res }
-      })
-    } catch (error) {
-      toast({
-        type: 'error',
-        title: ErrorMessages.unknown,
-        desc: ErrorMessages.unknownDesc
-      })
     }
-  }
   }
     const steps: Step[] = [
         {
@@ -126,10 +93,10 @@ const RegistroResponsablepage = () => {
                 { id: 'inicio', label: 'Inicio', href: '/' },
                 {
                   id: 'registro',
-                  label: 'Solicitud de Baja',
+                  label: 'Registro Formato',
                   href: '/'
                 },
-                { id: 'generar-solicitud', label: 'Registro solicitud' }
+                { id: 'generar-solicitud', label: 'Tratamiento' }
               ]}
             />
              <SideMultistep
@@ -142,4 +109,4 @@ const RegistroResponsablepage = () => {
       )
 }
 
-export default withUrqlClient(client)(RegistroResponsablepage)
+export default withUrqlClient(client)(RegistroReportepage)

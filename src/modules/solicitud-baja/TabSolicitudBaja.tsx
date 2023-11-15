@@ -7,6 +7,7 @@ import { TipoSolicitudExpedientes } from '@generated/graphql'
 //import ActualizarTramiteModal from '@components/shared/ActualizarTramite'
 
 import React from 'react'
+import EstadoTramiteModal from '@components/shared/EstadoTramiteBaja/EstadoTramiteModal'
 // import EstadoTramiteModal from '@components/shared/EstadoTramitePlanta/EstadoTramiteModal'
 
 const TabSolicitudBaja= () => {
@@ -50,12 +51,12 @@ const TabSolicitudBaja= () => {
             <IconChevronRight />
           </button>
 
-          {/* {estadoTramiteModal.isOpen && (
+          {estadoTramiteModal.isOpen && (
         <EstadoTramiteModal
           tipoTramite={TipoSolicitudExpedientes.RegistroCultivarComercial}
           {...estadoTramiteModal}
         />
-      )} */}
+      )}
       </div>
     </div>
 

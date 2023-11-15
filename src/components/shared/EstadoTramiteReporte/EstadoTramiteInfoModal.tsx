@@ -66,7 +66,7 @@ const EstadoResponsableInfoModal = ({ data, isOpen, onClose }: Props) => {
                   </td>
                   <td className={classNames(['text-center min-w-[130px]'])} >{ moment(data.FECHA_REGISTRO).format('DD-MM-YYYY')}</td>
                   <td className="text-center min-w-[130px]" >{ moment(data.FECHA_REVISION).format('DD-MM-YYYY')}</td></tr>
-              </tbody>
+                  </tbody>
             </Table>
           </div>
           <div className="grid grid-cols-1 gap-6 sm:grid-cols-1">

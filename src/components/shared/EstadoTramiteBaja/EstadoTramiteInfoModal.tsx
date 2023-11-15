@@ -57,16 +57,16 @@ const EstadoResponsableInfoModal = ({ data, isOpen, onClose }: Props) => {
 
                     <div
                       className={classNames([
-                        setColorEstado(data.ESTADO!),
+                        setColorEstado(data.ESTADO_BAJA!),
                         'text-center font-semibold py-1 px-4 rounded-full whitespace-nowrap'
                       ])}
                     >
-                      {estadoDoc(data.ESTADO)}
+                      {estadoDoc(data.ESTADO_BAJA)}
                     </div>
                   </td>
                   <td className={classNames(['text-center min-w-[130px]'])} >{ moment(data.FECHA_REGISTRO).format('DD-MM-YYYY')}</td>
                   <td className="text-center min-w-[130px]" >{ moment(data.FECHA_REVISION).format('DD-MM-YYYY')}</td></tr>
-              </tbody>
+                  </tbody>
             </Table>
           </div>
           <div className="grid grid-cols-1 gap-6 sm:grid-cols-1">

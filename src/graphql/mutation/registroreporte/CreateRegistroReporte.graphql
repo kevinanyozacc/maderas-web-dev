@@ -1,0 +1,15 @@
+mutation CreateRegistroReporte($input: RegistroReporteInput!) {
+  createRegistroReporte(input: $input) {
+    informacion {
+      ID
+      FECHA_REGISTRO
+      EXPEDIENTE
+      ESTADO
+      OBSERVACION
+    }
+    errors {
+      field
+      message
+    }
+  }
+}
