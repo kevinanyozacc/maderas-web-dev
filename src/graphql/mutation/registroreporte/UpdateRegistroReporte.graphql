@@ -1,19 +1,14 @@
-mutation UpdateRegistroFormato($input: RegistroFormatoInput!) {
-  updateRegistroFormato(input: $input) {
-    tratamiento {
+mutation UpdateRegistroReporte($input: RegistroReporteInput!) {
+  updateRegistroReporte(input: $input) {
+    informacion {
       ID
-      FECHA_TRATAMIENTO
-      LOTE
-      ESPECIE_MADERA_TRATADA
-      PROCEDENCIA
-      CANTIDAD_TRATADA
-      NUME_REGI_ARC
-      TIPO_EMBALAJE
-      TOTAL_UNID_FAB
-      NUMERO_GUIA
-      EXPORTADOR
-      USO
-      ID_REPORTE
+      FECHA_REGISTRO
+      CODIGO_NIMF
+      ID_SOLICITUD
+      EXPEDIENTE
+      ESTADO
+      OBSERVACION
+      TIPO_REPORTE
     }
     errors {
       field

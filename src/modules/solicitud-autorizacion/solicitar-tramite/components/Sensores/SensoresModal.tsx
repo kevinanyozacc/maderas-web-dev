@@ -1,12 +1,10 @@
-import { useEffect, useState } from 'react'
-import moment from 'moment'
+import { useState } from 'react'
 import { nanoid } from 'nanoid'
 import isEmpty from 'validator/lib/isEmpty'
 
 import Modal from '@components/shared/Modal'
 import Input from '@components/shared/Input'
 import ModalHeader from '@components/shared/ModalHeader'
-import InputCleave from '@components/shared/InputCleave'
 import Tooltip from '@components/shared/ToolTip'
 import UploadFiles from '@components/shared/UploadFiles'
 
@@ -19,7 +17,6 @@ import { IconCheck, IconCloudArrowUp } from '@icons'
 import { Sensores } from '../../interfaces/index'
 import { ErrorMessages } from '@validation/messages'
 import { classNames } from '@utils/classNames'
-import { textExperiencia } from '@modules/registro-productor/utils/textContent'
 import { useRegistroSolicitud } from '../../store/useRegistroAutorizacion'
 import { textSensores } from '@modules/solicitud-autorizacion/utils/textContent'
 
@@ -57,10 +54,10 @@ const SensoresModal = ({ isOpen, onClose, onSubmit, isUpdate, idToUpdate }: Prop
     validate: (values) => {
       const errors: FormError<Sensores> = {}
 
-      if (isEmpty( values.NUMERO.toString() )) {
+      if (isEmpty(values.NUMERO.toString())) {
         errors.NUMERO = ErrorMessages.empty
       }
-      
+
       return errors
     }
   })
@@ -108,9 +105,7 @@ const SensoresModal = ({ isOpen, onClose, onSubmit, isUpdate, idToUpdate }: Prop
   }
 
   const handleSubmit = () => {
-    
-    console.log(values);
-    typeof(values.NUMERO)
+    console.log(values)
     if (isUpdate) {
       onSubmit(values)
       onClose()
@@ -118,7 +113,6 @@ const SensoresModal = ({ isOpen, onClose, onSubmit, isUpdate, idToUpdate }: Prop
     }
 
     if (values.NUME_REGI_SENSOR) {
-     
       onSubmit({ ...values, ind: nanoid() })
       clearForm()
     } else {

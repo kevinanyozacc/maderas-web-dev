@@ -32,7 +32,7 @@ async function useGetSolAutorizacionByExp (expediente: string) {
           }
         }`,
         variables: {
-          expediente: expediente
+          expediente
         }
       })
     })

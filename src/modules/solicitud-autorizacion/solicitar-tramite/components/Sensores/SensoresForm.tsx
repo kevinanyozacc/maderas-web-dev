@@ -10,7 +10,7 @@ import { textSensores } from '@modules/solicitud-autorizacion/utils/textContent'
 
 const SensoresForm = () => {
   const [idExp, setIdExp] = useState('')
-  //const store = useRegistroResponsable()
+  // const store = useRegistroResponsable()
   const store = useRegistroSolicitud()
   const { isOpen, onClose, onOpen } = useToggle()
   const deleteExpToggle = useToggle()

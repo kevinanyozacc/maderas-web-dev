@@ -4,7 +4,7 @@ import isEmpty from 'validator/lib/isEmpty'
 import { DatosGenerales } from '../solicitar-tramite/interfaces'
 
 const datosGeneralesValid = (
-  values: DatosGenerales,
+  values: DatosGenerales
 ) => {
   const errors: FormError<typeof values> = {}
 
@@ -19,7 +19,6 @@ const datosGeneralesValid = (
   if (!values.ID_SOLICITUD) {
     errors.CODIGO_NIMF = ErrorMessages.empty
   }
-  
   // if (isSBA && isEmpty(values.FECHA_BAJA)) {
   //   errors.FECHA_BAJA = ErrorMessages.empty
   // }

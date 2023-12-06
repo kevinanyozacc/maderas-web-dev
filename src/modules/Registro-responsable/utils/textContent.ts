@@ -83,5 +83,3 @@ export const analisis = {
   nameForm: 'Análisis de Calidad',
   titleForm: 'Análisis de Calidad'
 }
-
-

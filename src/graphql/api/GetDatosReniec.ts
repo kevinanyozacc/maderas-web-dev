@@ -16,7 +16,7 @@ async function useGetDatosReniec (dni: string) {
           }
         }`,
         variables: {
-          dni: dni
+          dni
         }
       })
     })

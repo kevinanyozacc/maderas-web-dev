@@ -1,4 +1,3 @@
-
 import { SolicitudAutorizacionState } from '../interfaces/index'
 
 export const registroSolicitud: SolicitudAutorizacionState = {

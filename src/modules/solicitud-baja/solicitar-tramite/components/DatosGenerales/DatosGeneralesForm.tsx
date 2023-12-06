@@ -22,7 +22,6 @@ interface IResponsable {
 }
 
 const DatosGeneralesForm = ({ next, submit }: props) => {
-
   const [sdata, setsSdata] = useState<SolicitudAutorizacionInput>()
   const [sdataresponsable, setsSdataresponsable] = useState<IResponsable>()
   const [first, setfirst] = useState('')
@@ -34,7 +33,7 @@ const DatosGeneralesForm = ({ next, submit }: props) => {
     initialValues: store.state.datosGenerales
   })
 
-  function colorDoc(est: string): string {
+  function colorDoc (est: string): string {
     if (est === '1') return 'text-blue-600 bg-blue-200'
     if (est === '2') return 'text-green-600 bg-green-200'
     if (est === '3') return 'text-orange-500 bg-orange-200'
@@ -43,7 +42,7 @@ const DatosGeneralesForm = ({ next, submit }: props) => {
     return est
   }
 
-  function estadoDoc(est: string): string {
+  function estadoDoc (est: string): string {
     if (est === '1') return 'EN TRAMITE'
     if (est === '2') return 'AUTORIZADO'
     if (est === '3') return 'DENEGADO'
@@ -52,7 +51,6 @@ const DatosGeneralesForm = ({ next, submit }: props) => {
   }
 
   const handleGetDatosNimf = async () => {
-
     const data = await useGetSolicitudByNimf(values.CODIGO_NIMF)
     console.log('a', data.data.getSolicitudByNimf)
     if (!data.data.getSolicitudByNimf!) {
@@ -62,24 +60,22 @@ const DatosGeneralesForm = ({ next, submit }: props) => {
       // setEstadoDatos(data?.data?.getBajaSolicitudByExp)
       setsSdata(data.data.getSolicitudByNimf)
       form.setFields({ CODIGO_SA: data.data.getSolicitudByNimf.ID || '' })
-      //toggle.onOpen()
+      // toggle.onOpen()
       console.log('data', sdata)
-
     }
   }
 
   const handleResponsableByDni = async () => {
     const { data } = await useGetResponsableByDni(values.DNI_RESPONSABLE)
-    console.log(data);
-    
+    console.log(data)
+
     if (data?.getResponsableSolicitud!) {
       setsSdataresponsable(data.getResponsableSolicitud)
        setfirst(estadoDoc(data?.getResponsableSolicitud.ESTADO))
        setColorstyle(colorDoc(data?.getResponsableSolicitud.ESTADO))
-       form.setFields({ ID_RESPONSABLE:  data.getResponsableSolicitud.ID})
+       form.setFields({ ID_RESPONSABLE: data.getResponsableSolicitud.ID })
       toast({ title: 'Se encontro DNI ingresado', type: 'success' })
     } else {
-
       // setfirst('')
       // setColorstyle('')
       toast({ title: 'El DNI ingresado no se encuentra en los datos de Responsables Técnicos', type: 'warning' })
@@ -90,26 +86,23 @@ const DatosGeneralesForm = ({ next, submit }: props) => {
     // const response = datos.data?.isDocumentoUnique
     if (values.FECHA_BAJA) {
       const fechaTermino = new Date(`${values.FECHA_BAJA.slice(3, 5)} ${values.FECHA_BAJA.slice(0, 2)}, ${values.FECHA_BAJA.slice(-4)}`)
-      values.FECHA_BAJA = fechaTermino.toISOString().slice(0, 10);
-    }else{
+      values.FECHA_BAJA = fechaTermino.toISOString().slice(0, 10)
+    } else {
       values.FECHA_BAJA = null
     }
-    console.log(first);
+    console.log(first)
     if (!values.DNI_RESPONSABLE) {
       values.ID_RESPONSABLE = null
     }
-    
+
     if (first !== 'AUTORIZADO' && values.TIPO_SOLICITUD === 'SRT') {
       toast({ title: 'El Responsable Tecnico no se encuentra autorizado para la solicitud.', type: 'warning' })
-    
-    }else{
-
+    } else {
       // values.DNI_RESPONSABLE = ''
       // values.ID_RESPONSABLE = null
       store.loadDatosGenerales(values)
-      console.log(values);
+      console.log(values)
       submit()
-
     }
   }
 
@@ -231,8 +224,6 @@ const DatosGeneralesForm = ({ next, submit }: props) => {
               Consultar
             </button>
 
-           
-
           </div>
           <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
           <Input
@@ -240,7 +231,7 @@ const DatosGeneralesForm = ({ next, submit }: props) => {
               value={sdataresponsable?.APENOMB}
               readOnly
             />
-            
+
             <div
           className={classNames([
             colorstyle,

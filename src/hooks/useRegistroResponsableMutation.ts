@@ -44,14 +44,12 @@ const useRegistroResponsableMutation = () => {
     //   }
     // })
 
-    const  conocimineto  = { ...values.conocimiento }
+    const conocimineto = { ...values.conocimiento }
 
     if (conocimineto.length < 1) {
       toast({ title: 'Ingresar conocimiento de plagas', type: 'warning' })
       return
     }
-
-    const expedienteId = ''
 
     const { data: dataPro } = await createResponsable({
       input: { ...values.datosGenerales }
@@ -75,7 +73,7 @@ const useRegistroResponsableMutation = () => {
         input: values.conocimiento.map(({ ind, ...data }) => ({
           ...data,
           RESPONSABLE_ID: responsableid
-          
+
         }))
       })
     ])

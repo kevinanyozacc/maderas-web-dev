@@ -56,16 +56,10 @@ const RegistroReportepage = () => {
     submit: async () => {
         const values = store.getState().state
        try {
-        const res = await createRegistroReporte(values)
-        toast({
-          type: 'success',
-          title: 'Exitoso !!',
-          desc: 'Hemos creado su solicitud de registro de reporte de tratamiento con éxito.'
-        })
+        await createRegistroReporte(values)
         store.getState().clearStore()
         router.push({
-          pathname: '/registro-responsable/resumen-tramite',
-          query: { registroId: res }
+
         })
       } catch (error) {
         toast({

@@ -23,7 +23,7 @@ async function useGetRegistroReporteByExp (expediente: string) {
           }
         }`,
         variables: {
-          expediente: expediente
+          expediente
         }
       })
     })

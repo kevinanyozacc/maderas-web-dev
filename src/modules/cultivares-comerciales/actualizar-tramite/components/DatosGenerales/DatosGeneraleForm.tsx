@@ -162,7 +162,7 @@ const DatosGeneralesForm = ({ next, registroId }: Props) => {
           label="Tipo de documento"
           value={values.TIPO_DOCUMENTO}
           error={form.errors.TIPO_DOCUMENTO}
-          onChange={({ value }) => {}}
+          onChange={({ value }) => { }}
           options={[{ label: 'RUC', value: 'RUC' }]}
         />
         <Input
@@ -326,7 +326,11 @@ const DatosGeneralesForm = ({ next, registroId }: Props) => {
         </>
       )}
 
-      <ButtonsForm isFirst next={next} handleDisable={handleDisable()} />
+      <ButtonsForm
+        isFirst
+        next={next}
+        handleDisable={handleDisable()}
+      />
     </form>
   )
 }

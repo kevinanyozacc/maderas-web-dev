@@ -4,7 +4,7 @@ import isEmpty from 'validator/lib/isEmpty'
 import { DatosGenerales } from '../solicitar-tramite/interfaces'
 
 const datosGeneralesValid = (
-  values: DatosGenerales,
+  values: DatosGenerales
 ) => {
   const errors: FormError<typeof values> = {}
 

@@ -8,7 +8,7 @@ export const textInformacionPlanta = {
   nameForm: 'Datos Generales',
   titleForm: 'Datos de la Planta',
   representanteTitle: 'Datos del Representante Legal',
-  add: 'Curriculum Vitae Narrativo',
+  add: 'Curriculum Vitae Narrativo'
 }
 
 export const textConocimiento = {

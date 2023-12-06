@@ -1,4 +1,3 @@
-
 import create from 'zustand'
 
 import { registroResponsable } from '../data/registroResponsable'
@@ -16,7 +15,6 @@ interface State {
 
   loadInformacionResponsable: (values: InformacionResponsable) => void
 
-
    addConocimiento: (conocimiento: Conocimiento) => void
    updateConocimiento: (exp: Conocimiento) => void
    deleteConocimiento: (id: string) => void
@@ -24,7 +22,7 @@ interface State {
   clearStore: () => void
 }
 
-export const useRegistroResponsable = create<State>((set, get)  => ({
+export const useRegistroResponsable = create<State>((set, get) => ({
   state: registroResponsable,
   // loadProfesional: (profesional) =>
   //   set(({ state }) => ({ state: { ...state, profesional } })),

@@ -2,12 +2,9 @@ import { FormError } from '@hooks/useForm'
 import { InformacionSolicitud } from '../solicitar-tramite/interfaces'
 import isEmpty from 'validator/lib/isEmpty'
 import { ErrorMessages } from '@validation/messages'
-import useToast from '@hooks/useToast'
 
 const InformacionSolicitudValid = (values: InformacionSolicitud) => {
     const errors: FormError<typeof values> = {}
-
-    const toast = useToast()
 
     if (isEmpty(values.DNI)) {
         errors.DNI = ErrorMessages.empty

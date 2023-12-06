@@ -16,7 +16,7 @@ import {
   extends Omit<
     ConocimientoInput, 'ID'
   > {
-  ind: string
+  ind?: string
 }
 
 export interface RegistroResponsableState {

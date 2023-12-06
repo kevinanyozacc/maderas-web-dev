@@ -3,26 +3,24 @@ import useToggle from '@hooks/useToggle'
 
 import { IconChevronRight } from '@icons'
 import { TipoSolicitudExpedientes } from '@generated/graphql'
-//import { TipoSolicitudExpedientes } from '@generated/graphql'
-//import ActualizarTramiteModal from '@components/shared/ActualizarTramite'
+// import { TipoSolicitudExpedientes } from '@generated/graphql'
+// import ActualizarTramiteModal from '@components/shared/ActualizarTramite'
 
 import React from 'react'
 import EstadoTramiteModal from '@components/shared/EstadoTramiteBaja/EstadoTramiteModal'
 // import EstadoTramiteModal from '@components/shared/EstadoTramitePlanta/EstadoTramiteModal'
 
-const TabSolicitudBaja= () => {
-
+const TabSolicitudBaja = () => {
   const estadoTramiteModal = useToggle()
-
 
   return (
     <div className="max-w-lg mt-10">
     <h1 className="mb-2 capitalize title-5 lg:title-7 dark:text-white">
-    Solicitud de baja de autorización o cambio de Responsable Técnico 
+    Solicitud de baja de autorización o cambio de Responsable Técnico
     </h1>
     <h2 className="mb-10 paragraph-1 dark:text-white">
     Si el usuario considera dar de baja su “Autorización de funcionamiento para cámara de tratamiento térmico para embalajes de madera” o
-     “Autorización de funcionamiento para planta de fabricación de embalajes de madera con tratamiento térmico”, 
+     “Autorización de funcionamiento para planta de fabricación de embalajes de madera con tratamiento térmico”,
      deberá enviar su solicitud mediante la plataforma. Asimismo, si la empresa realizará el cambio de responsable técnico lo podrá hacer por esta misma plataforma.
     </h2>
 
@@ -36,7 +34,7 @@ const TabSolicitudBaja= () => {
         </Link>
         {/* <button
           type='button'
-        
+
           className="btn btn-solid-secondary"
         >
           Actualizar

@@ -7,24 +7,19 @@ import { textRegistroReporte } from '@modules/registro-reporte/utils/textContent
 import ReporteTable from './ReporteTable'
 import ReporteModal from './ReporteModal'
 import { RegistroFormato } from '@generated/graphql'
-import { useGetReporteFormatoById } from '@graphql/api/GetReporteFormatobyid'
 
 interface componentes {
   idreporte: string
-  data?: RegistroFormato[]
+  data: RegistroFormato[]
 }
 
-const ReporteForm = ( { idreporte, data }: componentes) => {
-
+const ReporteForm = ({ idreporte, data }: componentes) => {
   const [idExp, setIdExp] = useState('')
   const store = useRegistroReporte()
   const { isOpen, onClose, onOpen } = useToggle()
   const deleteExpToggle = useToggle()
   const expUpdateToggle = useToggle()
-  const datos = { data };
-  console.log(datos.data);
-  
-  
+  const datos = { data }
 
   return (
     <div className="flex flex-col flex-1">
@@ -46,7 +41,7 @@ const ReporteForm = ( { idreporte, data }: componentes) => {
         </div>
 
         <ReporteTable
-          data={store.state.registroFormato.concat()}
+          data={store.state.registroFormato.concat(datos?.data!)}
           onAdd={onOpen}
           onUpdate={(id) => {
             setIdExp(id)

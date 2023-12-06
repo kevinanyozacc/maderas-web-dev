@@ -34,7 +34,7 @@ async function useGetSolicitudByNimf (nroNimf: string) {
             }
           }`,
         variables: {
-            nroNimf: nroNimf
+            nroNimf
         }
       })
     })

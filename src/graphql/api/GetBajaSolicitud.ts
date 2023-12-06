@@ -26,7 +26,7 @@ async function useGetBajaSolicitudByExp (expediente: string) {
             }
           }`,
         variables: {
-          expediente: expediente
+          expediente
         }
       })
     })

@@ -1,17 +1,19 @@
 import {
   RegistroFormatoInput,
-  RegistroReporteInput,
+  RegistroReporteInput
 } from '@generated/graphql'
 
-export type DatosGenerales = Omit<
-  RegistroReporteInput, 'ID'
->
+export type DatosGenerales = RegistroReporteInput
+
+// Omit<
+//   RegistroReporteInput, 'FECHA_REGISTRO'
+// >
 
 export interface RegistroFormato
   extends Omit<
     RegistroFormatoInput, 'ID'
   > {
-  ind: string
+  ind?: string
 }
 
 export interface RegistroReporteState {

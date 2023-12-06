@@ -106,7 +106,7 @@ async function useGetSolicitudTramiteByNimf (codigonimf: string) {
           }
         }`,
         variables: {
-          codigonimf: codigonimf
+          codigonimf
         }
       })
     })

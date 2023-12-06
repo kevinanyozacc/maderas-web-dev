@@ -1,4 +1,3 @@
-
 import create from 'zustand'
 import { registroReporte } from '../data/registroreporte'
 
@@ -11,11 +10,11 @@ import {
 interface State {
     state: RegistroReporteState
     loadDatosGenerales: (values: DatosGenerales) => void
-    
+
     addreporte: (reporte: RegistroFormato) => void
     updatereporte: (exp: RegistroFormato) => void
     deletereporte: (id: string) => void
-  
+
     clearStore: () => void
 }
 

@@ -1,5 +1,5 @@
 import {
-    BajaSolicitudInput,
+    BajaSolicitudInput
   } from '@generated/graphql'
 
   export type DatosGenerales = Omit<

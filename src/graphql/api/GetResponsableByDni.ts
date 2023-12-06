@@ -19,11 +19,11 @@ async function useGetResponsableByDni (dni: string) {
             }
           }`,
         variables: {
-          dni: dni
+          dni
         }
       })
     })
-    //return data?.data.getPersonaNatural
+    // return data?.data.getPersonaNatural
     const data = await results.json()
     return data
   } catch (e) {

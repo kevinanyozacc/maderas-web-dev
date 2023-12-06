@@ -1,7 +1,7 @@
 import ENV from '@enviroment'
 import { LoginInput } from '@generated/graphql'
 
-async function useGetLoginSys({PASSWORD, USERNAME} :LoginInput) {
+async function useGetLoginSys ({ PASSWORD, USERNAME } :LoginInput) {
     try {
         const results = await fetch(ENV.URL + '/graphql', {
             method: 'POST',

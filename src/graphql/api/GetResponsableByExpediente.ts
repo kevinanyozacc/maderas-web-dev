@@ -22,7 +22,7 @@ async function useGetResponsableByExp (expediente: string) {
           }
         }`,
         variables: {
-          expediente: expediente
+          expediente
         }
       })
     })

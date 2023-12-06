@@ -38,14 +38,14 @@ const ConocimientoTable = ({ data, onAdd, onDelete, onUpdate }: Props) => {
                   <div className="flex justify-center gap-x-3">
                     <button
                       type='button'
-                      onClick={() => onUpdate(item.ind)}
+                      onClick={() => onUpdate(item.ind!)}
                       className="btn-icon btn-ghost-primary"
                     >
                       <IconEdit />
                     </button>
                     <button
                       type='button'
-                      onClick={() => onDelete(item.ind)}
+                      onClick={() => onDelete(item.ind!)}
                       className="btn-icon btn-ghost-primary"
                     >
                       <IconTrash />

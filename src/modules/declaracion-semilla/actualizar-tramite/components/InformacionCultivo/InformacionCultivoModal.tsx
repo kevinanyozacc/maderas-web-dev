@@ -45,7 +45,6 @@ const InformacionCultivoModal = ({ isOpen, onClose, onSubmit, idToUpdate, isUpda
       return errors
     }
   })
- 
   const [data] = useGetInfoCulivoByIdQuery({
     variables: {
       infoCultivoId: idToUpdate!

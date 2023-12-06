@@ -3,16 +3,14 @@ import useToggle from '@hooks/useToggle'
 
 import { IconChevronRight } from '@icons'
 import { TipoSolicitudExpedientes } from '@generated/graphql'
-//import { TipoSolicitudExpedientes } from '@generated/graphql'
-//import ActualizarTramiteModal from '@components/shared/ActualizarTramite'
+// import { TipoSolicitudExpedientes } from '@generated/graphql'
+// import ActualizarTramiteModal from '@components/shared/ActualizarTramite'
 
 import React from 'react'
 import EstadoTramiteModal from '@components/shared/EstadoTramiteResponsable/EstadoTramiteModal'
 
 const TabRegistroResponsable = () => {
-
   const estadoTramiteModal = useToggle()
-
 
   return (
     <div className="max-w-lg mt-10">
@@ -35,7 +33,7 @@ const TabRegistroResponsable = () => {
         </Link>
         {/* <button
           type='button'
-        
+
           className="btn btn-solid-secondary"
         >
           Actualizar

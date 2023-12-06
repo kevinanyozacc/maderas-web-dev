@@ -1,27 +1,25 @@
 import React, { useMemo, useState } from 'react'
-import Input from '@components/shared/Input'
+import { InformacionSolicitudInput, RegistroFormato, RegistroReporteInput, SolicitudAutorizacionInput } from '@generated/graphql'
+import { useGetSolicitudTramiteByNimf } from '@graphql/api/GetSolicitudTramiteByNimf'
+import { useGetReporteFormatoById } from '@graphql/api/GetReporteFormatobyid'
 import RadioButton from '@components/shared/RadioButon'
+import Select from '@components/shared/Select'
+import Input from '@components/shared/Input'
 import useForm from '@hooks/useForm'
-import useGetUbigeo from '@hooks/useGetUbigeo'
 import useToast from '@hooks/useToast'
 import { textResponsable } from '@modules/registro-productor/utils/textContent'
+import datosGeneralesValid from '@modules/registro-reporte/validation/datosGeneralesValid'
 import { SideMultistepComponentProps as props } from '@pages/registro-reporte'
 import { useRegistroReporte } from '../../store/useRegistroReporte'
-import datosGeneralesValid from '@modules/registro-reporte/validation/datosGeneralesValid'
-import { InformacionSolicitudInput, InputMaybe, RegistroFormato, RegistroFormatoInput, RegistroReporteInput, SolicitudAutorizacionInput } from '@generated/graphql'
 import ReporteForm from '../Reportes/ReporteForm'
-import { useGetSolicitudTramiteByNimf } from '@graphql/api/GetSolicitudTramiteByNimf'
-import Select from '@components/shared/Select'
-import { useGetReporteFormatoById } from '@graphql/api/GetReporteFormatobyid'
-
+import moment from 'moment'
 
 const DatosGeneralesForm = ({ next, submit }: props) => {
-
   const [sdatasolicitud, setsSdatasolicitud] = useState<SolicitudAutorizacionInput>()
   const [sdatainfsolicitud, setsSdatainfsolicitud] = useState<InformacionSolicitudInput>()
   const [sdatareporte, setsSdatareporte] = useState<RegistroReporteInput[]>()
   const [sdataformato, setsSdataformato] = useState<RegistroFormato[]>()
-  const [idreporte, setIdreporte] = useState('')
+  const [idreporte] = useState('')
   const toast = useToast()
   const store = useRegistroReporte()
   const { values, isChanged, setIsChanged, ...form } = useForm({
@@ -29,15 +27,21 @@ const DatosGeneralesForm = ({ next, submit }: props) => {
     initialValues: store.state.datosGenerales
   })
 
-  const handleGetDatosNimf = async () => {
+  const newdate = new Date()
+  const mesnum = (moment(newdate, 'YYYY/MM/DD').month() + 1).toString()
+  const mesname = setMes((moment(newdate, 'YYYY/MM/DD').month() + 1).toString())
 
+  function getmes (date:any) {
+    const newdate = date.substring(5, 7)
+    return newdate
+  }
+  const handleGetDatosNimf = async () => {
     if (!values.CODIGO_NIMF) {
       toast({ type: 'warning', title: 'No se encontró el Empresa, revisar Codigo Nimf: ' })
       return
     }
     const { data } = await useGetSolicitudTramiteByNimf(values.CODIGO_NIMF)
-    console.log(data);
-    
+
     const datatramite = data?.getTramiteSolcitudByCodigoNimf!
     if (!datatramite.SOLICITUD) {
       toast({ type: 'warning', title: 'No se encontró el Empresa, revisar Codigo Nimf: ' })
@@ -46,12 +50,11 @@ const DatosGeneralesForm = ({ next, submit }: props) => {
       setsSdatasolicitud(datatramite.SOLICITUD!)
       setsSdatainfsolicitud(datatramite.INFSOLICITUD!)
       setsSdatareporte(datatramite.REPORTE!)
-      form.setFields({ 'ID_SOLICITUD': datatramite.SOLICITUD!.ID || '' })
-
+      form.setFields({ ID_SOLICITUD: datatramite.SOLICITUD!.ID || '' })
     }
   }
 
-  function setMes(est: string) {
+  function setMes (est: string) {
     if (est === '1') return 'ENERO'
     if (est === '2') return 'FEBRERO'
     if (est === '3') return 'MARZO'
@@ -69,29 +72,29 @@ const DatosGeneralesForm = ({ next, submit }: props) => {
 
   const especialistas = useMemo(() => {
     if (sdatareporte?.length) {
-      return sdatareporte.map((item) => ({
+      return sdatareporte.map((item) => (
+       {
         ...item,
         value: `${item.ID}`,
-        //label: `${moment().month(item.FECHA_REGISTRO).format("MMMM")}`,
-        label: `${setMes(item.FECHA_REGISTRO.substring(5, 7))}`,
-      }))
+        label: `${setMes(item.FECHA_REGISTRO.substring(5, 7))}`
+       }
+      ))
     }
   }, [sdatareporte])
 
   const handleGetDatos = async (id: number) => {
-    const { data } = await useGetReporteFormatoById(id);
+    form.setFields({ ID: id })
+    const { data } = await useGetReporteFormatoById(id)
+
     if (data?.getReporteFormatoById!) {
-      setsSdataformato(data?.getReporteFormatoById!)
-      //console.log('datos', sdataformato);
+      setsSdataformato(data.getReporteFormatoById!)
     }
-
-
   }
 
   const handleSubmit = () => {
     store.loadDatosGenerales(values)
+    console.log(values)
     submit()
-
   }
 
   return (
@@ -132,6 +135,11 @@ const DatosGeneralesForm = ({ next, submit }: props) => {
           readOnly
         />
       </div>
+      <div className='hidden'>
+        <input type="text" {...form.inputProps('ID')} />
+        <input type="text" {...form.inputProps('EXPEDIENTE')}/>
+        <input type="text" {...form.inputProps('ESTADO')}/>
+      </div>
 
       {/* <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
         <Input
@@ -145,10 +153,9 @@ const DatosGeneralesForm = ({ next, submit }: props) => {
         <RadioButton
           value={sdatainfsolicitud?.TIPOAUTORIZACION}
           className="flex flex-col gap-3"
-
           options={[
             { label: 'Reporte de tratamiento de camara de tratamiento', value: 'CT' },
-            { label: 'Reporte de Fabricacion de embalajes de madera con tratamiento térmico', value: 'PF' },
+            { label: 'Reporte de Fabricacion de embalajes de madera con tratamiento térmico', value: 'PF' }
           ]}
         />
       </div>
@@ -156,8 +163,8 @@ const DatosGeneralesForm = ({ next, submit }: props) => {
       {!sdatareporte?.length ? (
         <div>
           <Input
-            label="Dirección"
-            value={'NOVIEMBRE'}
+            label="MES"
+            value={mesname}
             readOnly
           />
         </div>
@@ -169,23 +176,19 @@ const DatosGeneralesForm = ({ next, submit }: props) => {
           onChange={(e) => {
             handleGetDatos(Number(e.value))
           }}
-
-          options={especialistas}
+          options={especialistas?.find((item) => getmes(item.FECHA_REGISTRO) === mesnum)
+            ? especialistas : especialistas?.concat({ value: mesnum, label: mesname })
+          }
         />
       </div>
       ) }
-
-
-
       <ReporteForm
         idreporte={idreporte}
-        data={sdataformato}
+        data={sdataformato!}
       />
-
       <button type="submit" className="self-end btn btn-solid-primary">
         Guardar
       </button>
-
     </form>
   )
 }

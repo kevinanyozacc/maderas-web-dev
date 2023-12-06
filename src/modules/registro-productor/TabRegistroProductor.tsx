@@ -64,6 +64,4 @@ const TabRegistroProductor = () => {
     </div>
   )
 }
-
-
 export default TabRegistroProductor

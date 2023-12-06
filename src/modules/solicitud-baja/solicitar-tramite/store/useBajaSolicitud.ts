@@ -1,10 +1,9 @@
-
 import create from 'zustand'
 import { bajaSolicitud } from '../data/solicitudbaja'
 
 import {
     DatosGenerales,
-    bajasolicitudState,
+    bajasolicitudState
 } from '../interfaces/index'
 
 interface State {

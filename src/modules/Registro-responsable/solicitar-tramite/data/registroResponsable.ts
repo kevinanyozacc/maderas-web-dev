@@ -1,4 +1,3 @@
-import { Estados } from '@generated/graphql'
 import { RegistroResponsableState } from '../interfaces/index'
 
 export const registroResponsable: RegistroResponsableState = {

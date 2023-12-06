@@ -1,7 +1,6 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 // import moment from 'moment'
 import { nanoid } from 'nanoid'
-import isEmpty from 'validator/lib/isEmpty'
 
 import Modal from '@components/shared/Modal'
 import Input from '@components/shared/Input'
@@ -17,12 +16,11 @@ import useArchivosMutation from '@hooks/useArchivosMutation'
 
 import { IconCheck, IconCloudArrowUp } from '@icons'
 import { RegistroFormato } from '../../interfaces/index'
-import { ErrorMessages } from '@validation/messages'
 import { classNames } from '@utils/classNames'
 import { textSensores } from '@modules/solicitud-autorizacion/utils/textContent'
 import { useRegistroReporte } from '../../store/useRegistroReporte'
 import Select from '@components/shared/Select'
-import { destino, especie_madera, lista_embalaje } from '@modules/registro-reporte/utils/reporteutil'
+import { destino, especieMadera, listaEmbalaje } from '@modules/registro-reporte/utils/reporteutil'
 
 interface Props {
   isOpen: boolean
@@ -100,11 +98,9 @@ const ReporteModal = ({ isOpen, onClose, onSubmit, isUpdate, idToUpdate }: Props
   }
 
   const handleSubmit = () => {
-
-
     const fechatratamiento = new Date(`${values.FECHA_TRATAMIENTO.slice(3, 5)} ${values.FECHA_TRATAMIENTO.slice(0, 2)}, ${values.FECHA_TRATAMIENTO.slice(-4)}`)
     values.FECHA_TRATAMIENTO = fechatratamiento.toISOString().slice(0, 10)
-    console.log(values);
+    console.log(values)
     if (isUpdate) {
       onSubmit(values)
       onClose()
@@ -112,7 +108,6 @@ const ReporteModal = ({ isOpen, onClose, onSubmit, isUpdate, idToUpdate }: Props
     }
 
     if (values.NUME_REGI_ARC) {
-
       onSubmit({ ...values, ind: nanoid() })
       clearForm()
     } else {
@@ -144,9 +139,9 @@ const ReporteModal = ({ isOpen, onClose, onSubmit, isUpdate, idToUpdate }: Props
               error={form.errors.ESPECIE_MADERA_TRATADA!}
               onChange={(d) => {
                 form.setField('ESPECIE_MADERA_TRATADA', d.value)
-                //d.value === 'GRADO' && form.setField('HORAS', '')
+                // d.value === 'GRADO' && form.setField('HORAS', '')
               }}
-              options={especie_madera}
+              options={especieMadera}
             />
           </div>
           <div className="grid grid-cols-1 gap-6 sm:grid-cols-3">
@@ -161,9 +156,9 @@ const ReporteModal = ({ isOpen, onClose, onSubmit, isUpdate, idToUpdate }: Props
               error={form.errors.TIPO_EMBALAJE!}
               onChange={(d) => {
                 form.setField('TIPO_EMBALAJE', d.value)
-                //d.value === 'GRADO' && form.setField('HORAS', '')
+                // d.value === 'GRADO' && form.setField('HORAS', '')
               }}
-              options={lista_embalaje}
+              options={listaEmbalaje}
             />
             <Input
               label="Total Unidades"
@@ -186,12 +181,11 @@ const ReporteModal = ({ isOpen, onClose, onSubmit, isUpdate, idToUpdate }: Props
               error={form.errors.USO!}
               onChange={(d) => {
                 form.setField('USO', d.value)
-                //d.value === 'GRADO' && form.setField('HORAS', '')
+                // d.value === 'GRADO' && form.setField('HORAS', '')
               }}
               options={destino}
             />
           </div>
-
 
           <div className="flex flex-col md:flex-row items-center gap-3 text-slate-500 dark:text-white">
             <div className=''>

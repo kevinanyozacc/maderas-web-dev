@@ -79,8 +79,6 @@ const DatosGeneralesForm = ({ next }: Props) => {
     const response = datos.data?.isDocumentoUnique
     if (response) {
       store.loadDatosGenerales(values)
-      //console.log(values);
-      
       next()
     } else {
       toast({

@@ -8,9 +8,9 @@ import { SolicitudAutorizacionState } from '@modules/solicitud-autorizacion/soli
 
 const useRegistroSolicitudMutation = () => {
   const [isLoading, setIsLoading] = useState(false)
-  //const toast = useToast()
-  //const [, createExpediente] = useCreateExpedienteMutation()
-  //const [, createResponsable] = useCreateResponsableMutation()
+  // const toast = useToast()
+  // const [, createExpediente] = useCreateExpedienteMutation()
+  // const [, createResponsable] = useCreateResponsableMutation()
   const [, createSolicitud] = useCreateSolicitudAutorizacionMutation()
   const [, createinformacionSolicitud] = useCreateInformacionSolicitudMutation()
   const [, createSensores] = useCreateSensoresMutation()
@@ -18,9 +18,7 @@ const useRegistroSolicitudMutation = () => {
   const createRegistroSolicitudAutorizacion = async (values: SolicitudAutorizacionState) => {
     setIsLoading(true)
 
-    console.log(values);
-    
-    const expedienteId = ''
+    console.log(values)
 
     const { data: dataPro } = await createSolicitud({
       input: { ...values.datosGenerales }
@@ -37,15 +35,15 @@ const useRegistroSolicitudMutation = () => {
       createinformacionSolicitud({
         input: {
           ...values.informacionSolicitud
-          //REGISTROID: responsableid
+          // REGISTROID: responsableid
           // EXPEDIENTE_ID: expedienteId
         }
       }),
       createSensores({
-        input: values.sensores.map(({ ind, ...data },index) => ({
+        input: values.sensores.map(({ ind, ...data }) => ({
           ...data,
-          SOLICITUD_ID: solicitudid,
-          //NUMERO: 
+          SOLICITUD_ID: solicitudid
+          // NUMERO:
           //
         }))
       })

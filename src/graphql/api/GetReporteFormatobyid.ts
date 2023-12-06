@@ -1,6 +1,6 @@
 import ENV from '@enviroment'
 
-async function useGetReporteFormatoById(idreporte: number) {
+async function useGetReporteFormatoById (idreporte: number) {
     try {
         const results = await fetch(ENV.URL + '/graphql', {
             method: 'POST',
@@ -29,7 +29,7 @@ async function useGetReporteFormatoById(idreporte: number) {
           }
         `,
                 variables: {
-                    idreporte: idreporte
+                    idreporte
                 }
             })
         })

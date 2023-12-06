@@ -1,6 +1,4 @@
-
-
-export const especie_madera = [
+export const especieMadera = [
     {
         value: 'Achihua',
         label: 'Achihua'
@@ -95,8 +93,7 @@ export const especie_madera = [
     }
 ]
 
-
-export const lista_embalaje = [
+export const listaEmbalaje = [
     {
         value: 'Parihuelas_pallets',
         label: 'Parihuelas o pallets'
@@ -142,9 +139,6 @@ export const lista_embalaje = [
         label: 'Rodillos'
     }
 ]
-
-
-
 
 export const destino = [
     {

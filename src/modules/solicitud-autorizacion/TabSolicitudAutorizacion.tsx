@@ -50,7 +50,7 @@ const TabSolicitudAutorizacion = () => {
 
           {estadoTramiteModal.isOpen && (
         <EstadoTramiteModal
-          //tipoTramite={TipoSolicitudExpedientes.RegistroCultivarComercial}
+          // tipoTramite={TipoSolicitudExpedientes.RegistroCultivarComercial}
           {...estadoTramiteModal}
         />
       )}

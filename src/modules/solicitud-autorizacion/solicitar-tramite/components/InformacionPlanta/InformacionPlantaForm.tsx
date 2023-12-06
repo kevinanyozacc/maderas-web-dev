@@ -53,7 +53,7 @@ const InformacionPlantaForm = ({ back, submit, isLoading, isUpdate }: props) => 
   const [first, setfirst] = useState('')
   const [colorstyle, setColorstyle] = useState('')
 
-  function colorDoc(est: string): string {
+  function colorDoc (est: string): string {
     if (est === '1') return 'text-blue-600 bg-blue-200'
     if (est === '2') return 'text-green-600 bg-green-200'
     if (est === '3') return 'text-orange-500 bg-orange-200'
@@ -62,7 +62,7 @@ const InformacionPlantaForm = ({ back, submit, isLoading, isUpdate }: props) => 
     return est
   }
 
-  function estadoDoc(est: string): string {
+  function estadoDoc (est: string): string {
     if (est === '1') return 'EN TRAMITE'
     if (est === '2') return 'AUTORIZADO'
     if (est === '3') return 'DENEGADO'
@@ -75,9 +75,9 @@ const InformacionPlantaForm = ({ back, submit, isLoading, isUpdate }: props) => 
     if (data.getResponsableSolicitud) {
       form.setFields({
         APENOMB: data?.getResponsableSolicitud.APENOMB,
-        RESPONSABLE_ID:  data.getResponsableSolicitud.ID
+        RESPONSABLE_ID: data.getResponsableSolicitud.ID
       })
-      
+
       setfirst(estadoDoc(data?.getResponsableSolicitud.ESTADO))
       setColorstyle(colorDoc(data?.getResponsableSolicitud.ESTADO))
       toast({ title: 'Se encontro DNI ingresado', type: 'success' })

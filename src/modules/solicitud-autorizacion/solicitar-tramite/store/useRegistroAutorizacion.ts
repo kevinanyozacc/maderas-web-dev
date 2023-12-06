@@ -1,4 +1,3 @@
-
 import create from 'zustand'
 import { registroSolicitud } from '../data/solicitudAutorizacion'
 

@@ -16,7 +16,7 @@ async function useGetDatosRuc (ruc: string) {
           }
         }`,
         variables: {
-          ruc: ruc
+          ruc
         }
       })
     })

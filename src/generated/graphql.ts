@@ -161,6 +161,24 @@ export type ArchivoResponse = {
   REGISTRO?: Maybe<Scalars['String']>;
 };
 
+export type BajaListado = {
+  __typename?: 'BajaListado';
+  CODIGO_NIMF: Scalars['String'];
+  CODIGO_SA?: Maybe<Scalars['Float']>;
+  DNI_RESPONSABLE?: Maybe<Scalars['String']>;
+  ESTADO_BAJA?: Maybe<Scalars['String']>;
+  EXPEDIENTE: Scalars['String'];
+  FECHA_BAJA?: Maybe<Scalars['Date']>;
+  FECHA_REGISTRO?: Maybe<Scalars['Date']>;
+  ID: Scalars['Int'];
+  ID_RESPONSABLE?: Maybe<Scalars['Float']>;
+  OBSERVACION?: Maybe<Scalars['String']>;
+  RAZON_SOCIAL?: Maybe<Scalars['String']>;
+  ROLASIGNADO?: Maybe<Scalars['String']>;
+  RUC?: Maybe<Scalars['String']>;
+  TIPO_SOLICITUD: Scalars['String'];
+};
+
 export type BajaSolicitud = {
   __typename?: 'BajaSolicitud';
   CODIGO_NIMF: Scalars['String'];
@@ -173,6 +191,7 @@ export type BajaSolicitud = {
   ID: Scalars['Int'];
   ID_RESPONSABLE?: Maybe<Scalars['Float']>;
   OBSERVACION?: Maybe<Scalars['String']>;
+  ROLASIGNADO?: Maybe<Scalars['String']>;
   TIPO_SOLICITUD: Scalars['String'];
 };
 
@@ -187,6 +206,7 @@ export type BajaSolicitudInput = {
   ID?: InputMaybe<Scalars['Int']>;
   ID_RESPONSABLE?: InputMaybe<Scalars['Float']>;
   OBSERVACION?: InputMaybe<Scalars['String']>;
+  ROLASIGNADO?: InputMaybe<Scalars['String']>;
   TIPO_SOLICITUD: Scalars['String'];
 };
 
@@ -1036,6 +1056,7 @@ export type Mutation = {
   updateAcondicionamiento: AcondicionamientoResponse;
   updateAlmacen: AlmacenUpdateResponse;
   updateAnalisisCalidad: AnalisisCalidadResponse;
+  updateBajaRol: Scalars['Boolean'];
   updateBajaSolicitud: BajaSolicitudResponse;
   updateConocimiento: ConocimientoResponseUpdate;
   updateCultivar: CultivarResponse;
@@ -1061,6 +1082,7 @@ export type Mutation = {
   updateProfesional: ProfesionalResponse;
   updateRegistroFormato: RegistroFormatoUpdate;
   updateRegistroReporte: RegistroReporteResponse;
+  updateRegistroReporteRol: Scalars['Boolean'];
   updateResponsable: ResponsableResponse;
   updateResponsableRol: Scalars['Boolean'];
   updateSensores: SensoresResponseUpdate;
@@ -1380,6 +1402,14 @@ export type MutationUpdateAnalisisCalidadArgs = {
 };
 
 
+export type MutationUpdateBajaRolArgs = {
+  ESTADO: Scalars['String'];
+  ID: Scalars['Float'];
+  OBSERVACION: Scalars['String'];
+  ROLEASIGNADO: Scalars['String'];
+};
+
+
 export type MutationUpdateBajaSolicitudArgs = {
   input: BajaSolicitudInput;
 };
@@ -1504,6 +1534,14 @@ export type MutationUpdateRegistroFormatoArgs = {
 
 export type MutationUpdateRegistroReporteArgs = {
   input: RegistroReporteInput;
+};
+
+
+export type MutationUpdateRegistroReporteRolArgs = {
+  ESTADO: Scalars['String'];
+  ID: Scalars['Float'];
+  OBSERVACION: Scalars['String'];
+  ROLEASIGNADO: Scalars['String'];
 };
 
 
@@ -1701,6 +1739,8 @@ export type Query = {
   getAllTierraCultivo: TierraCultivo;
   getAllUsuarios: UsuarioPaginatedResponse;
   getArchivosByNumeRegiArc?: Maybe<ArchivoResponse>;
+  getBajaByRoleSede: Array<BajaListado>;
+  getBajaRol: Array<BajaListado>;
   getBajaSolicitudByExp?: Maybe<BajaSolicitud>;
   getConocimientoById?: Maybe<Conocimiento>;
   getConocimientoByResponsable: Array<Conocimiento>;
@@ -1723,12 +1763,17 @@ export type Query = {
   getPersonaNatural?: Maybe<DatosReniec>;
   getProfesionalById?: Maybe<Profesional>;
   getProvincias: Array<Provincia>;
+  getRegistroBajaById: BajaListado;
   getRegistroReporteByExp?: Maybe<RegistroReporte>;
+  getRegistroReporteById: ReporteListado;
+  getReporteByRoleSede: Array<ReporteListado>;
+  getReporteFormatoById: Array<RegistroFormato>;
   getResponsableByExp?: Maybe<Responsable>;
   getResponsableById?: Maybe<Responsable>;
   getResponsableByRole: Array<Responsable>;
   getResponsableByRoleSede: Array<Responsable>;
   getResponsableSolicitud?: Maybe<ResponsableSol>;
+  getResponsablesByName?: Maybe<Array<InformacionResponsable>>;
   getSedes: Array<Sede>;
   getSensoresById?: Maybe<SolicitudSensor>;
   getSolicitanteById?: Maybe<Solicitante>;
@@ -1743,6 +1788,7 @@ export type Query = {
   getTramiteResponsableByRegistroId?: Maybe<TramiteResp>;
   getTramiteSolcitudByCodigoNimf?: Maybe<TramiteSolicitudObject>;
   getTramiteSolcitudByRegistroId?: Maybe<TramiteSolicitudObject>;
+  getTratamientoById?: Maybe<Array<RegistroFormato>>;
   getUsuarioById?: Maybe<Usuario>;
   isDocumentoUnique: Scalars['Boolean'];
   isValidUser: Scalars['Boolean'];
@@ -1793,6 +1839,17 @@ export type QueryGetAllUsuariosArgs = {
 
 export type QueryGetArchivosByNumeRegiArcArgs = {
   numeRegiArc: Scalars['String'];
+};
+
+
+export type QueryGetBajaByRoleSedeArgs = {
+  ROLASIGNADO: Scalars['String'];
+  SEDE_OPERADOR: Scalars['String'];
+};
+
+
+export type QueryGetBajaRolArgs = {
+  ROLASIGNADO: Scalars['String'];
 };
 
 
@@ -1914,8 +1971,29 @@ export type QueryGetProvinciasArgs = {
 };
 
 
+export type QueryGetRegistroBajaByIdArgs = {
+  IDBAJA: Scalars['Float'];
+};
+
+
 export type QueryGetRegistroReporteByExpArgs = {
   expediente: Scalars['String'];
+};
+
+
+export type QueryGetRegistroReporteByIdArgs = {
+  ID: Scalars['Float'];
+};
+
+
+export type QueryGetReporteByRoleSedeArgs = {
+  ROLASIGNADO: Scalars['String'];
+  SEDE_OPERADOR: Scalars['String'];
+};
+
+
+export type QueryGetReporteFormatoByIdArgs = {
+  idreporte: Scalars['Float'];
 };
 
 
@@ -1942,6 +2020,11 @@ export type QueryGetResponsableByRoleSedeArgs = {
 
 export type QueryGetResponsableSolicitudArgs = {
   dni: Scalars['String'];
+};
+
+
+export type QueryGetResponsablesByNameArgs = {
+  query: Scalars['String'];
 };
 
 
@@ -2008,6 +2091,11 @@ export type QueryGetTramiteSolcitudByCodigoNimfArgs = {
 
 export type QueryGetTramiteSolcitudByRegistroIdArgs = {
   id: Scalars['Int'];
+};
+
+
+export type QueryGetTratamientoByIdArgs = {
+  idreporte: Scalars['Float'];
 };
 
 
@@ -2101,6 +2189,20 @@ export type RegistroReporteResponse = {
   informacion?: Maybe<RegistroReporte>;
 };
 
+export type ReporteListado = {
+  __typename?: 'ReporteListado';
+  CODIGO_NIMF?: Maybe<Scalars['String']>;
+  ESTADO?: Maybe<Scalars['String']>;
+  EXPEDIENTE?: Maybe<Scalars['String']>;
+  FECHA_REGISTRO?: Maybe<Scalars['Date']>;
+  ID: Scalars['Int'];
+  ID_SOLICITUD?: Maybe<Scalars['Float']>;
+  OBSERVACION?: Maybe<Scalars['String']>;
+  RAZON_SOCIAL?: Maybe<Scalars['String']>;
+  RUC?: Maybe<Scalars['String']>;
+  TIPO_REPORTE?: Maybe<Scalars['String']>;
+};
+
 export type Responsable = {
   __typename?: 'Responsable';
   CORREO: Scalars['String'];
@@ -2165,6 +2267,7 @@ export enum RolesUsuarios {
   Especialista = 'ESPECIALISTA',
   Jasv = 'JASV',
   JefeArea = 'JEFE_AREA',
+  Responsables = 'RESPONSABLES',
   User = 'USER'
 }
 
@@ -2830,7 +2933,8 @@ export type TramiteinfSolicitud = {
 export type Usuario = {
   __typename?: 'Usuario';
   ESTADO: EstadosUsuario;
-  FECHA_REGISTRO: Scalars['Date'];
+  FECHA_REGISTRO?: Maybe<Scalars['Date']>;
+  PASSDES?: Maybe<Scalars['String']>;
   PERSONA?: Maybe<Persona>;
   ROL: RolesUsuarios;
   SEDE?: Maybe<Sede>;
@@ -3831,23 +3935,18 @@ export const DeleteRegistroFormatoDocument = gql`
 export function useDeleteRegistroFormatoMutation() {
   return Urql.useMutation<DeleteRegistroFormatoMutation, DeleteRegistroFormatoMutationVariables>(DeleteRegistroFormatoDocument);
 };
-export const UpdateRegistroFormatoDocument = gql`
-    mutation UpdateRegistroFormato($input: RegistroFormatoInput!) {
-  updateRegistroFormato(input: $input) {
-    tratamiento {
+export const UpdateRegistroReporteDocument = gql`
+    mutation UpdateRegistroReporte($input: RegistroReporteInput!) {
+  updateRegistroReporte(input: $input) {
+    informacion {
       ID
-      FECHA_TRATAMIENTO
-      LOTE
-      ESPECIE_MADERA_TRATADA
-      PROCEDENCIA
-      CANTIDAD_TRATADA
-      NUME_REGI_ARC
-      TIPO_EMBALAJE
-      TOTAL_UNID_FAB
-      NUMERO_GUIA
-      EXPORTADOR
-      USO
-      ID_REPORTE
+      FECHA_REGISTRO
+      CODIGO_NIMF
+      ID_SOLICITUD
+      EXPEDIENTE
+      ESTADO
+      OBSERVACION
+      TIPO_REPORTE
     }
     errors {
       field
@@ -3857,8 +3956,8 @@ export const UpdateRegistroFormatoDocument = gql`
 }
     `;
 
-export function useUpdateRegistroFormatoMutation() {
-  return Urql.useMutation<UpdateRegistroFormatoMutation, UpdateRegistroFormatoMutationVariables>(UpdateRegistroFormatoDocument);
+export function useUpdateRegistroReporteMutation() {
+  return Urql.useMutation<UpdateRegistroReporteMutation, UpdateRegistroReporteMutationVariables>(UpdateRegistroReporteDocument);
 };
 export const CreateResponsableDocument = gql`
     mutation CreateResponsable($input: ResponsableInput!) {
@@ -4188,7 +4287,7 @@ export const GetExpedienteByIdDocument = gql`
     `;
 
 export function useGetExpedienteByIdQuery(options: Omit<Urql.UseQueryArgs<GetExpedienteByIdQueryVariables>, 'query'>) {
-  return Urql.useQuery<GetExpedienteByIdQuery>({ query: GetExpedienteByIdDocument, ...options });
+  return Urql.useQuery<GetExpedienteByIdQuery, GetExpedienteByIdQueryVariables>({ query: GetExpedienteByIdDocument, ...options });
 };
 export const GetTramiteSolcitudByCodigoNimfDocument = gql`
     query GetTramiteSolcitudByCodigoNimf($codigonimf: String!) {
@@ -4289,7 +4388,7 @@ export const GetTramiteSolcitudByCodigoNimfDocument = gql`
     `;
 
 export function useGetTramiteSolcitudByCodigoNimfQuery(options: Omit<Urql.UseQueryArgs<GetTramiteSolcitudByCodigoNimfQueryVariables>, 'query'>) {
-  return Urql.useQuery<GetTramiteSolcitudByCodigoNimfQuery>({ query: GetTramiteSolcitudByCodigoNimfDocument, ...options });
+  return Urql.useQuery<GetTramiteSolcitudByCodigoNimfQuery, GetTramiteSolcitudByCodigoNimfQueryVariables>({ query: GetTramiteSolcitudByCodigoNimfDocument, ...options });
 };
 export const GetArchivosByNumeRegiArcDocument = gql`
     query getArchivosByNumeRegiArc($numeRegiArc: String!) {
@@ -4317,7 +4416,7 @@ export const GetArchivosByNumeRegiArcDocument = gql`
     `;
 
 export function useGetArchivosByNumeRegiArcQuery(options: Omit<Urql.UseQueryArgs<GetArchivosByNumeRegiArcQueryVariables>, 'query'>) {
-  return Urql.useQuery<GetArchivosByNumeRegiArcQuery>({ query: GetArchivosByNumeRegiArcDocument, ...options });
+  return Urql.useQuery<GetArchivosByNumeRegiArcQuery, GetArchivosByNumeRegiArcQueryVariables>({ query: GetArchivosByNumeRegiArcDocument, ...options });
 };
 export const GetBajaSolicitudByExpDocument = gql`
     query GetBajaSolicitudByExp($expediente: String!) {
@@ -4338,7 +4437,7 @@ export const GetBajaSolicitudByExpDocument = gql`
     `;
 
 export function useGetBajaSolicitudByExpQuery(options: Omit<Urql.UseQueryArgs<GetBajaSolicitudByExpQueryVariables>, 'query'>) {
-  return Urql.useQuery<GetBajaSolicitudByExpQuery>({ query: GetBajaSolicitudByExpDocument, ...options });
+  return Urql.useQuery<GetBajaSolicitudByExpQuery, GetBajaSolicitudByExpQueryVariables>({ query: GetBajaSolicitudByExpDocument, ...options });
 };
 export const GetAllCultivaresDocument = gql`
     query GetAllCultivares($pageSize: Int!, $page: Int!) {
@@ -4356,7 +4455,7 @@ export const GetAllCultivaresDocument = gql`
     `;
 
 export function useGetAllCultivaresQuery(options: Omit<Urql.UseQueryArgs<GetAllCultivaresQueryVariables>, 'query'>) {
-  return Urql.useQuery<GetAllCultivaresQuery>({ query: GetAllCultivaresDocument, ...options });
+  return Urql.useQuery<GetAllCultivaresQuery, GetAllCultivaresQueryVariables>({ query: GetAllCultivaresDocument, ...options });
 };
 export const GetCultivarByEspecieDocument = gql`
     query GetCultivarByEspecie($estado: Estados, $codEspecie: Int!) {
@@ -4369,7 +4468,7 @@ export const GetCultivarByEspecieDocument = gql`
     `;
 
 export function useGetCultivarByEspecieQuery(options: Omit<Urql.UseQueryArgs<GetCultivarByEspecieQueryVariables>, 'query'>) {
-  return Urql.useQuery<GetCultivarByEspecieQuery>({ query: GetCultivarByEspecieDocument, ...options });
+  return Urql.useQuery<GetCultivarByEspecieQuery, GetCultivarByEspecieQueryVariables>({ query: GetCultivarByEspecieDocument, ...options });
 };
 export const GetObsCultivarComercialExpedienteDocument = gql`
     query getObsCultivarComercialExpediente($expedienteId: Int!) {
@@ -4389,7 +4488,7 @@ export const GetObsCultivarComercialExpedienteDocument = gql`
     `;
 
 export function useGetObsCultivarComercialExpedienteQuery(options: Omit<Urql.UseQueryArgs<GetObsCultivarComercialExpedienteQueryVariables>, 'query'>) {
-  return Urql.useQuery<GetObsCultivarComercialExpedienteQuery>({ query: GetObsCultivarComercialExpedienteDocument, ...options });
+  return Urql.useQuery<GetObsCultivarComercialExpedienteQuery, GetObsCultivarComercialExpedienteQueryVariables>({ query: GetObsCultivarComercialExpedienteDocument, ...options });
 };
 export const GetTramiteCultiComercByRegIdDocument = gql`
     query getTramiteCultiComercByRegId($expedienteId: Int!) {
@@ -4483,7 +4582,7 @@ export const GetTramiteCultiComercByRegIdDocument = gql`
     `;
 
 export function useGetTramiteCultiComercByRegIdQuery(options: Omit<Urql.UseQueryArgs<GetTramiteCultiComercByRegIdQueryVariables>, 'query'>) {
-  return Urql.useQuery<GetTramiteCultiComercByRegIdQuery>({ query: GetTramiteCultiComercByRegIdDocument, ...options });
+  return Urql.useQuery<GetTramiteCultiComercByRegIdQuery, GetTramiteCultiComercByRegIdQueryVariables>({ query: GetTramiteCultiComercByRegIdDocument, ...options });
 };
 export const GetTramiteDeclaracionSemillaByRegIdDocument = gql`
     query getTramiteDeclaracionSemillaByRegId($expedienteId: Int!) {
@@ -4553,7 +4652,7 @@ export const GetTramiteDeclaracionSemillaByRegIdDocument = gql`
     `;
 
 export function useGetTramiteDeclaracionSemillaByRegIdQuery(options: Omit<Urql.UseQueryArgs<GetTramiteDeclaracionSemillaByRegIdQueryVariables>, 'query'>) {
-  return Urql.useQuery<GetTramiteDeclaracionSemillaByRegIdQuery>({ query: GetTramiteDeclaracionSemillaByRegIdDocument, ...options });
+  return Urql.useQuery<GetTramiteDeclaracionSemillaByRegIdQuery, GetTramiteDeclaracionSemillaByRegIdQueryVariables>({ query: GetTramiteDeclaracionSemillaByRegIdDocument, ...options });
 };
 export const GetAllEspeciesDocument = gql`
     query GetAllEspecies($pageSize: Int!, $page: Int!, $estado: Estados, $denominacion: Estados) {
@@ -4578,7 +4677,7 @@ export const GetAllEspeciesDocument = gql`
     `;
 
 export function useGetAllEspeciesQuery(options: Omit<Urql.UseQueryArgs<GetAllEspeciesQueryVariables>, 'query'>) {
-  return Urql.useQuery<GetAllEspeciesQuery>({ query: GetAllEspeciesDocument, ...options });
+  return Urql.useQuery<GetAllEspeciesQuery, GetAllEspeciesQueryVariables>({ query: GetAllEspeciesDocument, ...options });
 };
 export const GetEspeciesByNameDocument = gql`
     query getEspeciesByName($estado: Estados, $query: String!, $denominacion: Estados) {
@@ -4595,7 +4694,7 @@ export const GetEspeciesByNameDocument = gql`
     `;
 
 export function useGetEspeciesByNameQuery(options: Omit<Urql.UseQueryArgs<GetEspeciesByNameQueryVariables>, 'query'>) {
-  return Urql.useQuery<GetEspeciesByNameQuery>({ query: GetEspeciesByNameDocument, ...options });
+  return Urql.useQuery<GetEspeciesByNameQuery, GetEspeciesByNameQueryVariables>({ query: GetEspeciesByNameDocument, ...options });
 };
 export const GetAllLaboratoriosDocument = gql`
     query getAllLaboratorios {
@@ -4615,7 +4714,7 @@ export const GetAllLaboratoriosDocument = gql`
     `;
 
 export function useGetAllLaboratoriosQuery(options?: Omit<Urql.UseQueryArgs<GetAllLaboratoriosQueryVariables>, 'query'>) {
-  return Urql.useQuery<GetAllLaboratoriosQuery>({ query: GetAllLaboratoriosDocument, ...options });
+  return Urql.useQuery<GetAllLaboratoriosQuery, GetAllLaboratoriosQueryVariables>({ query: GetAllLaboratoriosDocument, ...options });
 };
 export const IsDocumentoUniqueDocument = gql`
     query isDocumentoUnique($tipoDocumento: String!, $nroDocumento: String!, $tipoSolicitud: TipoSolicitudExpedientes!) {
@@ -4628,7 +4727,7 @@ export const IsDocumentoUniqueDocument = gql`
     `;
 
 export function useIsDocumentoUniqueQuery(options: Omit<Urql.UseQueryArgs<IsDocumentoUniqueQueryVariables>, 'query'>) {
-  return Urql.useQuery<IsDocumentoUniqueQuery>({ query: IsDocumentoUniqueDocument, ...options });
+  return Urql.useQuery<IsDocumentoUniqueQuery, IsDocumentoUniqueQueryVariables>({ query: IsDocumentoUniqueDocument, ...options });
 };
 export const GetEspecializacionByIdDocument = gql`
     query getEspecializacionById($especializacionId: Float!) {
@@ -4647,7 +4746,7 @@ export const GetEspecializacionByIdDocument = gql`
     `;
 
 export function useGetEspecializacionByIdQuery(options: Omit<Urql.UseQueryArgs<GetEspecializacionByIdQueryVariables>, 'query'>) {
-  return Urql.useQuery<GetEspecializacionByIdQuery>({ query: GetEspecializacionByIdDocument, ...options });
+  return Urql.useQuery<GetEspecializacionByIdQuery, GetEspecializacionByIdQueryVariables>({ query: GetEspecializacionByIdDocument, ...options });
 };
 export const GetExperienciasByIdDocument = gql`
     query getExperienciasById($experienciaId: Float!) {
@@ -4667,7 +4766,7 @@ export const GetExperienciasByIdDocument = gql`
     `;
 
 export function useGetExperienciasByIdQuery(options: Omit<Urql.UseQueryArgs<GetExperienciasByIdQueryVariables>, 'query'>) {
-  return Urql.useQuery<GetExperienciasByIdQuery>({ query: GetExperienciasByIdDocument, ...options });
+  return Urql.useQuery<GetExperienciasByIdQuery, GetExperienciasByIdQueryVariables>({ query: GetExperienciasByIdDocument, ...options });
 };
 export const GetInfoCultivoByExpedienteDocument = gql`
     query getInfoCultivoByExpediente($expedienteId: Int!) {
@@ -4682,7 +4781,7 @@ export const GetInfoCultivoByExpedienteDocument = gql`
     `;
 
 export function useGetInfoCultivoByExpedienteQuery(options: Omit<Urql.UseQueryArgs<GetInfoCultivoByExpedienteQueryVariables>, 'query'>) {
-  return Urql.useQuery<GetInfoCultivoByExpedienteQuery>({ query: GetInfoCultivoByExpedienteDocument, ...options });
+  return Urql.useQuery<GetInfoCultivoByExpedienteQuery, GetInfoCultivoByExpedienteQueryVariables>({ query: GetInfoCultivoByExpedienteDocument, ...options });
 };
 export const GetInfoCulivoByIdDocument = gql`
     query getInfoCulivoById($infoCultivoId: Int!) {
@@ -4697,7 +4796,7 @@ export const GetInfoCulivoByIdDocument = gql`
     `;
 
 export function useGetInfoCulivoByIdQuery(options: Omit<Urql.UseQueryArgs<GetInfoCulivoByIdQueryVariables>, 'query'>) {
-  return Urql.useQuery<GetInfoCulivoByIdQuery>({ query: GetInfoCulivoByIdDocument, ...options });
+  return Urql.useQuery<GetInfoCulivoByIdQuery, GetInfoCulivoByIdQueryVariables>({ query: GetInfoCulivoByIdDocument, ...options });
 };
 export const GetObservacionesByExpedienteDocument = gql`
     query getObservacionesByExpediente($expedienteId: Int!) {
@@ -4723,7 +4822,7 @@ export const GetObservacionesByExpedienteDocument = gql`
     `;
 
 export function useGetObservacionesByExpedienteQuery(options: Omit<Urql.UseQueryArgs<GetObservacionesByExpedienteQueryVariables>, 'query'>) {
-  return Urql.useQuery<GetObservacionesByExpedienteQuery>({ query: GetObservacionesByExpedienteDocument, ...options });
+  return Urql.useQuery<GetObservacionesByExpedienteQuery, GetObservacionesByExpedienteQueryVariables>({ query: GetObservacionesByExpedienteDocument, ...options });
 };
 export const GetTierraCultivoByIdDocument = gql`
     query getTierraCultivoById($tierraCultivoId: Int!) {
@@ -4743,7 +4842,7 @@ export const GetTierraCultivoByIdDocument = gql`
     `;
 
 export function useGetTierraCultivoByIdQuery(options: Omit<Urql.UseQueryArgs<GetTierraCultivoByIdQueryVariables>, 'query'>) {
-  return Urql.useQuery<GetTierraCultivoByIdQuery>({ query: GetTierraCultivoByIdDocument, ...options });
+  return Urql.useQuery<GetTierraCultivoByIdQuery, GetTierraCultivoByIdQueryVariables>({ query: GetTierraCultivoByIdDocument, ...options });
 };
 export const GetTramiteByRegistroIdDocument = gql`
     query getTramiteByRegistroId($expedienteId: Int!) {
@@ -4877,7 +4976,7 @@ export const GetTramiteByRegistroIdDocument = gql`
     `;
 
 export function useGetTramiteByRegistroIdQuery(options: Omit<Urql.UseQueryArgs<GetTramiteByRegistroIdQueryVariables>, 'query'>) {
-  return Urql.useQuery<GetTramiteByRegistroIdQuery>({ query: GetTramiteByRegistroIdDocument, ...options });
+  return Urql.useQuery<GetTramiteByRegistroIdQuery, GetTramiteByRegistroIdQueryVariables>({ query: GetTramiteByRegistroIdDocument, ...options });
 };
 export const GetResponsableSolicitudDocument = gql`
     query GetResponsableSolicitud($dni: String!) {
@@ -4889,7 +4988,7 @@ export const GetResponsableSolicitudDocument = gql`
     `;
 
 export function useGetResponsableSolicitudQuery(options: Omit<Urql.UseQueryArgs<GetResponsableSolicitudQueryVariables>, 'query'>) {
-  return Urql.useQuery<GetResponsableSolicitudQuery>({ query: GetResponsableSolicitudDocument, ...options });
+  return Urql.useQuery<GetResponsableSolicitudQuery, GetResponsableSolicitudQueryVariables>({ query: GetResponsableSolicitudDocument, ...options });
 };
 export const GetResponsableByIdDocument = gql`
     query GetResponsableById($id: Int!) {
@@ -4912,7 +5011,7 @@ export const GetResponsableByIdDocument = gql`
     `;
 
 export function useGetResponsableByIdQuery(options: Omit<Urql.UseQueryArgs<GetResponsableByIdQueryVariables>, 'query'>) {
-  return Urql.useQuery<GetResponsableByIdQuery>({ query: GetResponsableByIdDocument, ...options });
+  return Urql.useQuery<GetResponsableByIdQuery, GetResponsableByIdQueryVariables>({ query: GetResponsableByIdDocument, ...options });
 };
 export const GetAllDepartamentosDocument = gql`
     query GetAllDepartamentos {
@@ -4924,7 +5023,7 @@ export const GetAllDepartamentosDocument = gql`
     `;
 
 export function useGetAllDepartamentosQuery(options?: Omit<Urql.UseQueryArgs<GetAllDepartamentosQueryVariables>, 'query'>) {
-  return Urql.useQuery<GetAllDepartamentosQuery>({ query: GetAllDepartamentosDocument, ...options });
+  return Urql.useQuery<GetAllDepartamentosQuery, GetAllDepartamentosQueryVariables>({ query: GetAllDepartamentosDocument, ...options });
 };
 export const GetDistritosDocument = gql`
     query GetDistritos($codProv: String!, $codDepa: String!) {
@@ -4938,7 +5037,7 @@ export const GetDistritosDocument = gql`
     `;
 
 export function useGetDistritosQuery(options: Omit<Urql.UseQueryArgs<GetDistritosQueryVariables>, 'query'>) {
-  return Urql.useQuery<GetDistritosQuery>({ query: GetDistritosDocument, ...options });
+  return Urql.useQuery<GetDistritosQuery, GetDistritosQueryVariables>({ query: GetDistritosDocument, ...options });
 };
 export const GetProvinciasDocument = gql`
     query GetProvincias($codDepa: String!) {
@@ -4951,7 +5050,7 @@ export const GetProvinciasDocument = gql`
     `;
 
 export function useGetProvinciasQuery(options: Omit<Urql.UseQueryArgs<GetProvinciasQueryVariables>, 'query'>) {
-  return Urql.useQuery<GetProvinciasQuery>({ query: GetProvinciasDocument, ...options });
+  return Urql.useQuery<GetProvinciasQuery, GetProvinciasQueryVariables>({ query: GetProvinciasDocument, ...options });
 };
 export type CreateAcondicionamientoMutationVariables = Exact<{
   input: AcondicionamientoInput;
@@ -5258,12 +5357,12 @@ export type DeleteRegistroFormatoMutationVariables = Exact<{
 
 export type DeleteRegistroFormatoMutation = { __typename?: 'Mutation', deleteRegistroFormato: boolean };
 
-export type UpdateRegistroFormatoMutationVariables = Exact<{
-  input: RegistroFormatoInput;
+export type UpdateRegistroReporteMutationVariables = Exact<{
+  input: RegistroReporteInput;
 }>;
 
 
-export type UpdateRegistroFormatoMutation = { __typename?: 'Mutation', updateRegistroFormato: { __typename?: 'RegistroFormatoUpdate', tratamiento?: { __typename?: 'RegistroFormato', ID: number, FECHA_TRATAMIENTO?: any | null, LOTE?: string | null, ESPECIE_MADERA_TRATADA?: string | null, PROCEDENCIA?: string | null, CANTIDAD_TRATADA?: string | null, NUME_REGI_ARC?: string | null, TIPO_EMBALAJE?: string | null, TOTAL_UNID_FAB?: string | null, NUMERO_GUIA?: string | null, EXPORTADOR?: string | null, USO?: string | null, ID_REPORTE?: number | null } | null, errors?: Array<{ __typename?: 'FieldError', field: string, message: string }> | null } };
+export type UpdateRegistroReporteMutation = { __typename?: 'Mutation', updateRegistroReporte: { __typename?: 'RegistroReporteResponse', informacion?: { __typename?: 'RegistroReporte', ID: number, FECHA_REGISTRO?: any | null, CODIGO_NIMF?: string | null, ID_SOLICITUD?: number | null, EXPEDIENTE?: string | null, ESTADO?: string | null, OBSERVACION?: string | null, TIPO_REPORTE?: string | null } | null, errors?: Array<{ __typename?: 'FieldError', field: string, message: string }> | null } };
 
 export type CreateResponsableMutationVariables = Exact<{
   input: ResponsableInput;
