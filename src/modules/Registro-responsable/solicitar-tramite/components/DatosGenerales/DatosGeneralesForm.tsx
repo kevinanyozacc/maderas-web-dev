@@ -13,7 +13,6 @@ import React, { useState } from 'react'
 import { useRegistroResponsable } from '../../store/useRegistroResponsable'
 import { useGetDatosReniec } from '@graphql/api/GetDatosReniec'
 import { sedesOptions } from '@utils/textSedes'
-import Select from '@components/shared/Select'
 
 const DatosGeneralesForm = ({ next, submitprueba }: props) => {
   const [currentRadioValue] = useState<string>('')
@@ -142,7 +141,7 @@ const DatosGeneralesForm = ({ next, submitprueba }: props) => {
       </div>
       <div className="grid grid-cols-1 gap-6 sm:grid-cols-1">
         <Input
-          label="DOMICILIO"
+          label="Domicilio del representante legal"
           // value={values.DOMICILIO!}
           {...form.inputProps('DOMICILIO')}
           // pattern={patterns.onlyLetters}
@@ -216,13 +215,22 @@ const DatosGeneralesForm = ({ next, submitprueba }: props) => {
         </p>
       </div>
 
-      <Select
+      {/* <Select
               label="Seleccionar Sede"
               value={values.SEDE_OPERADOR!}
               error={form.errors.SEDE_OPERADOR}
               onChange={({ value }) => form.setField('SEDE_OPERADOR', value)}
               options={sedes}
-            />
+            /> */}
+
+      <SelectWithFilter
+        withFilter
+        label="Seleccionar Sede"
+        value={values.SEDE_OPERADOR!}
+        error={form.errors.DEPARTAMENTO}
+        onChange={({ value }) => form.setField('SEDE_OPERADOR', value)}
+        options={sedes}
+      />
 
       <button type="submit" className="self-end btn btn-solid-primary"
       >

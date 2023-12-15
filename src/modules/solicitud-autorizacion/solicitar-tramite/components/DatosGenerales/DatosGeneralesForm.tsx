@@ -11,7 +11,6 @@ import { SideMultistepComponentProps as props } from '@pages/solicitud-autorizac
 import React, { useState } from 'react'
 import { useRegistroSolicitud } from '../../store/useRegistroAutorizacion'
 import { useGetDatosReniec } from '@graphql/api/GetDatosReniec'
-import Select from '@components/shared/Select'
 import { sedesOptions } from '@utils/textSedes'
 
 const DatosGeneralesForm = ({ next }: props) => {
@@ -156,7 +155,7 @@ const DatosGeneralesForm = ({ next }: props) => {
       </div>
       <div className="grid grid-cols-1 gap-6 sm:grid-cols-1">
         <Input
-          label="DOMICILIO"
+          label="Domicilio del representante legal"
           // value={values.DOMICILIO!}
           {...form.inputProps('DOMICILIO')}
           // pattern={patterns.onlyLetters}
@@ -224,15 +223,14 @@ const DatosGeneralesForm = ({ next }: props) => {
           {'Sede donde operará la camara de tratamiento y/o Planta fabricación de embalajes de madera'}
         </p>
       </div>
-
-      <Select
-              label="Seleccionar Sede"
-              value={values.SEDE_OPERADOR!}
-              error={form.errors.SEDE_OPERADOR}
-              onChange={({ value }) => form.setField('SEDE_OPERADOR', value)}
-              options={sedes}
-            />
-
+      <SelectWithFilter
+        withFilter
+        label="Seleccionar Sede"
+        value={values.SEDE_OPERADOR!}
+        error={form.errors.DEPARTAMENTO}
+        onChange={({ value }) => form.setField('SEDE_OPERADOR', value)}
+        options={sedes}
+      />
       <button type="submit" className="self-end btn btn-solid-primary">
         Guardar y Siguiente
       </button>

@@ -9,7 +9,6 @@ import TextArea from '@components/shared/TextArea'
 import WarningAlert from '@components/shared/WarningAlert'
 import RadioButton from '@components/shared/RadioButon'
 import ButtonUploadFiles from '@components/shared/ButtonsForm/ButtonUploadFiles'
-// import countries from '@utils/countries.json'
 
 import {
   CultivarComercialUpdateInput,

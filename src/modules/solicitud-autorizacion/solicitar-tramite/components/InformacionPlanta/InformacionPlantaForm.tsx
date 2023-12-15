@@ -183,7 +183,7 @@ const InformacionPlantaForm = ({ back, submit, isLoading, isUpdate }: props) => 
 
       </div>
       <p className="font-medium text-slate-400">
-        02. Dirección de la Planta de Embalaje de madera
+        02. Dirección de la Planta de Embalaje de madera( Esta direccion se visualizara en el certificado de autorización.)
       </p>
       <div className="grid grid-cols-1 gap-6 sm:grid-cols-1">
         <Input

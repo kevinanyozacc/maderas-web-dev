@@ -121,7 +121,7 @@ const ReporteModal = ({ isOpen, onClose, onSubmit, isUpdate, idToUpdate }: Props
         <div className="flex flex-col gap-5 flex-1 px-5 py-3 md:p-10">
           <ModalHeader
             closeBtn={clearForm}
-            title={isUpdate ? textSensores.update : textSensores.add}
+            title={isUpdate ? textSensores.update : textSensores.addedFiles}
           />
 
           <div className="grid grid-cols-1 gap-6 sm:grid-cols-3">
@@ -146,7 +146,7 @@ const ReporteModal = ({ isOpen, onClose, onSubmit, isUpdate, idToUpdate }: Props
           </div>
           <div className="grid grid-cols-1 gap-6 sm:grid-cols-3">
             <Input
-              label="Cantidad Tratada"
+              label="Cantidad Tratada Pie cubico"
               {...form.inputProps('CANTIDAD_TRATADA')}
             />
 

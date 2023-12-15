@@ -21,8 +21,6 @@ import ButtonUploadFiles from '@components/shared/ButtonsForm/ButtonUploadFiles'
 import SelectEspecie from '@components/shared/Select/SelectEspecie'
 import SelectWithFilter from '@components/shared/Select/SelectWithFilter'
 
-// import countries from '@utils/countries.json'
-
 const DatosCultivarForm = ({ back, next }: Props) => {
   const store = useCultivaresComerciales()
 
