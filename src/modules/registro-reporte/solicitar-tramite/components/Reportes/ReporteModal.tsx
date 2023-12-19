@@ -146,7 +146,7 @@ const ReporteModal = ({ isOpen, onClose, onSubmit, isUpdate, idToUpdate }: Props
           </div>
           <div className="grid grid-cols-1 gap-6 sm:grid-cols-3">
             <Input
-              label="Cantidad Tratada Pie cubico"
+              label="Cantidad Tratada Pie Cub."
               {...form.inputProps('CANTIDAD_TRATADA')}
             />
 
