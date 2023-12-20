@@ -1,8 +1,7 @@
 import { useState } from 'react'
 import {
   useCreateRegistroFormatoMutation,
-  useCreateRegistroReporteMutation,
-  useUpdateRegistroReporteMutation
+  useCreateRegistroReporteMutation
 } from '@generated/graphql'
 import { RegistroReporteState } from '@modules/registro-reporte/solicitar-tramite/interfaces'
 import useToast from './useToast'
@@ -11,7 +10,7 @@ const useRegistroFormatoMutation = () => {
   const [isLoading, setIsLoading] = useState(false)
   // const toast = useToast()
   const [, createSolicitud] = useCreateRegistroReporteMutation()
-  const [, updateSolicitud] = useUpdateRegistroReporteMutation()
+  // const [, updateSolicitud] = useUpdateRegistroReporteMutation()
   const [, createReporteTratamientos] = useCreateRegistroFormatoMutation()
 
   const createRegistroReporte = async (values: RegistroReporteState) => {
@@ -23,11 +22,11 @@ const useRegistroFormatoMutation = () => {
     let expediente = ''
 
     if (values.datosGenerales.ID) {
-      const { data: dataPro } = await updateSolicitud({
-        input: { ...values.datosGenerales }
-      })
-      identidad = dataPro?.updateRegistroReporte.informacion?.ID!
-      expediente = dataPro?.updateRegistroReporte.informacion?.EXPEDIENTE!
+      // const { data: dataPro } = await updateSolicitud({
+      //   input: { ...values.datosGenerales }
+      // })
+      identidad = values.datosGenerales.ID // dataPro?.updateRegistroReporte.informacion?.ID!
+      expediente = values.datosGenerales.EXPEDIENTE! // dataPro?.updateRegistroReporte.informacion?.EXPEDIENTE!
       toast({
         type: 'success',
         title: 'Exitoso !!',
